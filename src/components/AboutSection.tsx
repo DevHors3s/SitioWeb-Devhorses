@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import { 
   Github, Linkedin, Mail, ArrowRight, Code2, 
-  Palette, Server, Cloud, LineChart 
+  Palette, Server, Cloud, LineChart, Monitor 
 } from "lucide-react";
 
 export default function AboutSection() {
@@ -16,15 +16,23 @@ export default function AboutSection() {
       name: "Mathias Vasquez",
       role: t("team_1_role"),
       bio: t("team_1_bio"),
-      icon: <Palette size={32} />, // UI/UX
+      icon: <Monitor size={32} />,
       color: "text-cyan-400",
       border: "group-hover:border-cyan-500/50"
+    },
+    {
+      name: "Arwen Vasquez",
+      role: t("team_5_role"),
+      bio: t("team_5_bio"),
+      icon: <Palette size={32} />,
+      color: "text-pink-400",
+      border: "group-hover:border-pink-500/50"
     },
     {
       name: "Diego Flores",
       role: t("team_2_role"),
       bio: t("team_2_bio"),
-      icon: <Server size={32} />, // Backend
+      icon: <Server size={32} />,
       color: "text-purple-400",
       border: "group-hover:border-purple-500/50"
     },
@@ -32,7 +40,7 @@ export default function AboutSection() {
       name: "Gabriel Garcia",
       role: t("team_3_role"),
       bio: t("team_3_bio"),
-      icon: <Cloud size={32} />, // DevOps/Despliegue
+      icon: <Cloud size={32} />,
       color: "text-emerald-400",
       border: "group-hover:border-emerald-500/50"
     },
@@ -40,7 +48,7 @@ export default function AboutSection() {
       name: "Fabricio Apaza",
       role: t("team_4_role"),
       bio: t("team_4_bio"),
-      icon: <LineChart size={32} />, // Sistemas/Datos
+      icon: <LineChart size={32} />,
       color: "text-orange-400",
       border: "group-hover:border-orange-500/50"
     }
@@ -129,7 +137,7 @@ export default function AboutSection() {
           </motion.div>
 
           {/* GRID CONFIGURADO PARA 4 PERSONAS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map((member, index) => (
               <motion.div
                 key={index}

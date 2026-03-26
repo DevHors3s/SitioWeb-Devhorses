@@ -1,30 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
-import GlowCard from "./GlowCard"; // <--- Importamos
-
-const testimonials = [
-  {
-    quote: "Working with this team was transformative. They took our complex vision and turned it into an elegant solution.",
-    author: "Sarah Chen",
-    role: "CEO, TechVision",
-    stars: 5,
-  },
-  {
-    quote: "The attention to detail and technical expertise exceeded our expectations. Our app performance improved by 300%.",
-    author: "Marcus Rodriguez",
-    role: "CTO, StreamFlow",
-    stars: 5,
-  },
-  {
-    quote: "Not just developers, but true partners. They challenged our assumptions and delivered something extraordinary.",
-    author: "Emily Watson",
-    role: "Founder, DesignLab",
-    stars: 5,
-  },
-];
+import { useLanguage } from "../context/LanguageContext";
+import GlowCard from "./GlowCard";
 
 const Testimonials = () => {
+  const { t } = useLanguage();
+
+  const testimonials = [
+    {
+      quoteKey: "testimonial_1_quote" as const,
+      authorKey: "testimonial_1_author" as const,
+      roleKey: "testimonial_1_role" as const,
+      stars: 5,
+    },
+    {
+      quoteKey: "testimonial_2_quote" as const,
+      authorKey: "testimonial_2_author" as const,
+      roleKey: "testimonial_2_role" as const,
+      stars: 5,
+    },
+    {
+      quoteKey: "testimonial_3_quote" as const,
+      authorKey: "testimonial_3_author" as const,
+      roleKey: "testimonial_3_role" as const,
+      stars: 5,
+    },
+  ];
+
   return (
     <section className="py-24 px-6 relative z-10">
       <div className="container mx-auto max-w-6xl">
@@ -33,9 +36,9 @@ const Testimonials = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6"
+            className="text-4xl md:text-5xl font-bold mb-6 text-white"
           >
-            Client <span className="text-gradient">Stories</span>
+            {t("testimonials_title")}
           </motion.h2>
         </div>
 
@@ -49,7 +52,6 @@ const Testimonials = () => {
               transition={{ delay: index * 0.1 }}
               className="h-full"
             >
-              {/* Usamos GlowCard aquí */}
               <GlowCard>
                 <div className="flex gap-1 mb-6 text-yellow-400">
                   {[...Array(item.stars)].map((_, i) => (
@@ -60,16 +62,16 @@ const Testimonials = () => {
                 </div>
 
                 <blockquote className="text-slate-300 text-lg leading-relaxed mb-6 grow">
-                  {item.quote}
+                  &ldquo;{t(item.quoteKey)}&rdquo;
                 </blockquote>
 
                 <div className="flex items-center gap-4 border-t border-slate-800 pt-6 mt-auto">
                   <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-white text-sm">
-                      {item.author.charAt(0)}
+                      {t(item.authorKey).charAt(0)}
                   </div>
                   <div>
-                      <div className="font-bold text-white">{item.author}</div>
-                      <div className="text-slate-500 text-sm">{item.role}</div>
+                      <div className="font-bold text-white">{t(item.authorKey)}</div>
+                      <div className="text-slate-500 text-sm">{t(item.roleKey)}</div>
                   </div>
                 </div>
               </GlowCard>

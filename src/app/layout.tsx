@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-// 1. IMPORTAR COMPONENTES GLOBALES
+// IMPORTAR COMPONENTES GLOBALES
 import Navbar from "@/components/Navbar"; 
-import Footer from "@/components/Footer";  // <-- Importas el footer aquí
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DevHorses - Arquitectura Digital",
-  description: "Portafolio y servicios de desarrollo de software premium.",
+  title: "DevHorses — Software que Genera Clientes | Desarrollo Web, Apps & Branding",
+  description: "Diseñamos y desarrollamos plataformas digitales que generan clientes, automatizan procesos y escalan contigo. Consultoría gratuita. Lima, Perú.",
 };
 
 export default function RootLayout({
@@ -24,14 +25,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider>
           
-          {/* El Navbar va arriba de todo */}
           <Navbar /> 
           
-          {/* El contenido de cada página se renderiza aquí */}
           {children}
 
-          {/* 2. AGREGAR EL FOOTER AQUÍ ABAJO */}
           <Footer />
+          
+          {/* Botón flotante de WhatsApp */}
+          <WhatsAppButton />
 
         </LanguageProvider>
       </body>

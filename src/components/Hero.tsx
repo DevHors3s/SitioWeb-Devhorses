@@ -1,11 +1,10 @@
 "use client";
 
-import { motion, Variants } from "framer-motion"; // Asegúrate de importar Variants
+import { motion, Variants } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Code2 } from "lucide-react";
 
-// CORRECCIÓN AQUÍ: Agregamos 'as const' al array 'ease'
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
@@ -13,13 +12,29 @@ const fadeUp: Variants = {
     y: 0, 
     transition: { 
       duration: 0.8, 
-      ease: [0.22, 1, 0.36, 1] as const // <--- ESTO ARREGLA EL ERROR ROJO
+      ease: [0.22, 1, 0.36, 1] as const
     } 
   },
 };
 
 const Hero = () => {
   const { t } = useLanguage();
+
+  const scrollToContact = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("contact");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scrollToServices = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("services");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0F1C]">
@@ -71,20 +86,26 @@ const Hero = () => {
           {t("hero_subtitle")}
         </motion.p>
 
-        {/* 5. BOTONES */}
+        {/* 5. BOTONES — Ahora apuntan a conversión */}
         <motion.div 
           initial="hidden" animate="visible" variants={fadeUp}
           className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
-          <Link href="/proyectos" className="group relative w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold rounded-full flex items-center justify-center gap-2 hover:bg-cyan-50 transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          <button 
+            onClick={scrollToContact} 
+            className="group relative w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold rounded-full flex items-center justify-center gap-2 hover:bg-cyan-50 transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] cursor-pointer"
+          >
             {t("hero_btn_primary")}
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+          </button>
 
-          <Link href="/nosotros" className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+          <button 
+            onClick={scrollToServices}
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-all flex items-center justify-center gap-2 backdrop-blur-sm cursor-pointer"
+          >
             <Sparkles size={18} className="text-purple-400" />
             {t("hero_btn_secondary")}
-          </Link>
+          </button>
         </motion.div>
 
         {/* 6. STACK */}
