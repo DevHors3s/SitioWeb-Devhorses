@@ -127,33 +127,33 @@ const translations: Record<Language, Translations> = {
     nav_services: "Servicios",
     nav_projects: "Proyectos",
     nav_about: "Nosotros",
-    nav_cta: "Cotizar Gratis",
+    nav_cta: "Cotizar gratis",
 
     // Hero — Copy persuasivo orientado a resultados
     hero_badge: "CONSULTORÍA DIGITAL GRATUITA",
-    hero_title_1: "Tu Negocio Merece ",
-    hero_title_gradient: "Más Clientes",
-    hero_title_2: "No Solo una ",
-    hero_title_gradient_2: "Web Bonita",
+    hero_title_1: "Tu negocio merece ",
+    hero_title_gradient: "más clientes",
+    hero_title_2: "no solo una ",
+    hero_title_gradient_2: "web bonita",
     hero_subtitle: "Diseñamos y desarrollamos plataformas digitales que generan clientes, automatizan procesos y escalan contigo. Para negocios que quieren crecer en serio.",
-    hero_btn_primary: "Agendar Consultoría Gratuita",
-    hero_btn_secondary: "Ver Nuestros Servicios",
+    hero_btn_primary: "Agendar consultoría gratuita",
+    hero_btn_secondary: "Ver nuestros servicios",
     hero_stack_title: "TECNOLOGÍAS QUE IMPULSAN TU CRECIMIENTO",
 
     // Services — Orientados a resultados
-    services_title: "Soluciones que Generan Resultados",
+    services_title: "Soluciones que generan resultados",
     services_subtitle: "No vendemos tecnología. Creamos sistemas digitales que resuelven problemas reales de tu negocio.",
-    services_web_title: "Sitios Web que Convierten",
+    services_web_title: "Sitios web que convierten",
     services_web_desc: "No solo bonitos — diseñados para que cada visitante se convierta en cliente. Plataformas rápidas, seguras y optimizadas para ventas, con backend robusto que escala con tu crecimiento.",
-    services_mobile_title: "Apps que tus Clientes Amarán",
+    services_mobile_title: "Apps que tus clientes amarán",
     services_mobile_desc: "Aplicaciones móviles rápidas y fluidas que mantienen a tus usuarios enganchados. Experiencia nativa, notificaciones push y rendimiento de primer nivel en cualquier dispositivo.",
-    services_ui_title: "Identidad Visual que Impone",
+    services_ui_title: "Identidad visual que impone",
     services_ui_desc: "Branding profesional que posiciona tu marca por encima de la competencia. Diseño centrado en el usuario que convierte visitantes en clientes desde el primer contacto visual.",
-    services_eco_title: "Tiendas que Venden 24/7",
+    services_eco_title: "Tiendas que venden 24/7",
     services_eco_desc: "E-commerce optimizado con checkout rápido, pagos seguros y gestión de inventario automatizada. Tu negocio vendiendo incluso mientras duermes.",
 
     // Process
-    process_title: "Cómo Trabajamos",
+    process_title: "Cómo trabajamos",
     process_subtitle: "Un proceso transparente diseñado para que tu proyecto se entregue a tiempo, sin sorpresas y con resultados medibles.",
     process_step1_title: "Diagnóstico",
     process_step1_desc: "Analizamos tu negocio, competencia y objetivos para diseñar la estrategia digital perfecta para ti.",
@@ -165,7 +165,7 @@ const translations: Record<Language, Translations> = {
     process_step4_desc: "Desplegamos tu producto con pruebas rigurosas, optimización de rendimiento y soporte post-lanzamiento incluido.",
 
     // Testimonials
-    testimonials_title: "Lo que Dicen Nuestros Clientes",
+    testimonials_title: "Lo que dicen nuestros clientes",
     testimonial_1_quote: "Triplicamos nuestras ventas online en 3 meses. El equipo de DevHorses entendió perfectamente lo que necesitábamos y lo ejecutaron con una calidad impresionante.",
     testimonial_1_author: "Carlos Mendoza",
     testimonial_1_role: "CEO, FreshMarket Perú",
@@ -178,7 +178,7 @@ const translations: Record<Language, Translations> = {
 
     // Contact
     contact_title_1: "¿Listo para ",
-    contact_title_gradient: "Escalar tu Negocio?",
+    contact_title_gradient: "escalar tu negocio?",
     contact_subtitle: "Cuéntanos tu idea y te respondemos en menos de 24 horas con una propuesta personalizada. Sin compromiso.",
     contact_label_name: "Nombre",
     contact_label_email: "Email",
@@ -186,7 +186,7 @@ const translations: Record<Language, Translations> = {
     contact_placeholder_name: "Tu nombre completo",
     contact_placeholder_email: "tu@email.com",
     contact_placeholder_message: "Quiero una web para mi negocio de...",
-    contact_btn_send: "Enviar Mensaje",
+    contact_btn_send: "Enviar mensaje",
     contact_btn_sending: "Enviando...",
     contact_success: "✅ ¡Mensaje enviado! Te contactaremos en menos de 24h.",
 

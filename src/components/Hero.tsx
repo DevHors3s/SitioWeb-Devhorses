@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
-import Link from "next/link";
 import { ArrowRight, Sparkles, Code2 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -17,38 +17,60 @@ const fadeUp: Variants = {
   },
 };
 
+// Typing effect words
+const typingWordsES = ["más clientes", "más ventas", "más crecimiento"];
+const typingWordsEN = ["More Clients", "More Sales", "More Growth"];
+
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [wordIndex, setWordIndex] = useState(0);
+  const words = language === "es" ? typingWordsES : typingWordsEN;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % words.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [words.length]);
 
   const scrollToContact = (e: React.MouseEvent) => {
     e.preventDefault();
     const el = document.getElementById("contact");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault();
     const el = document.getElementById("services");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0F1C]">
       
-      {/* 1. FONDO TÉCNICO (GRID + SPOTLIGHT) */}
+      {/* 1. AURORA GRADIENT BACKGROUND */}
+      <div className="absolute inset-0 z-0 aurora-bg" />
+
+      {/* 2. GRID PATTERN */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-cyan-500/20 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-[#0A0F1C] to-transparent" />
       </div>
 
+      {/* 3. FLOATING PARTICLES */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className="particle" />
+        ))}
+      </div>
+
+      {/* 4. SPOTLIGHT */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-cyan-500/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none z-0" />
+
       <div className="max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
-        {/* 2. BADGE */}
+        {/* BADGE */}
         <motion.div 
           initial="hidden" animate="visible" variants={fadeUp}
           className="mb-8"
@@ -62,15 +84,30 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* 3. TÍTULO */}
+        {/* TÍTULO CON TYPING EFFECT */}
         <motion.h1
           initial="hidden" animate="visible" variants={fadeUp}
           className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
         >
           {t("hero_title_1")} 
-          <span className="text-transparent bg-clip-text bg-linear-to-b from-cyan-400 to-blue-600">
-             {t("hero_title_gradient")}
+          <br className="hidden md:block" />
+
+          {/* Animated word swap */}
+          <span className="inline-block relative h-[1.2em] overflow-hidden align-bottom">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={words[wordIndex]}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -40, opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="text-shimmer inline-block"
+              >
+                {words[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
           </span>
+
           <br className="hidden md:block" />
           {" "}{t("hero_title_2")} 
           <span className="text-transparent bg-clip-text bg-linear-to-b from-purple-400 to-pink-600">
@@ -78,7 +115,7 @@ const Hero = () => {
           </span>
         </motion.h1>
 
-        {/* 4. SUBTÍTULO */}
+        {/* SUBTÍTULO */}
         <motion.p 
           initial="hidden" animate="visible" variants={fadeUp}
           className="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed"
@@ -86,14 +123,14 @@ const Hero = () => {
           {t("hero_subtitle")}
         </motion.p>
 
-        {/* 5. BOTONES — Ahora apuntan a conversión */}
+        {/* BOTONES CON GLOW PULSE */}
         <motion.div 
           initial="hidden" animate="visible" variants={fadeUp}
           className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
           <button 
             onClick={scrollToContact} 
-            className="group relative w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold rounded-full flex items-center justify-center gap-2 hover:bg-cyan-50 transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] cursor-pointer"
+            className="group relative w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold rounded-full flex items-center justify-center gap-2 hover:bg-cyan-50 transition-all hover:scale-105 glow-pulse cursor-pointer"
           >
             {t("hero_btn_primary")}
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -101,14 +138,14 @@ const Hero = () => {
 
           <button 
             onClick={scrollToServices}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-all flex items-center justify-center gap-2 backdrop-blur-sm cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-all flex items-center justify-center gap-2 backdrop-blur-sm hover:scale-105 cursor-pointer"
           >
             <Sparkles size={18} className="text-purple-400" />
             {t("hero_btn_secondary")}
           </button>
         </motion.div>
 
-        {/* 6. STACK */}
+        {/* STACK */}
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 

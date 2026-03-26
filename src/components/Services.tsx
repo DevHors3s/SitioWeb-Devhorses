@@ -9,7 +9,7 @@ const Services = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="pt-0 pb-32 px-6 relative z-10 bg-[#0A0F1C]">
+    <section id="services" className="pt-24 pb-32 px-6 relative z-10 bg-[#0A0F1C]">
       <div className="container mx-auto max-w-6xl">
         
         <div className="text-center mb-16">
@@ -33,7 +33,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="md:col-span-2 h-full"
+            className="md:col-span-2 h-full tilt-card"
           >
             <GlowCard>
                 <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition-transform border border-cyan-500/20">
@@ -62,7 +62,7 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="h-full"
+            className="h-full tilt-card"
           >
              <GlowCard>
                 <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform border border-purple-500/20">
@@ -86,7 +86,7 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="h-full"
+            className="h-full tilt-card"
           >
              <GlowCard>
                 <div className="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6 text-pink-400 group-hover:scale-110 transition-transform border border-pink-500/20">
@@ -110,7 +110,7 @@ const Services = () => {
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              transition={{ delay: 0.3 }}
-             className="md:col-span-2 h-full"
+             className="md:col-span-2 h-full tilt-card"
           >
              <GlowCard>
                 <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform border border-emerald-500/20">
