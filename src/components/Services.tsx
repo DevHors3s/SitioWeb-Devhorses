@@ -9,7 +9,7 @@ const Services = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="pt-24 pb-32 px-6 relative z-10 bg-[#0A0F1C]">
+    <section id="services" className="pt-16 md:pt-24 pb-16 md:pb-32 px-4 md:px-6 relative z-10 bg-[#0A0F1C]">
       <div className="container mx-auto max-w-6xl">
         
         <div className="text-center mb-16">
@@ -17,11 +17,11 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6 text-white"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white"
           >
              {t("services_title")}
           </motion.h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
             {t("services_subtitle")}
           </p>
         </div>

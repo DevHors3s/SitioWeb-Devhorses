@@ -46,7 +46,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0F1C]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0F1C] pt-24 pb-12">
       
       {/* 1. AURORA GRADIENT BACKGROUND */}
       <div className="absolute inset-0 z-0 aurora-bg" />
@@ -73,7 +73,7 @@ const Hero = () => {
         {/* BADGE */}
         <motion.div 
           initial="hidden" animate="visible" variants={fadeUp}
-          className="mb-8"
+          className="mb-4 md:mb-8"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-400 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
@@ -87,7 +87,7 @@ const Hero = () => {
         {/* TÍTULO CON TYPING EFFECT */}
         <motion.h1
           initial="hidden" animate="visible" variants={fadeUp}
-          className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-4 md:mb-6 leading-tight"
         >
           {t("hero_title_1")} 
           <br className="hidden md:block" />
@@ -118,7 +118,7 @@ const Hero = () => {
         {/* SUBTÍTULO */}
         <motion.p 
           initial="hidden" animate="visible" variants={fadeUp}
-          className="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed"
+          className="text-base md:text-lg lg:text-xl text-slate-400 max-w-2xl mb-8 md:mb-10 leading-relaxed"
         >
           {t("hero_subtitle")}
         </motion.p>
@@ -150,7 +150,7 @@ const Hero = () => {
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 
           transition={{ delay: 1, duration: 1 }}
-          className="mt-16 pt-8 border-t border-white/5 w-full max-w-2xl"
+          className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-white/5 w-full max-w-2xl"
         >
           <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">{t("hero_stack_title")}</p>
           <div className="flex flex-wrap justify-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">

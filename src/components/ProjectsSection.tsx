@@ -60,7 +60,7 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section className="relative min-h-screen py-20 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
+    <section className="relative min-h-screen py-16 md:py-20 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
       
       {/* Luz de fondo ambiental */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] -z-10" />
@@ -68,7 +68,7 @@ export default function ProjectsSection() {
       <div className="max-w-7xl mx-auto">
         
         {/* ENCABEZADO */}
-        <div className="mb-16 md:mb-24">
+        <div className="mb-10 md:mb-16 lg:mb-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function ProjectsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6"
           >
             {t("projects_title")}
           </motion.h1>
@@ -95,14 +95,14 @@ export default function ProjectsSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 max-w-2xl text-lg"
+            className="text-gray-400 max-w-2xl text-base md:text-lg"
           >
             {t("projects_subtitle")}
           </motion.p>
         </div>
 
         {/* GRILLA DE TARJETAS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {projectsData.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

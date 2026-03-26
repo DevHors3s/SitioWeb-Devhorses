@@ -9,14 +9,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#05080f] border-t border-white/10 pt-16 pb-8 overflow-hidden">
+    <footer className="relative bg-[#05080f] border-t border-white/10 pt-12 md:pt-16 pb-6 md:pb-8 overflow-hidden">
       
       {/* Luz ambiental superior */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-1 bg-linear-to-r from-transparent via-cyan-500 to-transparent opacity-50 blur-sm" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
           
           {/* COLUMNA 1: MARCA */}
           <div className="md:col-span-2">
@@ -28,7 +28,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <SocialIcon href="https://github.com/Mathifa59" icon={<Github size={20} />} />
-              <SocialIcon href="https://www.linkedin.com/in/mathias-vasquez/" icon={<Linkedin size={20} />} />
+              <SocialIcon href="https://www.linkedin.com/company/devhorses" icon={<Linkedin size={20} />} />
               <SocialIcon href="mailto:hola@devhorses.com" icon={<Mail size={20} />} />
             </div>
           </div>
@@ -52,8 +52,7 @@ export default function Footer() {
               <FooterLink href="#" text="Privacidad" />
               <FooterLink href="#" text="Términos" />
               <li className="text-gray-500 text-sm mt-6">
-                Lima, Perú 🇵🇪 <br />
-                Miraflores
+                Lima, Perú 🇵🇪
               </li>
             </ul>
           </div>
@@ -64,12 +63,6 @@ export default function Footer() {
           <p className="text-gray-500 text-sm">
             © {currentYear} DevHorses. {t("footer_rights")}
           </p>
-          
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span>{t("footer_coded")}</span>
-            <Heart size={14} className="text-red-500 fill-red-500/20" />
-            <span>y mucho café.</span>
-          </div>
         </div>
 
       </div>

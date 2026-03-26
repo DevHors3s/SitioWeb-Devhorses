@@ -55,7 +55,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="relative min-h-screen py-20 px-4 bg-[#0A0F1C] overflow-hidden">
+    <section className="relative min-h-screen py-16 md:py-20 px-4 md:px-6 bg-[#0A0F1C] overflow-hidden">
       
       {/* Luces decorativas */}
       <div className="absolute top-20 right-0 w-125 h-125 bg-purple-600/10 rounded-full blur-[120px] -z-10" />
@@ -64,7 +64,7 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto">
         
         {/* PARTE 1: INTRO / MISIÓN */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center mb-16 md:mb-32">
           
           <motion.div 
              initial={{ opacity: 0, x: -50 }}
@@ -79,18 +79,18 @@ export default function AboutSection() {
               {t("about_badge")}
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
               {t("about_title_1")} <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400">
                 {t("about_title_gradient")}
               </span>
             </h1>
             
-            <p className="text-gray-400 text-lg leading-relaxed mb-8">
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
               {t("about_desc")}
             </p>
 
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-4 md:gap-6">
               <Stats number="10+" label={t("about_stats_projects")} />
               <Stats number="3+" label={t("about_stats_exp")} />
               <Stats number="100%" label={t("about_stats_commitment")} />
@@ -125,11 +125,11 @@ export default function AboutSection() {
         </div>
 
         {/* PARTE 2: EL ESCUADRÓN (4 COLUMNAS) */}
-        <div className="mb-32">
+        <div className="mb-16 md:mb-32">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
              <h2 className="text-3xl font-bold text-white flex items-center justify-center gap-3">
                <Code2 className="text-cyan-400" /> {t("about_team_title")}
@@ -137,7 +137,7 @@ export default function AboutSection() {
           </motion.div>
 
           {/* GRID CONFIGURADO PARA 4 PERSONAS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {team.map((member, index) => (
               <motion.div
                 key={index}
@@ -171,7 +171,7 @@ export default function AboutSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative p-10 md:p-16 rounded-3xl overflow-hidden text-center border border-white/10"
+            className="relative p-6 md:p-10 lg:p-16 rounded-3xl overflow-hidden text-center border border-white/10"
         >
             <div className="absolute inset-0 bg-linear-to-br from-cyan-900/20 via-[#0d121f] to-purple-900/20 backdrop-blur-xl z-0" />
             

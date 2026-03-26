@@ -34,18 +34,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 relative z-10">
+    <section id="contact" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
       <div className="absolute bottom-0 left-0 w-full h-125 bg-linear-to-t from-blue-900/10 to-transparent -z-10 pointer-events-none"></div>
 
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
           
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight text-white">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight text-white">
               {t("contact_title_1")} <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">{t("contact_title_gradient")}</span>
             </h2>
-            <p className="text-slate-400 text-lg mb-10 max-w-md">
+            <p className="text-slate-400 text-base md:text-lg mb-6 md:mb-10 max-w-md">
               {t("contact_subtitle")}
             </p>
           </motion.div>

@@ -50,23 +50,23 @@ const Process = () => {
   ];
 
   return (
-    <section id="process" className="py-24 px-6 relative z-10 bg-[#0A0F1C]/50">
+    <section id="process" className="py-16 md:py-24 px-4 md:px-6 relative z-10 bg-[#0A0F1C]/50">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6 text-white"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white"
           >
             {t("process_title")}
           </motion.h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
             {t("process_subtitle")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={index}
