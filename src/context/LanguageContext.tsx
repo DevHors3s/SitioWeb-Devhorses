@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 type Language = "es" | "en";
 
-type Translations = {
+export type Translations = {
   // Nav
   nav_home: string;
   nav_services: string;
@@ -106,6 +106,33 @@ type Translations = {
   team_4_bio: string;
   team_5_role: string;
   team_5_bio: string;
+
+  // Demo Showcase
+  demo_badge: string;
+  demo_title: string;
+  demo_subtitle: string;
+  demo_1_name: string;
+  demo_1_category: string;
+  demo_1_desc: string;
+  demo_2_name: string;
+  demo_2_category: string;
+  demo_2_desc: string;
+  demo_3_name: string;
+  demo_3_category: string;
+  demo_3_desc: string;
+  demo_4_name: string;
+  demo_4_category: string;
+  demo_4_desc: string;
+  demo_5_name: string;
+  demo_5_category: string;
+  demo_5_desc: string;
+  demo_6_name: string;
+  demo_6_category: string;
+  demo_6_desc: string;
+  demo_btn_view: string;
+  demo_btn_want: string;
+  demo_cta_title: string;
+  demo_cta_btn: string;
 
   // CTA
   cta_title: string;
@@ -224,6 +251,33 @@ const translations: Record<Language, Translations> = {
     team_5_role: "UI/UX & BRANDING LEAD",
     team_5_bio: "Diseñadora gráfica y líder creativa. Crea identidades visuales memorables, manuales de marca y experiencias de usuario que conectan con tus clientes.",
 
+    // Demo Showcase
+    demo_badge: "DEMOS INTERACTIVAS",
+    demo_title: "Explora cómo podría verse tu negocio vendiendo online",
+    demo_subtitle: "Sitios reales que hemos creado. Elige tu industria y mira cómo podría lucir tu negocio en internet.",
+    demo_1_name: "Gimnasio FitPro",
+    demo_1_category: "Fitness",
+    demo_1_desc: "Plataforma moderna para gimnasios con reservas de clases, planes de membresía y seguimiento de progreso.",
+    demo_2_name: "Pastelería Dulce Arte",
+    demo_2_category: "Gastronomía",
+    demo_2_desc: "Tienda online para pastelería con catálogo visual, pedidos personalizados y delivery integrado.",
+    demo_3_name: "Parrilla & Brasas",
+    demo_3_category: "Gastronomía",
+    demo_3_desc: "Sitio web para restaurante de carnes con menú interactivo, reservas online y galería de platos.",
+    demo_4_name: "MV Abogados",
+    demo_4_category: "Servicios Profesionales",
+    demo_4_desc: "Portal profesional para bufete de abogados con consultas online, áreas de práctica y testimonios.",
+    demo_5_name: "Apu Garden Lodge",
+    demo_5_category: "Hospedaje",
+    demo_5_desc: "Sitio de reservas para lodge con galería inmersiva, disponibilidad en tiempo real y experiencias locales.",
+    demo_6_name: "Tienda RetailPro",
+    demo_6_category: "E-commerce",
+    demo_6_desc: "E-commerce completo con carrito de compras, pasarela de pagos y gestión de inventario automatizada.",
+    demo_btn_view: "Ver demo",
+    demo_btn_want: "Quiero algo así",
+    demo_cta_title: "¿Te gustaría algo así para tu negocio?",
+    demo_cta_btn: "Hablemos por WhatsApp",
+
     // CTA
     cta_title: "¿Listo para iniciar tu próximo gran proyecto?",
     cta_desc: "Ya sea una idea disruptiva o una mejora técnica, nuestro equipo está listo para desplegar.",
@@ -338,6 +392,33 @@ const translations: Record<Language, Translations> = {
     team_4_bio: "Transforms raw data into golden strategies. Analyzes systemic patterns to optimize performance and business decision-making.",
     team_5_role: "UI/UX & BRANDING LEAD",
     team_5_bio: "Graphic designer and creative lead. Crafts memorable visual identities, brand manuals, and user experiences that connect with your clients.",
+
+    // Demo Showcase
+    demo_badge: "INTERACTIVE DEMOS",
+    demo_title: "Explore how your business could look selling online",
+    demo_subtitle: "Real sites we've built. Pick your industry and see how your business could look on the internet.",
+    demo_1_name: "FitPro Gym",
+    demo_1_category: "Fitness",
+    demo_1_desc: "Modern gym platform with class bookings, membership plans, and progress tracking.",
+    demo_2_name: "Sweet Art Bakery",
+    demo_2_category: "Gastronomy",
+    demo_2_desc: "Online bakery store with visual catalog, custom orders, and integrated delivery.",
+    demo_3_name: "Grill & Embers",
+    demo_3_category: "Gastronomy",
+    demo_3_desc: "Steakhouse website with interactive menu, online reservations, and dish gallery.",
+    demo_4_name: "MV Lawyers",
+    demo_4_category: "Professional Services",
+    demo_4_desc: "Professional law firm portal with online consultations, practice areas, and testimonials.",
+    demo_5_name: "Apu Garden Lodge",
+    demo_5_category: "Hospitality",
+    demo_5_desc: "Lodge booking site with immersive gallery, real-time availability, and local experiences.",
+    demo_6_name: "RetailPro Store",
+    demo_6_category: "E-commerce",
+    demo_6_desc: "Complete e-commerce with shopping cart, payment gateway, and automated inventory management.",
+    demo_btn_view: "View demo",
+    demo_btn_want: "I want something like this",
+    demo_cta_title: "Would you like something like this for your business?",
+    demo_cta_btn: "Let's chat on WhatsApp",
 
     // CTA
     cta_title: "Ready to start your next big project?",
