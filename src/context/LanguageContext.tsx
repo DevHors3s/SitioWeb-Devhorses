@@ -193,15 +193,15 @@ const translations: Record<Language, Translations> = {
 
     // Testimonials
     testimonials_title: "Lo que dicen nuestros clientes",
-    testimonial_1_quote: "Triplicamos nuestras ventas online en 3 meses. El equipo de DevHorses entendió perfectamente lo que necesitábamos y lo ejecutaron con una calidad impresionante.",
-    testimonial_1_author: "Carlos Mendoza",
-    testimonial_1_role: "CEO, FreshMarket Perú",
-    testimonial_2_quote: "Nuestro sistema de reservas pasó de ser un caos en WhatsApp a una plataforma automatizada. Los pacientes están encantados y nosotros ahorramos 4 horas diarias.",
-    testimonial_2_author: "Dra. Valentina Ríos",
-    testimonial_2_role: "Directora, Clínica Estética Lumière",
-    testimonial_3_quote: "No son solo desarrolladores, son socios estratégicos. Nos desafiaron a pensar más grande y el resultado superó todas nuestras expectativas.",
-    testimonial_3_author: "Andrés Gutiérrez",
-    testimonial_3_role: "Fundador, LogiTrack Solutions",
+    testimonial_1_quote: "Necesitábamos una presencia digital que transmitiera la seriedad de nuestro bufete. DevHorses creó un portal profesional que nos posicionó como referentes en nuestra área. Las consultas online se duplicaron en el primer mes.",
+    testimonial_1_author: "Miguel Vásquez",
+    testimonial_1_role: "Socio Fundador, MV Abogados",
+    testimonial_2_quote: "Nuestro lodge necesitaba mostrar la experiencia completa que ofrecemos. El sitio que nos construyeron tiene una galería inmersiva y un sistema de reservas que funciona perfecto. Los huéspedes nos dicen que reservaron porque la web les transmitió confianza.",
+    testimonial_2_author: "Andrea Quispe",
+    testimonial_2_role: "Gerente General, Apu Garden Lodge",
+    testimonial_3_quote: "Pasamos de recibir pedidos por WhatsApp a tener una tienda online profesional con catálogo y delivery integrado. Nuestras ventas crecieron un 150% y ahora los clientes pueden hacer pedidos personalizados las 24 horas.",
+    testimonial_3_author: "Lucía Fernández",
+    testimonial_3_role: "Propietaria, Pastelería Dulce Arte",
 
     // Contact
     contact_title_1: "¿Listo para ",
@@ -223,10 +223,10 @@ const translations: Record<Language, Translations> = {
     projects_subtitle: "Resultados reales para negocios reales. Cada proyecto es una historia de crecimiento digital.",
     projects_btn_demo: "Ver Demo",
     projects_btn_code: "Código",
-    project_1_desc: "Plataforma de e-commerce con integración de pagos y UI de alto rendimiento que incrementó las ventas un 200%.",
-    project_2_desc: "Dashboard de analytics en tiempo real con visualización de datos masivos y reportes automatizados.",
-    project_3_desc: "Experiencia web inmersiva con animaciones 3D y transiciones fluidas que redujo la tasa de rebote un 60%.",
-    project_4_desc: "Interfaz de chat impulsada por IA con streaming de respuestas y procesamiento de lenguaje natural.",
+    project_1_desc: "Portal profesional para bufete de abogados con consultas online, áreas de práctica, testimonios y diseño que transmite confianza y autoridad.",
+    project_2_desc: "Sitio web para lodge turístico con galería inmersiva, sistema de reservas, disponibilidad en tiempo real y experiencias locales destacadas.",
+    project_3_desc: "Plataforma moderna para gimnasios con reservas de clases, planes de membresía, seguimiento de progreso y diseño motivacional.",
+    project_4_desc: "Tienda online para pastelería con catálogo visual, pedidos personalizados, delivery integrado y experiencia de compra premium.",
 
     // About
     about_badge: "Sobre Nosotros",
@@ -335,15 +335,15 @@ const translations: Record<Language, Translations> = {
 
     // Testimonials
     testimonials_title: "What Our Clients Say",
-    testimonial_1_quote: "We tripled our online sales in 3 months. The DevHorses team perfectly understood what we needed and executed with impressive quality.",
-    testimonial_1_author: "Carlos Mendoza",
-    testimonial_1_role: "CEO, FreshMarket Peru",
-    testimonial_2_quote: "Our booking system went from WhatsApp chaos to an automated platform. Patients love it and we save 4 hours daily.",
-    testimonial_2_author: "Dr. Valentina Ríos",
-    testimonial_2_role: "Director, Clínica Estética Lumière",
-    testimonial_3_quote: "They're not just developers, they're strategic partners. They challenged us to think bigger and the result exceeded all expectations.",
-    testimonial_3_author: "Andrés Gutiérrez",
-    testimonial_3_role: "Founder, LogiTrack Solutions",
+    testimonial_1_quote: "We needed a digital presence that conveyed the seriousness of our firm. DevHorses built a professional portal that positioned us as leaders in our field. Online consultations doubled in the first month.",
+    testimonial_1_author: "Miguel Vásquez",
+    testimonial_1_role: "Founding Partner, MV Abogados",
+    testimonial_2_quote: "Our lodge needed to showcase the full experience we offer. The site they built has an immersive gallery and a booking system that works flawlessly. Guests tell us they booked because the website gave them confidence.",
+    testimonial_2_author: "Andrea Quispe",
+    testimonial_2_role: "General Manager, Apu Garden Lodge",
+    testimonial_3_quote: "We went from taking orders on WhatsApp to having a professional online store with a catalog and integrated delivery. Our sales grew 150% and now customers can place custom orders 24/7.",
+    testimonial_3_author: "Lucía Fernández",
+    testimonial_3_role: "Owner, Pastelería Dulce Arte",
 
     // Contact
     contact_title_1: "Ready to ",
@@ -365,10 +365,10 @@ const translations: Record<Language, Translations> = {
     projects_subtitle: "Real results for real businesses. Every project is a story of digital growth.",
     projects_btn_demo: "View Demo",
     projects_btn_code: "Code",
-    project_1_desc: "E-commerce platform with payment integration and high-performance UI that increased sales by 200%.",
-    project_2_desc: "Real-time analytics dashboard with massive data visualization and automated reports.",
-    project_3_desc: "Immersive web experience with 3D animations and fluid transitions that reduced bounce rate by 60%.",
-    project_4_desc: "AI-powered chat interface with response streaming and natural language processing.",
+    project_1_desc: "Professional law firm portal with online consultations, practice areas, testimonials, and a design that conveys trust and authority.",
+    project_2_desc: "Tourism lodge website with immersive gallery, booking system, real-time availability, and featured local experiences.",
+    project_3_desc: "Modern gym platform with class bookings, membership plans, progress tracking, and motivational design.",
+    project_4_desc: "Online bakery store with visual catalog, custom orders, integrated delivery, and a premium shopping experience.",
 
     // About
     about_badge: "About Us",

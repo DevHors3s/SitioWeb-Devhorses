@@ -13,6 +13,7 @@ interface Project {
   gradient: string;
   link: string;
   github: string;
+  thumbnail: string;
 }
 
 export default function ProjectsSection() {
@@ -23,39 +24,43 @@ export default function ProjectsSection() {
   const projectsData: Project[] = [
     {
       id: 1,
-      title: "Neon Commerce",
-      description: t("project_1_desc"), // Usa la clave del LanguageContext
-      tags: ["Next.js", "Stripe", "Tailwind"],
-      gradient: "from-cyan-500 to-blue-500",
-      link: "#",
+      title: "MV Abogados",
+      description: t("project_1_desc"),
+      tags: ["Next.js", "Tailwind", "TypeScript"],
+      gradient: "from-purple-500 to-indigo-500",
+      link: "https://mv-abogados.vercel.app/",
       github: "#",
+      thumbnail: "/abogados-mini.png",
     },
     {
       id: 2,
-      title: "CyberAnalytics Dashboard",
+      title: "Apu Garden Lodge",
       description: t("project_2_desc"),
-      tags: ["React", "D3.js", "Node.js"],
-      gradient: "from-purple-500 to-pink-500",
-      link: "#",
+      tags: ["Next.js", "Tailwind", "Framer Motion"],
+      gradient: "from-emerald-400 to-cyan-500",
+      link: "https://apu-garden-lodge.vercel.app/",
       github: "#",
+      thumbnail: "/hotel-mini.png",
     },
     {
       id: 3,
-      title: "Quantum Portfolio",
+      title: "Gimnasio FitPro",
       description: t("project_3_desc"),
-      tags: ["Three.js", "Framer", "TypeScript"],
-      gradient: "from-emerald-400 to-cyan-500",
-      link: "#",
+      tags: ["Next.js", "Tailwind", "React"],
+      gradient: "from-cyan-500 to-blue-500",
+      link: "https://demo-gimnasio-eight.vercel.app/",
       github: "#",
+      thumbnail: "/gimnasio-mini.png",
     },
     {
       id: 4,
-      title: "AI Chat Interface",
+      title: "Pastelería Dulce Arte",
       description: t("project_4_desc"),
-      tags: ["OpenAI", "Vercel SDK", "Redis"],
-      gradient: "from-orange-400 to-red-500",
-      link: "#",
+      tags: ["Next.js", "Tailwind", "E-commerce"],
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://demo-restaurante-pasteleria.vercel.app/",
       github: "#",
+      thumbnail: "/pasteleria-mini.png",
     },
   ];
 
@@ -128,8 +133,14 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
 
       <div className="relative h-full bg-[#0d121f] border border-white/10 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-white/20 transition-colors">
         
-        <div className={`w-full md:w-2/5 h-48 md:h-auto bg-linear-to-br ${project.gradient} opacity-20 group-hover:opacity-30 transition-opacity flex items-center justify-center`}>
-          <Layers size={48} className="text-white/50" />
+        <div className={`w-full md:w-2/5 h-48 md:h-auto relative overflow-hidden`}>
+          <div className={`absolute inset-0 bg-linear-to-br ${project.gradient} opacity-10`} />
+          <img
+            src={project.thumbnail}
+            alt={project.title}
+            className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+            loading="lazy"
+          />
         </div>
 
         <div className="p-6 md:p-8 flex flex-col grow">

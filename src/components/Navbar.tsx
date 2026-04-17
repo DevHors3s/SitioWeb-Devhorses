@@ -39,8 +39,8 @@ export default function Navbar() {
         <div className="pointer-events-auto flex items-center justify-between w-full max-w-4xl bg-[#0A0F1C]/80 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-2xl relative z-50">
           
           {/* LOGO */}
-          <Link href="/" className="text-xl font-bold font-mono text-white" onClick={() => setIsOpen(false)}>
-            Dev<span className="text-cyan-400">Horses</span>.
+          <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+            <img src="/logo-full.png" alt="DevHorses" className="h-8" />
           </Link>
 
           {/* LINKS DESKTOP (Ocultos en móvil) */}

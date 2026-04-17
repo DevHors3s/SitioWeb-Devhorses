@@ -13,6 +13,7 @@ interface DemoData {
   descriptionKey: keyof Translations;
   demoUrl: string;
   gradient: string;
+  thumbnail?: string;
 }
 
 // We need the Translations type for keyof usage — imported above
@@ -29,6 +30,7 @@ export default function DemoShowcase() {
       descriptionKey: "demo_1_desc",
       demoUrl: "https://demo-gimnasio-eight.vercel.app/",
       gradient: "from-cyan-500 to-blue-500",
+      thumbnail: "/gimnasio-mini.png",
     },
     {
       id: 2,
@@ -37,6 +39,7 @@ export default function DemoShowcase() {
       descriptionKey: "demo_2_desc",
       demoUrl: "https://demo-restaurante-pasteleria.vercel.app/",
       gradient: "from-pink-500 to-rose-500",
+      thumbnail: "/pasteleria-mini.png",
     },
     {
       id: 3,
@@ -53,6 +56,7 @@ export default function DemoShowcase() {
       descriptionKey: "demo_4_desc",
       demoUrl: "https://mv-abogados.vercel.app/",
       gradient: "from-purple-500 to-indigo-500",
+      thumbnail: "/abogados-mini.png",
     },
     {
       id: 5,
@@ -61,6 +65,7 @@ export default function DemoShowcase() {
       descriptionKey: "demo_5_desc",
       demoUrl: "https://apu-garden-lodge.vercel.app/",
       gradient: "from-emerald-400 to-cyan-500",
+      thumbnail: "/hotel-mini.png",
     },
     {
       id: 6,
@@ -175,7 +180,25 @@ function DemoCard({ demo, index }: { demo: DemoData; index: number }) {
       />
 
       {/* 2.4 — Card content | 2.5 — Hover effects */}
-      <div className="relative h-full bg-[#0B1121] rounded-2xl border border-slate-800 p-5 md:p-6 flex flex-col transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] hover:border-slate-700">
+      <div className="relative h-full bg-[#0B1121] rounded-2xl border border-slate-800 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] hover:border-slate-700">
+        {/* Thumbnail */}
+        <div className="relative w-full h-32 md:h-40 overflow-hidden">
+          <div className={`absolute inset-0 bg-linear-to-br ${demo.gradient} opacity-10`} />
+          {demo.thumbnail ? (
+            <img
+              src={demo.thumbnail}
+              alt={demoName}
+              className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              loading="lazy"
+            />
+          ) : (
+            <div className={`w-full h-full bg-linear-to-br ${demo.gradient} opacity-20 group-hover:opacity-30 transition-opacity flex items-center justify-center`}>
+              <Monitor size={32} className="text-white/40" />
+            </div>
+          )}
+        </div>
+
+        <div className="p-5 md:p-6 flex flex-col grow">
         {/* Category badge */}
         <span
           className={`inline-block self-start px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-full bg-linear-to-r ${demo.gradient} text-white mb-3`}
@@ -213,6 +236,7 @@ function DemoCard({ demo, index }: { demo: DemoData; index: number }) {
             <MessageCircle size={14} />
             {t("demo_btn_want")}
           </a>
+        </div>
         </div>
       </div>
     </motion.div>

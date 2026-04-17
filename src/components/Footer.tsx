@@ -20,8 +20,9 @@ export default function Footer() {
           
           {/* COLUMNA 1: MARCA */}
           <div className="md:col-span-2">
-            <Link href="/" className="text-2xl font-bold font-mono text-white mb-4 block">
-              Dev<span className="text-cyan-400">Horses</span>.
+            <Link href="/" className="flex items-center gap-3 mb-4">
+              <img src="/logo-icon.png" alt="DevHorses" className="h-10" />
+              <span className="text-2xl font-bold font-mono text-white">Dev<span className="text-cyan-400">Horses</span>.</span>
             </Link>
             <p className="text-gray-400 leading-relaxed max-w-sm mb-6">
               {t("footer_desc")}
