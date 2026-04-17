@@ -19,16 +19,11 @@ export default function Navbar() {
     { name: t("nav_about"), href: "/nosotros" },
   ];
 
-  const scrollToContact = () => {
+  const whatsappUrl = `https://wa.me/51999999999?text=${encodeURIComponent("Hola DevHorses, me interesa una cotización para mi proyecto 🚀")}`;
+
+  const openWhatsApp = () => {
     setIsOpen(false);
-    if (pathname === "/") {
-      const el = document.getElementById("contact");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-    }
-    window.location.href = "/#contact";
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -69,7 +64,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* BOTÓN CTA — NUEVO */}
             <button
-              onClick={scrollToContact}
+              onClick={openWhatsApp}
               className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-bold transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] cursor-pointer"
             >
               <Zap size={14} />
@@ -124,7 +119,7 @@ export default function Navbar() {
               })}
               {/* CTA en menú móvil */}
               <button
-                onClick={scrollToContact}
+                onClick={openWhatsApp}
                 className="mt-2 px-4 py-3 rounded-xl bg-cyan-500 text-black font-bold text-center hover:bg-cyan-400 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Zap size={16} />
