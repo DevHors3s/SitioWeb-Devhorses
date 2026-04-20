@@ -61,7 +61,7 @@ const Testimonials = () => {
                   ))}
                 </div>
 
-                <blockquote className="text-slate-300 text-lg leading-relaxed mb-6 grow">
+                <blockquote className="text-slate-300 text-base md:text-lg leading-relaxed mb-6 grow">
                   &ldquo;{t(item.quoteKey)}&rdquo;
                 </blockquote>
 

@@ -60,7 +60,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-slate-900/50 p-8 md:p-10 rounded-3xl border border-slate-800 backdrop-blur-xl relative group"
+            className="bg-slate-900/50 p-6 sm:p-8 md:p-10 rounded-3xl border border-slate-800 backdrop-blur-xl relative group"
           >
              {/* Borde neón sutil */}
              <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 to-purple-600 rounded-3xl blur opacity-10 group-hover:opacity-30 transition duration-500"></div>

@@ -123,7 +123,7 @@ export default function DemoShowcase() {
         </div>
 
         {/* 2.3 — Responsive CSS grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {demosData.map((demo, index) => (
             <DemoCard key={demo.id} demo={demo} index={index} />
           ))}

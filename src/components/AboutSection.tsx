@@ -111,7 +111,7 @@ export default function AboutSection() {
                  <div className="w-3 h-3 rounded-full bg-green-500/50"/>
                </div>
                
-               <div className="space-y-3 font-mono text-sm">
+               <div className="space-y-3 font-mono text-xs sm:text-sm overflow-x-auto">
                  <div className="text-gray-500">{t("about_mission_comment")}</div>
                  <div className="text-purple-400">const <span className="text-white">mission</span> = <span className="text-yellow-300">{"{"}</span></div>
                  <div className="pl-4 text-cyan-300">focus: <span className="text-green-300">&quot;Innovation&quot;</span>,</div>
