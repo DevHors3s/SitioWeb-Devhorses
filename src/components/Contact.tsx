@@ -3,7 +3,6 @@
 import { useState, useRef, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
-import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -11,26 +10,32 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const sendEmail = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setStatus("idle");
 
-    emailjs.sendForm(
-      'service_xxxxx', 
-      'template_xxxxx', 
-      formRef.current!, 
-      { publicKey: 'xxxxxxxxxxxx' }
-    )
-    .then(() => {
-      setIsSubmitting(false);
-      setStatus("success");
-      if (formRef.current) formRef.current.reset();
-    })
-    .catch((error) => {
-      console.error("FAILED...", error);
-      setIsSubmitting(false);
+    const formData = new FormData(formRef.current!);
+    formData.append("access_key", "75650892-05e1-4e7b-802d-796b232c1420");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("success");
+        formRef.current?.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
       setStatus("error");
-    });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,7 +65,8 @@ const Contact = () => {
              {/* Borde neón sutil */}
              <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 to-purple-600 rounded-3xl blur opacity-10 group-hover:opacity-30 transition duration-500"></div>
 
-            <form ref={formRef} onSubmit={sendEmail} className="space-y-6 relative z-10">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <input type="hidden" name="subject" value="Nuevo mensaje desde DevHorses Landing" />
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-2">{t("contact_label_name")}</label>
                 <input type="text" name="user_name" required className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder={t("contact_placeholder_name")}/>

@@ -62,6 +62,16 @@ export default function ProjectsSection() {
       github: "#",
       thumbnail: "/pasteleria-mini.png",
     },
+    {
+      id: 5,
+      title: "Parrilla & Brasas",
+      description: t("project_5_desc"),
+      tags: ["Next.js", "Tailwind", "React"],
+      gradient: "from-orange-400 to-red-500",
+      link: "https://demo-restaurante-carnes.vercel.app/",
+      github: "#",
+      thumbnail: "/restaurante-mini.png",
+    },
   ];
 
   return (
