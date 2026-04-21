@@ -230,7 +230,8 @@ const translations: Record<Language, Translations> = {
     project_4_desc: "Tienda online para pastelería con catálogo visual, pedidos personalizados, delivery integrado y experiencia de compra premium.",
     project_5_desc: "Sitio web para restaurante de carnes con menú interactivo, reservas online, galería de platos y diseño que abre el apetito.",
 
-    // About: "Sobre Nosotros",
+    // About
+    about_badge: "Sobre Nosotros",
     about_title_1: "Arquitectos de la ",
     about_title_gradient: "Realidad Digital",
     about_desc: "En DevHorses, no solo escribimos código; forjamos experiencias. Somos un colectivo de ingenieros y creativos unidos por una misión: transformar ideas abstractas en productos digitales de alto impacto.",
@@ -372,7 +373,8 @@ const translations: Record<Language, Translations> = {
     project_4_desc: "Online bakery store with visual catalog, custom orders, integrated delivery, and a premium shopping experience.",
     project_5_desc: "Steakhouse website with interactive menu, online reservations, dish gallery, and a design that whets the appetite.",
 
-    // About: "About Us",
+    // About
+    about_badge: "About Us",
     about_title_1: "Architects of ",
     about_title_gradient: "Digital Reality",
     about_desc: "At DevHorses, we don't just write code; we forge experiences. We are a collective of engineers and creatives united by a mission: to transform abstract ideas into high-impact digital products.",
