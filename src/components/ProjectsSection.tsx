@@ -72,6 +72,26 @@ export default function ProjectsSection() {
       github: "#",
       thumbnail: "/restaurante-mini.png",
     },
+    {
+      id: 6,
+      title: "Tienda RetailPro",
+      description: t("project_6_desc"),
+      tags: ["Next.js", "Tailwind", "E-commerce"],
+      gradient: "from-amber-400 to-orange-500",
+      link: "https://demo-retail.vercel.app/",
+      github: "#",
+      thumbnail: "/retail-mini.png",
+    },
+    {
+      id: 7,
+      title: "Yume Tattoo",
+      description: t("project_7_desc"),
+      tags: ["Next.js", "Tailwind", "React"],
+      gradient: "from-slate-400 to-zinc-600",
+      link: "https://demo-tatto.vercel.app/",
+      github: "#",
+      thumbnail: "/tatto-mini.png",
+    },
   ];
 
   return (

@@ -84,6 +84,8 @@ export type Translations = {
   project_3_desc: string;
   project_4_desc: string;
   project_5_desc: string;
+  project_6_desc: string;
+  project_7_desc: string;
 
   // About
   about_badge: string;
@@ -130,6 +132,9 @@ export type Translations = {
   demo_6_name: string;
   demo_6_category: string;
   demo_6_desc: string;
+  demo_7_name: string;
+  demo_7_category: string;
+  demo_7_desc: string;
   demo_btn_view: string;
   demo_btn_want: string;
   demo_cta_title: string;
@@ -229,9 +234,10 @@ const translations: Record<Language, Translations> = {
     project_3_desc: "Plataforma moderna para gimnasios con reservas de clases, planes de membresía, seguimiento de progreso y diseño motivacional.",
     project_4_desc: "Tienda online para pastelería con catálogo visual, pedidos personalizados, delivery integrado y experiencia de compra premium.",
     project_5_desc: "Sitio web para restaurante de carnes con menú interactivo, reservas online, galería de platos y diseño que abre el apetito.",
+    project_6_desc: "E-commerce completo con carrito de compras, pasarela de pagos, gestión de inventario automatizada y experiencia de compra fluida.",
+    project_7_desc: "Sitio web para estudio de tatuajes con galería de trabajos, reservas online, perfiles de artistas y diseño dark premium.",
 
-    // About
-    about_badge: "Sobre Nosotros",
+    // About: "Sobre Nosotros",
     about_title_1: "Arquitectos de la ",
     about_title_gradient: "Realidad Digital",
     about_desc: "En DevHorses, no solo escribimos código; forjamos experiencias. Somos un colectivo de ingenieros y creativos unidos por una misión: transformar ideas abstractas en productos digitales de alto impacto.",
@@ -275,6 +281,9 @@ const translations: Record<Language, Translations> = {
     demo_6_name: "Tienda RetailPro",
     demo_6_category: "E-commerce",
     demo_6_desc: "E-commerce completo con carrito de compras, pasarela de pagos y gestión de inventario automatizada.",
+    demo_7_name: "Yume Tattoo",
+    demo_7_category: "Belleza & Arte",
+    demo_7_desc: "Sitio web para estudio de tatuajes con galería de trabajos, reservas online, perfiles de artistas y diseño dark premium.",
     demo_btn_view: "Ver demo",
     demo_btn_want: "Quiero algo así",
     demo_cta_title: "¿Te gustaría algo así para tu negocio?",
@@ -372,9 +381,10 @@ const translations: Record<Language, Translations> = {
     project_3_desc: "Modern gym platform with class bookings, membership plans, progress tracking, and motivational design.",
     project_4_desc: "Online bakery store with visual catalog, custom orders, integrated delivery, and a premium shopping experience.",
     project_5_desc: "Steakhouse website with interactive menu, online reservations, dish gallery, and a design that whets the appetite.",
+    project_6_desc: "Complete e-commerce with shopping cart, payment gateway, automated inventory management, and a seamless shopping experience.",
+    project_7_desc: "Tattoo studio website with work gallery, online bookings, artist profiles, and premium dark design.",
 
-    // About
-    about_badge: "About Us",
+    // About: "About Us",
     about_title_1: "Architects of ",
     about_title_gradient: "Digital Reality",
     about_desc: "At DevHorses, we don't just write code; we forge experiences. We are a collective of engineers and creatives united by a mission: to transform abstract ideas into high-impact digital products.",
@@ -418,6 +428,9 @@ const translations: Record<Language, Translations> = {
     demo_6_name: "RetailPro Store",
     demo_6_category: "E-commerce",
     demo_6_desc: "Complete e-commerce with shopping cart, payment gateway, and automated inventory management.",
+    demo_7_name: "Yume Tattoo",
+    demo_7_category: "Beauty & Art",
+    demo_7_desc: "Tattoo studio website with work gallery, online bookings, artist profiles, and premium dark design.",
     demo_btn_view: "View demo",
     demo_btn_want: "I want something like this",
     demo_cta_title: "Would you like something like this for your business?",

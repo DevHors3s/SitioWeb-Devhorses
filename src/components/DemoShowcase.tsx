@@ -48,6 +48,7 @@ export default function DemoShowcase() {
       descriptionKey: "demo_3_desc",
       demoUrl: "https://demo-restaurante-carnes.vercel.app/",
       gradient: "from-orange-400 to-red-500",
+      thumbnail: "/restaurante-mini.png",
     },
     {
       id: 4,
@@ -74,6 +75,16 @@ export default function DemoShowcase() {
       descriptionKey: "demo_6_desc",
       demoUrl: "https://demo-retail.vercel.app/",
       gradient: "from-amber-400 to-orange-500",
+      thumbnail: "/retail-mini.png",
+    },
+    {
+      id: 7,
+      nameKey: "demo_7_name",
+      categoryKey: "demo_7_category",
+      descriptionKey: "demo_7_desc",
+      demoUrl: "https://demo-tatto.vercel.app/",
+      gradient: "from-slate-400 to-zinc-600",
+      thumbnail: "/tatto-mini.png",
     },
   ];
 
