@@ -71,13 +71,13 @@ export default function DemoShowcase() {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
+    <section className="relative py-10 md:py-14 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
       {/* Ambient background glow */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] -z-10" />
 
       <div className="max-w-7xl mx-auto">
         {/* 2.2 — Section header: badge + gradient title + subtitle */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-8 md:mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

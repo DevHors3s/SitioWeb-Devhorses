@@ -50,9 +50,9 @@ const Process = () => {
   ];
 
   return (
-    <section id="process" className="py-16 md:py-24 px-4 md:px-6 relative z-10 bg-[#0A0F1C]/50">
+    <section id="process" className="py-10 md:py-14 px-4 md:px-6 relative z-10 bg-[#0A0F1C]/50">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-10 md:mb-16">
+        <div className="text-center mb-8 md:mb-10">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

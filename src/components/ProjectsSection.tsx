@@ -42,7 +42,7 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section className="relative min-h-screen py-16 md:py-20 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
+    <section className="relative py-10 md:py-14 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
       
       {/* Luz de fondo ambiental */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] -z-10" />
@@ -50,7 +50,7 @@ export default function ProjectsSection() {
       <div className="max-w-7xl mx-auto">
         
         {/* ENCABEZADO */}
-        <div className="mb-10 md:mb-16 lg:mb-24">
+        <div className="mb-8 md:mb-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -20,7 +20,7 @@ const technologies = [
 const TechTicker = () => {
   const { t } = useLanguage();
   return (
-    <section className="py-16 bg-[#0A0F1C] border-y border-slate-800/50 overflow-hidden relative z-20">
+    <section className="py-8 bg-[#0A0F1C] border-y border-slate-800/50 overflow-hidden relative z-20">
 
       <p className="text-center text-slate-500 text-sm mb-8 tracking-wider uppercase font-medium">
         {t("tech_ticker_title")}

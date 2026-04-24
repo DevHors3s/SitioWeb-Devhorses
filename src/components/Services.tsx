@@ -9,7 +9,7 @@ const Services = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="pt-16 md:pt-24 pb-16 md:pb-32 px-4 md:px-6 relative z-10 bg-[#0A0F1C]">
+    <section id="services" className="py-10 md:py-14 px-4 md:px-6 relative z-10 bg-[#0A0F1C]">
       <div className="container mx-auto max-w-6xl">
         
         <div className="text-center mb-16">

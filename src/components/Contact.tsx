@@ -39,7 +39,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
+    <section id="contact" className="py-10 md:py-14 px-4 md:px-6 relative z-10">
       <div className="absolute bottom-0 left-0 w-full h-125 bg-linear-to-t from-blue-900/10 to-transparent -z-10 pointer-events-none"></div>
 
       <div className="container mx-auto max-w-6xl">
