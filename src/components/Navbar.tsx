@@ -19,7 +19,7 @@ export default function Navbar() {
     { name: t("nav_about"), href: "/nosotros" },
   ];
 
-  const whatsappUrl = `https://wa.me/51999999999?text=${encodeURIComponent("Hola DevHorses, me interesa una cotización para mi proyecto 🚀")}`;
+  const whatsappUrl = `https://wa.me/51981916198?text=${encodeURIComponent("Hola DevHorses, me interesa una cotización para mi proyecto 🚀")}`;
 
   const openWhatsApp = () => {
     setIsOpen(false);

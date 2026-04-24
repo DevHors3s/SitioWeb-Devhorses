@@ -43,15 +43,10 @@ const Services = () => {
                 <p className="text-slate-400 mb-6 grow leading-relaxed">
                   {t("services_web_desc")}
                 </p>
-                {/* STACK ACTUALIZADO CON MÁS TECNOLOGÍAS */}
                 <div className="flex gap-2 flex-wrap mt-auto">
+                  <TechBadge text="Next.js" color="cyan" />
                   <TechBadge text="React" color="cyan" />
-                  <TechBadge text="Angular" color="pink" />
-                  <TechBadge text="Vue" color="emerald" />
-                  <TechBadge text="JavaScript" color="orange" />
-                  <TechBadge text="Python" color="blue" />
-                  <TechBadge text="Spring Boot" color="green" />
-                  <TechBadge text="Node.js" color="cyan" />
+                  <TechBadge text="SEO" color="green" />
                 </div>
             </GlowCard>
           </motion.div>
@@ -73,9 +68,8 @@ const Services = () => {
                   {t("services_mobile_desc")}
                 </p>
                 <div className="flex gap-2 flex-wrap mt-auto">
-                  <TechBadge text="Flutter" color="purple" />
-                  <TechBadge text="Kotlin" color="purple" />
-                  <TechBadge text="Swift" color="purple" />
+                  <TechBadge text="iOS" color="purple" />
+                  <TechBadge text="Android" color="purple" />
                 </div>
              </GlowCard>
           </motion.div>
@@ -97,9 +91,9 @@ const Services = () => {
                   {t("services_ui_desc")}
                 </p>
                 <div className="flex gap-2 flex-wrap mt-auto">
-                  <TechBadge text="Figma" color="pink" />
-                  <TechBadge text="Adobe XD" color="pink" />
-                  <TechBadge text="Framer" color="pink" />
+                  <TechBadge text="Logo" color="pink" />
+                  <TechBadge text="Manual de marca" color="pink" />
+                  <TechBadge text="UI/UX" color="pink" />
                 </div>
              </GlowCard>
           </motion.div>
@@ -121,10 +115,9 @@ const Services = () => {
                   {t("services_eco_desc")}
                 </p>
                 <div className="flex gap-2 flex-wrap mt-auto">
-                  <TechBadge text="Shopify" color="emerald" />
-                  <TechBadge text="Stripe" color="emerald" />
-                  <TechBadge text="WooCommerce" color="emerald" />
-                  <TechBadge text="AWS" color="emerald" />
+                  <TechBadge text="Pagos online" color="emerald" />
+                  <TechBadge text="Inventario" color="emerald" />
+                  <TechBadge text="Delivery" color="emerald" />
                 </div>
              </GlowCard>
           </motion.div>

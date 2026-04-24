@@ -51,24 +51,6 @@ export default function DemoShowcase() {
       thumbnail: "/restaurante-mini.png",
     },
     {
-      id: 4,
-      nameKey: "demo_4_name",
-      categoryKey: "demo_4_category",
-      descriptionKey: "demo_4_desc",
-      demoUrl: "https://mv-abogados.vercel.app/",
-      gradient: "from-purple-500 to-indigo-500",
-      thumbnail: "/abogados-mini.png",
-    },
-    {
-      id: 5,
-      nameKey: "demo_5_name",
-      categoryKey: "demo_5_category",
-      descriptionKey: "demo_5_desc",
-      demoUrl: "https://apu-garden-lodge.vercel.app/",
-      gradient: "from-emerald-400 to-cyan-500",
-      thumbnail: "/hotel-mini.png",
-    },
-    {
       id: 6,
       nameKey: "demo_6_name",
       categoryKey: "demo_6_category",
@@ -152,7 +134,7 @@ export default function DemoShowcase() {
             {t("demo_cta_title")}
           </h3>
           <a
-            href={`https://wa.me/51999999999?text=${encodeURIComponent("Hola DevHorses, vi sus demos y me gustaría saber más sobre sus servicios 🚀")}`}
+            href={`https://wa.me/51981916198?text=${encodeURIComponent("Hola DevHorses, vi sus demos y me gustaría saber más sobre sus servicios 🚀")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-green-600 rounded-xl hover:bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all hover:scale-105"
@@ -174,7 +156,7 @@ function DemoCard({ demo, index }: { demo: DemoData; index: number }) {
   const whatsappMessage = encodeURIComponent(
     `Hola DevHorses, me interesa un sitio como "${demoName}" para mi negocio 🚀`
   );
-  const whatsappUrl = `https://wa.me/51999999999?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/51981916198?text=${whatsappMessage}`;
 
   return (
     // 2.6 — Framer Motion entrance animation with stagger

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image"; // Importamos el componente optimizado de imágenes
+import Image from "next/image";
+import { useLanguage } from "../context/LanguageContext";
 
 // Definimos la lista de tecnologías con su nombre y la ruta a su imagen
 // IMPORTANTE: Asegúrate de tener estos archivos en la carpeta /public/logos/
@@ -17,12 +18,12 @@ const technologies = [
 ];
 
 const TechTicker = () => {
+  const { t } = useLanguage();
   return (
     <section className="py-16 bg-[#0A0F1C] border-y border-slate-800/50 overflow-hidden relative z-20">
-      
-      {/* Título pequeño opcional sobre el ticker */}
+
       <p className="text-center text-slate-500 text-sm mb-8 tracking-wider uppercase font-medium">
-        Trusted Technologies We Use
+        {t("tech_ticker_title")}
       </p>
 
       <div className="flex">

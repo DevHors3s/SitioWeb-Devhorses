@@ -2,7 +2,7 @@
 
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
-import { ArrowRight, Sparkles, Code2 } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const fadeUp: Variants = {
@@ -18,8 +18,8 @@ const fadeUp: Variants = {
 };
 
 // Typing effect words
-const typingWordsES = ["más clientes", "más ventas", "más crecimiento"];
-const typingWordsEN = ["More Clients", "More Sales", "More Growth"];
+const typingWordsES = ["venden más", "atraen clientes", "trabajan por ti"];
+const typingWordsEN = ["sell more", "attract clients", "work for you"];
 
 const Hero = () => {
   const { t, language } = useLanguage();
@@ -145,20 +145,26 @@ const Hero = () => {
           </button>
         </motion.div>
 
-        {/* STACK */}
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
+        {/* TRUST SIGNAL — social proof */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
           className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-white/5 w-full max-w-2xl"
         >
-          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">{t("hero_stack_title")}</p>
-          <div className="flex flex-wrap justify-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-            <TechItem text="Next.js" />
-            <TechItem text="React" />
-            <TechItem text="TypeScript" />
-            <TechItem text="Tailwind" />
-            <TechItem text="Node.js" />
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-gray-400">
+            <div className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold text-base">24h</span>
+              <span>{t("hero_trust_1")}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold text-base">100%</span>
+              <span>{t("hero_trust_2")}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold text-base">0</span>
+              <span>{t("hero_trust_3")}</span>
+            </div>
           </div>
         </motion.div>
 
@@ -166,14 +172,5 @@ const Hero = () => {
     </section>
   );
 };
-
-function TechItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Code2 size={16} className="text-cyan-500" />
-      <span className="text-sm font-medium text-gray-400">{text}</span>
-    </div>
-  )
-}
 
 export default Hero;

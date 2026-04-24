@@ -8,7 +8,7 @@ export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
   
   // CAMBIA ESTE NÚMERO POR EL TUYO
-  const phoneNumber = "51999999999";
+  const phoneNumber = "51981916198";
   const message = encodeURIComponent("Hola DevHorses, me interesa una consultoría gratuita para mi negocio 🚀");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

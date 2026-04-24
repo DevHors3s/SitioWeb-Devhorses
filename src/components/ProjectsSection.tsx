@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import Link from "next/link";
-import { Github, ArrowRight, Layers } from "lucide-react";
+import { ExternalLink, Layers, CheckCircle2 } from "lucide-react";
 
 interface Project {
   id: number;
@@ -12,7 +12,6 @@ interface Project {
   tags: string[];
   gradient: string;
   link: string;
-  github: string;
   thumbnail: string;
 }
 
@@ -26,71 +25,19 @@ export default function ProjectsSection() {
       id: 1,
       title: "MV Abogados",
       description: t("project_1_desc"),
-      tags: ["Next.js", "Tailwind", "TypeScript"],
+      tags: ["Servicios legales", "Lima"],
       gradient: "from-purple-500 to-indigo-500",
       link: "https://mv-abogados.vercel.app/",
-      github: "#",
       thumbnail: "/abogados-mini.png",
     },
     {
       id: 2,
       title: "Apu Garden Lodge",
       description: t("project_2_desc"),
-      tags: ["Next.js", "Tailwind", "Framer Motion"],
+      tags: ["Hospedaje", "Turismo"],
       gradient: "from-emerald-400 to-cyan-500",
       link: "https://apu-garden-lodge.vercel.app/",
-      github: "#",
       thumbnail: "/hotel-mini.png",
-    },
-    {
-      id: 3,
-      title: "Gimnasio FitPro",
-      description: t("project_3_desc"),
-      tags: ["Next.js", "Tailwind", "React"],
-      gradient: "from-cyan-500 to-blue-500",
-      link: "https://demo-gimnasio-eight.vercel.app/",
-      github: "#",
-      thumbnail: "/gimnasio-mini.png",
-    },
-    {
-      id: 4,
-      title: "Pastelería Dulce Arte",
-      description: t("project_4_desc"),
-      tags: ["Next.js", "Tailwind", "E-commerce"],
-      gradient: "from-pink-500 to-rose-500",
-      link: "https://demo-restaurante-pasteleria.vercel.app/",
-      github: "#",
-      thumbnail: "/pasteleria-mini.png",
-    },
-    {
-      id: 5,
-      title: "Parrilla & Brasas",
-      description: t("project_5_desc"),
-      tags: ["Next.js", "Tailwind", "React"],
-      gradient: "from-orange-400 to-red-500",
-      link: "https://demo-restaurante-carnes.vercel.app/",
-      github: "#",
-      thumbnail: "/restaurante-mini.png",
-    },
-    {
-      id: 6,
-      title: "Tienda RetailPro",
-      description: t("project_6_desc"),
-      tags: ["Next.js", "Tailwind", "E-commerce"],
-      gradient: "from-amber-400 to-orange-500",
-      link: "https://demo-retail.vercel.app/",
-      github: "#",
-      thumbnail: "/retail-mini.png",
-    },
-    {
-      id: 7,
-      title: "Yume Tattoo",
-      description: t("project_7_desc"),
-      tags: ["Next.js", "Tailwind", "React"],
-      gradient: "from-slate-400 to-zinc-600",
-      link: "https://demo-tatto.vercel.app/",
-      github: "#",
-      thumbnail: "/tatto-mini.png",
     },
   ];
 
@@ -192,12 +139,18 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
           </p>
 
           <div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/5">
-            <Link href={project.link} className="flex items-center gap-2 text-white font-medium hover:text-cyan-400 transition-colors text-sm">
-              {t("projects_btn_demo")} <ArrowRight size={16} />
+            <Link
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-white font-medium hover:text-cyan-400 transition-colors text-sm"
+            >
+              {t("projects_btn_demo")} <ExternalLink size={14} />
             </Link>
-            <Link href={project.github} className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm ml-auto">
-              <Github size={18} /> {t("projects_btn_code")}
-            </Link>
+            <span className="ml-auto flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
+              <CheckCircle2 size={14} />
+              {t("projects_live_label")}
+            </span>
           </div>
         </div>
       </div>

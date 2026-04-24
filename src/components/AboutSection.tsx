@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
-import { 
-  Github, Linkedin, Mail, ArrowRight, Code2, 
-  Palette, Server, Cloud, LineChart, Monitor 
+import {
+  Github, Linkedin, MessageCircle, ArrowRight, Code2,
+  Palette, Server, Cloud, LineChart, Monitor
 } from "lucide-react";
 
 export default function AboutSection() {
@@ -91,8 +91,8 @@ export default function AboutSection() {
             </p>
 
             <div className="flex flex-wrap gap-4 md:gap-6">
-              <Stats number="10+" label={t("about_stats_projects")} />
-              <Stats number="3+" label={t("about_stats_exp")} />
+              <Stats number="2" label={t("about_stats_clients")} />
+              <Stats number="5" label={t("about_stats_industries")} />
               <Stats number="100%" label={t("about_stats_commitment")} />
             </div>
           </motion.div>
@@ -113,10 +113,11 @@ export default function AboutSection() {
                
                <div className="space-y-3 font-mono text-xs sm:text-sm overflow-x-auto">
                  <div className="text-gray-500">{t("about_mission_comment")}</div>
-                 <div className="text-purple-400">const <span className="text-white">mission</span> = <span className="text-yellow-300">{"{"}</span></div>
-                 <div className="pl-4 text-cyan-300">focus: <span className="text-green-300">&quot;Innovation&quot;</span>,</div>
-                 <div className="pl-4 text-cyan-300">quality: <span className="text-green-300">&quot;Premium&quot;</span>,</div>
-                 <div className="pl-4 text-cyan-300">limit: <span className="text-red-400">null</span></div>
+                 <div className="text-purple-400">const <span className="text-white">devhorses</span> = <span className="text-yellow-300">{"{"}</span></div>
+                 <div className="pl-4 text-cyan-300">trato: <span className="text-green-300">&quot;directo&quot;</span>,</div>
+                 <div className="pl-4 text-cyan-300">entregas: <span className="text-green-300">&quot;semanales&quot;</span>,</div>
+                 <div className="pl-4 text-cyan-300">respuesta: <span className="text-green-300">&quot;24h&quot;</span>,</div>
+                 <div className="pl-4 text-cyan-300">intermediarios: <span className="text-red-400">null</span></div>
                  <div className="text-yellow-300">{"}"};</div>
                </div>
             </div>
@@ -176,8 +177,8 @@ export default function AboutSection() {
             <div className="absolute inset-0 bg-linear-to-br from-cyan-900/20 via-[#0d121f] to-purple-900/20 backdrop-blur-xl z-0" />
             
             <div className="relative z-10 flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10">
-                    <Mail className="text-white" size={32} />
+                <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
+                    <MessageCircle className="text-green-400" size={32} />
                 </div>
 
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -186,12 +187,14 @@ export default function AboutSection() {
                 <p className="text-gray-300 mb-8 max-w-xl text-lg">
                     {t("cta_desc")}
                 </p>
-                
-                <a 
-                    href="mailto:hola@devhorses.com" 
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-cyan-300 transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(103,232,249,0.5)] group"
+
+                <a
+                    href={`https://wa.me/51981916198?text=${encodeURIComponent("Hola DevHorses, me interesa una consultoría gratuita para mi negocio 🚀")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-400 transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] group"
                 >
-                    <Mail size={20} />
+                    <MessageCircle size={20} />
                     {t("cta_btn")}
                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </a>
