@@ -39,6 +39,15 @@ export default function ProjectsSection() {
       link: "https://apu-garden-lodge.vercel.app/",
       thumbnail: "/hotel-mini.png",
     },
+    {
+      id: 3,
+      title: "Selekta Food",
+      description: t("project_8_desc"),
+      tags: ["Agroexportación", "IA"],
+      gradient: "from-green-500 to-lime-400",
+      link: "https://www.selektafood.com/",
+      thumbnail: "/selekta-mini.png",
+    },
   ];
 
   return (
@@ -84,7 +93,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* GRILLA DE TARJETAS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
           {projectsData.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

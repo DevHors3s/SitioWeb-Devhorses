@@ -88,6 +88,10 @@ export type Translations = {
   project_5_desc: string;
   project_6_desc: string;
   project_7_desc: string;
+  project_8_desc: string;
+  testimonial_3_quote: string;
+  testimonial_3_author: string;
+  testimonial_3_role: string;
 
   // About
   about_badge: string;
@@ -242,6 +246,10 @@ const translations: Record<Language, Translations> = {
     project_5_desc: "Sitio web para restaurante de carnes con menú interactivo, reservas online, galería de platos y diseño que abre el apetito.",
     project_6_desc: "E-commerce completo con carrito de compras, pasarela de pagos, gestión de inventario automatizada y experiencia de compra fluida.",
     project_7_desc: "Sitio web para estudio de tatuajes con galería de trabajos, reservas online, perfiles de artistas y diseño dark premium.",
+    project_8_desc: "Portal corporativo para empresa de agroexportación con tecnología de clasificación inteligente por IA. Diseñado para transmitir innovación, precisión y generar confianza en mercados internacionales.",
+    testimonial_3_quote: "Necesitábamos una web que transmitiera la seriedad y la tecnología que hay detrás de Selekta. DevHorses entendió nuestro negocio desde el primer día y entregó una plataforma que abre puertas en el sector agroexportador.",
+    testimonial_3_author: "Equipo Selekta",
+    testimonial_3_role: "Selekta Food — Agroexportación & IA",
 
     about_badge: "SOBRE NOSOTROS",
     about_title_1: "Un equipo pequeño. ",
@@ -393,6 +401,10 @@ const translations: Record<Language, Translations> = {
     project_5_desc: "Steakhouse website with interactive menu, online reservations, dish gallery, and a design that whets the appetite.",
     project_6_desc: "Complete e-commerce with shopping cart, payment gateway, automated inventory management, and a seamless shopping experience.",
     project_7_desc: "Tattoo studio website with work gallery, online bookings, artist profiles, and premium dark design.",
+    project_8_desc: "Corporate portal for an agro-export company powered by AI-driven smart classification technology. Designed to convey innovation, precision, and build trust in international markets.",
+    testimonial_3_quote: "We needed a website that conveyed the seriousness and technology behind Selekta. DevHorses understood our business from day one and delivered a platform that opens doors in the agro-export sector.",
+    testimonial_3_author: "Selekta Team",
+    testimonial_3_role: "Selekta Food — Agro-Export & AI",
 
     about_badge: "ABOUT US",
     about_title_1: "A small team. ",

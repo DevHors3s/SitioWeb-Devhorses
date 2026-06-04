@@ -20,6 +20,12 @@ const Testimonials = () => {
       roleKey: "testimonial_2_role" as const,
       stars: 5,
     },
+    {
+      quoteKey: "testimonial_3_quote" as const,
+      authorKey: "testimonial_3_author" as const,
+      roleKey: "testimonial_3_role" as const,
+      stars: 5,
+    },
   ];
 
   return (
@@ -36,7 +42,7 @@ const Testimonials = () => {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {testimonials.map((item, index) => (
             <motion.div
               key={index}
