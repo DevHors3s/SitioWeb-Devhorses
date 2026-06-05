@@ -171,15 +171,15 @@ const translations: Record<Language, Translations> = {
     nav_cta: "Cotizar gratis",
 
     // Hero — Copy persuasivo orientado a resultados
-    hero_badge: "CONSULTORÍA GRATUITA · RESPUESTA EN 24H",
-    hero_title_1: "Webs y tiendas online que ",
+    hero_badge: "CONSULTORÍA GRATUITA · RESPUESTA INMEDIATA",
+    hero_title_1: "Webs y aplicaciones que ",
     hero_title_gradient: "venden más",
     hero_title_2: "para negocios que quieren ",
     hero_title_gradient_2: "crecer",
     hero_subtitle: "Diseñamos, desarrollamos y lanzamos. Desde restaurantes y pastelerías hasta bufetes y lodges — construimos la web que tu negocio necesita para competir en serio.",
     hero_btn_primary: "Agendar consultoría gratuita",
     hero_btn_secondary: "Ver nuestros servicios",
-    hero_trust_1: "de respuesta",
+    hero_trust_1: "Respuesta inmediata",
     hero_trust_2: "dedicado a tu proyecto",
     hero_trust_3: "intermediarios",
     hero_stack_title: "CONSTRUIDO CON TECNOLOGÍA MODERNA",
@@ -221,7 +221,7 @@ const translations: Record<Language, Translations> = {
     // Contact
     contact_title_1: "¿Listo para ",
     contact_title_gradient: "hacer crecer tu negocio?",
-    contact_subtitle: "Contanos tu idea y te respondemos en menos de 24 horas con una propuesta personalizada. Sin compromiso.",
+    contact_subtitle: "Contanos tu idea y te respondemos de inmediato con una propuesta personalizada. Sin compromiso.",
     contact_label_name: "Nombre",
     contact_label_email: "Email",
     contact_label_message: "Cuéntanos tu proyecto",
@@ -230,7 +230,7 @@ const translations: Record<Language, Translations> = {
     contact_placeholder_message: "Quiero una web para mi negocio de...",
     contact_btn_send: "Enviar mensaje",
     contact_btn_sending: "Enviando...",
-    contact_success: "✅ ¡Mensaje enviado! Te contactaremos en menos de 24h.",
+    contact_success: "✅ ¡Mensaje enviado! Te contactaremos a la brevedad.",
 
     // Projects
     projects_badge: "CLIENTES REALES",
@@ -307,7 +307,7 @@ const translations: Record<Language, Translations> = {
 
     // CTA
     cta_title: "¿Listo para empezar tu proyecto?",
-    cta_desc: "Escribinos por WhatsApp y te respondemos en menos de 24 horas. Sin compromiso, sin vueltas.",
+    cta_desc: "Escribinos por WhatsApp y te respondemos de inmediato. Sin compromiso, sin vueltas.",
     cta_btn: "Hablemos por WhatsApp",
 
     // Footer
@@ -326,15 +326,15 @@ const translations: Record<Language, Translations> = {
     nav_cta: "Free Quote",
 
     // Hero
-    hero_badge: "FREE CONSULTATION · 24H RESPONSE",
-    hero_title_1: "Websites & online stores that ",
+    hero_badge: "FREE CONSULTATION · IMMEDIATE RESPONSE",
+    hero_title_1: "Websites & applications that ",
     hero_title_gradient: "sell more",
     hero_title_2: "for businesses ready to ",
     hero_title_gradient_2: "grow",
     hero_subtitle: "We design, build and launch. From restaurants and bakeries to law firms and lodges — we build the web presence your business needs to compete seriously.",
     hero_btn_primary: "Book Free Consultation",
     hero_btn_secondary: "See Our Services",
-    hero_trust_1: "response time",
+    hero_trust_1: "Immediate response",
     hero_trust_2: "focused on your project",
     hero_trust_3: "middlemen",
     hero_stack_title: "BUILT WITH MODERN TECHNOLOGY",
@@ -376,7 +376,7 @@ const translations: Record<Language, Translations> = {
     // Contact
     contact_title_1: "Ready to ",
     contact_title_gradient: "Grow Your Business?",
-    contact_subtitle: "Tell us your idea and we'll respond within 24 hours with a personalized proposal. No strings attached.",
+    contact_subtitle: "Tell us your idea and we'll get back to you right away with a personalized proposal. No strings attached.",
     contact_label_name: "Name",
     contact_label_email: "Email",
     contact_label_message: "Tell us about your project",
@@ -385,7 +385,7 @@ const translations: Record<Language, Translations> = {
     contact_placeholder_message: "I want a website for my business of...",
     contact_btn_send: "Send Message",
     contact_btn_sending: "Sending...",
-    contact_success: "✅ Message sent! We'll contact you within 24h.",
+    contact_success: "✅ Message sent! We'll be in touch shortly.",
 
     // Projects
     projects_badge: "REAL CLIENTS",
@@ -462,7 +462,7 @@ const translations: Record<Language, Translations> = {
 
     // CTA
     cta_title: "Ready to start your project?",
-    cta_desc: "Message us on WhatsApp and we'll respond within 24 hours. No commitment, no strings attached.",
+    cta_desc: "Message us on WhatsApp and we'll respond right away. No commitment, no strings attached.",
     cta_btn: "Let's chat on WhatsApp",
 
     // Footer

@@ -154,7 +154,7 @@ const Hero = () => {
         >
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-gray-400">
             <div className="flex items-center gap-2">
-              <span className="text-cyan-400 font-bold text-base">24h</span>
+              <span className="text-cyan-400 font-bold text-base">⚡</span>
               <span>{t("hero_trust_1")}</span>
             </div>
             <div className="flex items-center gap-2">
