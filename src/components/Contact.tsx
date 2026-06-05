@@ -15,17 +15,19 @@ const Contact = () => {
     setIsSubmitting(true);
     setStatus("idle");
 
-    const formData = new FormData(formRef.current!);
-    formData.append("access_key", "392063e4-6c52-40e4-b3c6-1d749d3863d6");
+    const form = formRef.current!;
+    const name = (form.elements.namedItem("user_name") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("user_email") as HTMLInputElement).value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
       });
-      const data = await response.json();
 
-      if (data.success) {
+      if (response.ok) {
         setStatus("success");
         formRef.current?.reset();
       } else {
@@ -101,6 +103,11 @@ const Contact = () => {
               {status === "success" && (
                 <p className="text-green-400 text-center text-sm font-medium animate-pulse mt-2">
                   {t("contact_success")}
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-red-400 text-center text-sm font-medium mt-2">
+                  ❌ Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.
                 </p>
               )}
             </form>
