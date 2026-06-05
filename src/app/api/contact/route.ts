@@ -3,14 +3,83 @@ import { NextRequest, NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(req: NextRequest) {
-  try {
-    const { name, email, message } = await req.json();
+// ── Rate limiter: máx 3 envíos por IP por hora ──────────────────────────────
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: "Faltan campos requeridos." }, { status: 400 });
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + 60 * 60 * 1000 });
+    return false;
+  }
+
+  if (entry.count >= 3) return true;
+
+  entry.count++;
+  return false;
+}
+
+// ── Cloudflare Turnstile verification ───────────────────────────────────────
+async function verifyTurnstile(token: string): Promise<boolean> {
+  try {
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          secret: process.env.TURNSTILE_SECRET_KEY,
+          response: token,
+        }),
+      }
+    );
+    const data = await res.json();
+    return data.success === true;
+  } catch {
+    return false;
+  }
+}
+
+// ── POST handler ─────────────────────────────────────────────────────────────
+export async function POST(req: NextRequest) {
+  // 1. Rate limiting por IP
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Demasiados intentos. Esperá un momento antes de reintentar." },
+      { status: 429 }
+    );
+  }
+
+  try {
+    const { name, email, message, honeypot, turnstileToken } = await req.json();
+
+    // 2. Honeypot — si está relleno es un bot, lo descartamos silenciosamente
+    if (honeypot) {
+      return NextResponse.json({ success: true }, { status: 200 });
     }
 
+    // 3. Turnstile — verificación anti-bot de Cloudflare
+    if (!turnstileToken || !(await verifyTurnstile(turnstileToken))) {
+      return NextResponse.json(
+        { error: "Verificación de seguridad fallida. Recargá la página." },
+        { status: 403 }
+      );
+    }
+
+    // 4. Validación básica de campos
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: "Faltan campos requeridos." },
+        { status: 400 }
+      );
+    }
+
+    // 5. Envío de email con Resend
     const { error } = await resend.emails.send({
       from: "DevHorses Contact <contacto@devhorses.com>",
       to: "devhorses2026@gmail.com",
@@ -44,12 +113,18 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Resend error:", error);
-      return NextResponse.json({ error: "Error al enviar el email." }, { status: 500 });
+      return NextResponse.json(
+        { error: "Error al enviar el email." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
     console.error("Unexpected error:", err);
-    return NextResponse.json({ error: "Error inesperado." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error inesperado." },
+      { status: 500 }
+    );
   }
 }
