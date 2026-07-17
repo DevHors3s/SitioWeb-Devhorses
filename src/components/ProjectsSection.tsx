@@ -34,10 +34,10 @@ export default function ProjectsSection() {
       id: 2,
       title: "Apu Garden Lodge",
       description: t("project_2_desc"),
-      tags: ["Hospedaje", "Turismo"],
+      tags: ["Hospedaje", "SaaS de Gestión"],
       gradient: "from-emerald-400 to-cyan-500",
-      link: "https://apu-garden-lodge.vercel.app/",
-      thumbnail: "/hotel-mini.png",
+      link: "https://apu-garden-lodge.com/",
+      thumbnail: "/apu web mini.png",
     },
     {
       id: 3,

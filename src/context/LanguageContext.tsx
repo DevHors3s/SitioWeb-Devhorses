@@ -18,7 +18,6 @@ export type Translations = {
   hero_title_gradient: string;
   hero_title_2: string;
   hero_title_gradient_2: string;
-  hero_subtitle: string;
   hero_btn_primary: string;
   hero_btn_secondary: string;
   hero_trust_1: string;
@@ -176,7 +175,6 @@ const translations: Record<Language, Translations> = {
     hero_title_gradient: "venden más",
     hero_title_2: "para negocios que quieren ",
     hero_title_gradient_2: "crecer",
-    hero_subtitle: "Diseñamos, desarrollamos y lanzamos. Desde restaurantes y pastelerías hasta bufetes y lodges — construimos la web que tu negocio necesita para competir en serio.",
     hero_btn_primary: "Agendar consultoría gratuita",
     hero_btn_secondary: "Ver nuestros servicios",
     hero_trust_1: "Respuesta inmediata",
@@ -240,7 +238,7 @@ const translations: Record<Language, Translations> = {
     projects_btn_code: "Código",
     projects_live_label: "En producción",
     project_1_desc: "Portal profesional para bufete de abogados con consultas online, áreas de práctica, testimonios y diseño que transmite confianza y autoridad.",
-    project_2_desc: "Sitio web para lodge turístico con galería inmersiva, sistema de reservas, disponibilidad en tiempo real y experiencias locales destacadas.",
+    project_2_desc: "Sitio web de reservas conectado en tiempo real a un sistema de gestión hotelera propio (SaaS): mapa de cuartos, check-in/check-out, frigobar, cargos y reportes, todo automatizado para la operación diaria del hotel.",
     project_3_desc: "Plataforma moderna para gimnasios con reservas de clases, planes de membresía, seguimiento de progreso y diseño motivacional.",
     project_4_desc: "Tienda online para pastelería con catálogo visual, pedidos personalizados, delivery integrado y experiencia de compra premium.",
     project_5_desc: "Sitio web para restaurante de carnes con menú interactivo, reservas online, galería de platos y diseño que abre el apetito.",
@@ -331,7 +329,6 @@ const translations: Record<Language, Translations> = {
     hero_title_gradient: "sell more",
     hero_title_2: "for businesses ready to ",
     hero_title_gradient_2: "grow",
-    hero_subtitle: "We design, build and launch. From restaurants and bakeries to law firms and lodges — we build the web presence your business needs to compete seriously.",
     hero_btn_primary: "Book Free Consultation",
     hero_btn_secondary: "See Our Services",
     hero_trust_1: "Immediate response",
@@ -395,7 +392,7 @@ const translations: Record<Language, Translations> = {
     projects_btn_code: "Code",
     projects_live_label: "Live in production",
     project_1_desc: "Professional law firm portal with online consultations, practice areas, testimonials, and a design that conveys trust and authority.",
-    project_2_desc: "Tourism lodge website with immersive gallery, booking system, real-time availability, and featured local experiences.",
+    project_2_desc: "Booking website connected in real time to a custom hotel management SaaS: room map, check-in/check-out, minibar, charges and reports — the hotel's entire daily operation, automated.",
     project_3_desc: "Modern gym platform with class bookings, membership plans, progress tracking, and motivational design.",
     project_4_desc: "Online bakery store with visual catalog, custom orders, integrated delivery, and a premium shopping experience.",
     project_5_desc: "Steakhouse website with interactive menu, online reservations, dish gallery, and a design that whets the appetite.",

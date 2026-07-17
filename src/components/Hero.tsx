@@ -87,7 +87,7 @@ const Hero = () => {
         {/* TÍTULO CON TYPING EFFECT */}
         <motion.h1
           initial="hidden" animate="visible" variants={fadeUp}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-4 md:mb-6 leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-8 md:mb-12 leading-tight"
         >
           {t("hero_title_1")} 
           <br className="hidden md:block" />
@@ -114,14 +114,6 @@ const Hero = () => {
              {t("hero_title_gradient_2")}
           </span>
         </motion.h1>
-
-        {/* SUBTÍTULO */}
-        <motion.p 
-          initial="hidden" animate="visible" variants={fadeUp}
-          className="text-base md:text-lg lg:text-xl text-slate-400 max-w-2xl mb-8 md:mb-10 leading-relaxed"
-        >
-          {t("hero_subtitle")}
-        </motion.p>
 
         {/* BOTONES CON GLOW PULSE */}
         <motion.div 
