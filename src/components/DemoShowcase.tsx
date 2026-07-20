@@ -3,25 +3,22 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import type { Translations } from "../context/LanguageContext";
-import { Monitor, ExternalLink, MessageCircle } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 
-// 2.1 — DemoData interface
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 interface DemoData {
   id: number;
   nameKey: keyof Translations;
   categoryKey: keyof Translations;
   descriptionKey: keyof Translations;
   demoUrl: string;
-  gradient: string;
   thumbnail?: string;
 }
-
-// We need the Translations type for keyof usage — imported above
 
 export default function DemoShowcase() {
   const { t } = useLanguage();
 
-  // 2.1 — demosData array with 6 demos
   const demosData: DemoData[] = [
     {
       id: 1,
@@ -29,7 +26,6 @@ export default function DemoShowcase() {
       categoryKey: "demo_1_category",
       descriptionKey: "demo_1_desc",
       demoUrl: "https://demo-gimnasio-eight.vercel.app/",
-      gradient: "from-cyan-500 to-blue-500",
       thumbnail: "/gimnasio-mini.png",
     },
     {
@@ -38,7 +34,6 @@ export default function DemoShowcase() {
       categoryKey: "demo_2_category",
       descriptionKey: "demo_2_desc",
       demoUrl: "https://demo-restaurante-pasteleria.vercel.app/",
-      gradient: "from-pink-500 to-rose-500",
       thumbnail: "/pasteleria-mini.png",
     },
     {
@@ -47,7 +42,6 @@ export default function DemoShowcase() {
       categoryKey: "demo_3_category",
       descriptionKey: "demo_3_desc",
       demoUrl: "https://demo-restaurante-carnes.vercel.app/",
-      gradient: "from-orange-400 to-red-500",
       thumbnail: "/restaurante-mini.png",
     },
     {
@@ -56,7 +50,6 @@ export default function DemoShowcase() {
       categoryKey: "demo_6_category",
       descriptionKey: "demo_6_desc",
       demoUrl: "https://demo-retail.vercel.app/",
-      gradient: "from-amber-400 to-orange-500",
       thumbnail: "/retail-mini.png",
     },
     {
@@ -65,81 +58,72 @@ export default function DemoShowcase() {
       categoryKey: "demo_7_category",
       descriptionKey: "demo_7_desc",
       demoUrl: "https://demo-tatto.vercel.app/",
-      gradient: "from-slate-400 to-zinc-600",
       thumbnail: "/tatto-mini.png",
     },
   ];
 
   return (
-    <section className="relative py-10 md:py-14 px-4 md:px-8 bg-[#0A0F1C] overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] -z-10" />
+    <section className="relative py-24 md:py-36 bg-bg overflow-hidden">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24">
 
-      <div className="max-w-7xl mx-auto">
-        {/* 2.2 — Section header: badge + gradient title + subtitle */}
-        <div className="mb-8 md:mb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 mb-4"
-          >
-            <div className="p-2 bg-cyan-950/30 border border-cyan-500/30 rounded-lg">
-              <Monitor className="text-cyan-400" size={20} />
-            </div>
-            <span className="text-cyan-400 font-mono text-sm tracking-wider">
-              {t("demo_badge")}
-            </span>
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6"
-          >
-            <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        {/* Encabezado */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16 md:mb-24 items-end">
+          <div className="md:col-span-7">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="eyebrow block mb-6"
+            >
+              ( 04 — {t("demo_badge")} )
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="font-display text-ink text-4xl sm:text-5xl md:text-6xl leading-[1.02] tracking-tight"
+            >
               {t("demo_title")}
-            </span>
-          </motion.h2>
-
+            </motion.h2>
+          </div>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-400 max-w-2xl text-base md:text-lg"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="md:col-span-4 md:col-start-9 text-muted text-base md:text-lg leading-relaxed"
           >
             {t("demo_subtitle")}
           </motion.p>
         </div>
 
-        {/* 2.3 — Responsive CSS grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        {/* Galería editorial asimétrica */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-16 md:gap-y-24">
           {demosData.map((demo, index) => (
             <DemoCard key={demo.id} demo={demo} index={index} />
           ))}
         </div>
 
-        {/* 3 — CTA block */}
+        {/* CTA final */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-12 md:mt-20 text-center"
+          transition={{ duration: 0.9, ease: EASE }}
+          className="mt-24 md:mt-36 border-t border-line pt-16 md:pt-24 text-center"
         >
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">
+          <h3 className="font-display text-ink text-3xl sm:text-4xl md:text-6xl leading-[1.05] tracking-tight mb-10 max-w-3xl mx-auto">
             {t("demo_cta_title")}
           </h3>
           <a
             href={`https://wa.me/51981916198?text=${encodeURIComponent("Hola DevHorses, vi sus demos y me gustaría saber más sobre sus servicios 🚀")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-green-600 rounded-xl hover:bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all hover:scale-105"
+            className="btn-accent px-10 py-4 text-base"
           >
-            <MessageCircle size={20} />
+            <MessageCircle size={18} />
             {t("demo_cta_btn")}
           </a>
         </motion.div>
@@ -148,90 +132,84 @@ export default function DemoShowcase() {
   );
 }
 
-// 2.4, 2.5, 2.6 — Internal DemoCard function
 function DemoCard({ demo, index }: { demo: DemoData; index: number }) {
   const { t } = useLanguage();
 
   const demoName = t(demo.nameKey);
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = `https://wa.me/51981916198?text=${encodeURIComponent(
     `Hola DevHorses, me interesa un sitio como "${demoName}" para mi negocio 🚀`
-  );
-  const whatsappUrl = `https://wa.me/51981916198?text=${whatsappMessage}`;
+  )}`;
+
+  // Layout asimétrico: alterna anchos y desplazamientos verticales
+  const layouts = [
+    "md:col-span-7",
+    "md:col-span-5 md:mt-24",
+    "md:col-span-5 md:mt-12",
+    "md:col-span-7 md:-mt-12",
+    "md:col-span-7 md:col-start-4",
+  ];
+  const layout = layouts[index % layouts.length];
 
   return (
-    // 2.6 — Framer Motion entrance animation with stagger
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.article
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="group relative"
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 1, ease: EASE }}
+      className={`group ${layout}`}
     >
-      {/* Gradient glow behind card on hover */}
-      <div
-        className={`absolute -inset-0.5 bg-linear-to-r ${demo.gradient} rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 group-hover:duration-200`}
-      />
+      {/* Imagen grande con zoom lento */}
+      <a
+        href={demo.demoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block relative overflow-hidden rounded-sm mb-6 aspect-[16/10]"
+      >
+        <img
+          src={demo.thumbnail}
+          alt={demoName}
+          className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-bg/20 transition-opacity duration-700 group-hover:opacity-0" />
 
-      {/* 2.4 — Card content | 2.5 — Hover effects */}
-      <div className="relative h-full bg-[#0B1121] rounded-2xl border border-slate-800 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] hover:border-slate-700">
-        {/* Thumbnail */}
-        <div className="relative w-full h-32 md:h-40 overflow-hidden">
-          <div className={`absolute inset-0 bg-linear-to-br ${demo.gradient} opacity-10`} />
-          {demo.thumbnail ? (
-            <img
-              src={demo.thumbnail}
-              alt={demoName}
-              className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-              loading="lazy"
-            />
-          ) : (
-            <div className={`w-full h-full bg-linear-to-br ${demo.gradient} opacity-20 group-hover:opacity-30 transition-opacity flex items-center justify-center`}>
-              <Monitor size={32} className="text-white/40" />
-            </div>
-          )}
+        {/* Flecha flotante */}
+        <div className="absolute top-5 right-5 w-12 h-12 rounded-full bg-bg/60 backdrop-blur-md border border-line-strong flex items-center justify-center opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+          <ArrowUpRight size={20} className="text-ink" />
         </div>
+      </a>
 
-        <div className="p-5 md:p-6 flex flex-col grow">
-        {/* Category badge */}
-        <span
-          className={`inline-block self-start px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-full bg-linear-to-r ${demo.gradient} text-white mb-3`}
-        >
-          {t(demo.categoryKey)}
-        </span>
-
-        {/* Demo name */}
-        <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+      {/* Meta */}
+      <div className="flex items-baseline justify-between gap-4 border-b border-line pb-4 mb-3">
+        <h3 className="font-display text-ink text-2xl md:text-3xl transition-colors duration-300 group-hover:text-accent">
           {demoName}
         </h3>
-
-        {/* Description */}
-        <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 grow">
-          {t(demo.descriptionKey)}
-        </p>
-
-        {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row gap-2 mt-auto">
-          <a
-            href={demo.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 hover:border-white/20 transition-colors"
-          >
-            <ExternalLink size={14} />
-            {t("demo_btn_view")}
-          </a>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-green-600/20 border border-green-500/30 rounded-lg hover:bg-green-600/30 hover:border-green-500/50 transition-colors"
-          >
-            <MessageCircle size={14} />
-            {t("demo_btn_want")}
-          </a>
-        </div>
-        </div>
+        <span className="eyebrow shrink-0">{t(demo.categoryKey)}</span>
       </div>
-    </motion.div>
+
+      <p className="text-muted text-sm md:text-base leading-relaxed mb-5">
+        {t(demo.descriptionKey)}
+      </p>
+
+      <div className="flex items-center gap-6">
+        <a
+          href={demo.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs tracking-[0.15em] uppercase text-ink hover:text-accent transition-colors flex items-center gap-1.5"
+        >
+          {t("demo_btn_view")} <ArrowUpRight size={13} />
+        </a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs tracking-[0.15em] uppercase text-muted hover:text-accent transition-colors flex items-center gap-1.5"
+        >
+          <MessageCircle size={13} />
+          {t("demo_btn_want")}
+        </a>
+      </div>
+    </motion.article>
   );
 }

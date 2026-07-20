@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
-import GlowCard from "./GlowCard";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const Testimonials = () => {
   const { t } = useLanguage();
@@ -12,70 +13,68 @@ const Testimonials = () => {
       quoteKey: "testimonial_1_quote" as const,
       authorKey: "testimonial_1_author" as const,
       roleKey: "testimonial_1_role" as const,
-      stars: 5,
     },
     {
       quoteKey: "testimonial_2_quote" as const,
       authorKey: "testimonial_2_author" as const,
       roleKey: "testimonial_2_role" as const,
-      stars: 5,
     },
     {
       quoteKey: "testimonial_3_quote" as const,
       authorKey: "testimonial_3_author" as const,
       roleKey: "testimonial_3_role" as const,
-      stars: 5,
     },
   ];
 
   return (
-    <section className="py-10 md:py-14 px-4 md:px-6 relative z-10">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-8">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white"
-          >
-            {t("testimonials_title")}
-          </motion.h2>
-        </div>
+    <section className="relative py-24 md:py-36 bg-surface overflow-hidden">
+      {/* Comilla decorativa gigante */}
+      <span
+        aria-hidden
+        className="absolute -top-10 left-4 md:left-16 font-display italic text-[16rem] md:text-[24rem] leading-none text-ink/[0.03] pointer-events-none select-none"
+      >
+        &ldquo;
+      </span>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 relative">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="eyebrow block mb-16 md:mb-24"
+        >
+          ( 05 — {t("testimonials_title")} )
+        </motion.span>
+
+        <div className="flex flex-col">
           {testimonials.map((item, index) => (
-            <motion.div
+            <motion.blockquote
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="h-full"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1, ease: EASE }}
+              className={`group border-t border-line py-12 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-6 ${
+                index === testimonials.length - 1 ? "border-b" : ""
+              }`}
             >
-              <GlowCard>
-                <div className="flex gap-1 mb-6 text-yellow-400">
-                  {[...Array(item.stars)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
+              {/* Estrellas en mono */}
+              <span className="md:col-span-2 font-mono text-accent text-sm tracking-[0.35em]">
+                ★★★★★
+              </span>
 
-                <blockquote className="text-slate-300 text-base md:text-lg leading-relaxed mb-6 grow">
-                  &ldquo;{t(item.quoteKey)}&rdquo;
-                </blockquote>
+              {/* Cita en serif grande */}
+              <p className="md:col-span-7 font-display text-ink text-xl sm:text-2xl md:text-3xl leading-snug transition-colors duration-500 group-hover:text-accent-bright">
+                &ldquo;{t(item.quoteKey)}&rdquo;
+              </p>
 
-                <div className="flex items-center gap-4 border-t border-slate-800 pt-6 mt-auto">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-white text-sm">
-                      {t(item.authorKey).charAt(0)}
-                  </div>
-                  <div>
-                      <div className="font-bold text-white">{t(item.authorKey)}</div>
-                      <div className="text-slate-500 text-sm">{t(item.roleKey)}</div>
-                  </div>
-                </div>
-              </GlowCard>
-            </motion.div>
+              {/* Autor */}
+              <footer className="md:col-span-3 md:text-right self-end">
+                <div className="font-medium text-ink">{t(item.authorKey)}</div>
+                <div className="text-faint text-sm mt-1">{t(item.roleKey)}</div>
+              </footer>
+            </motion.blockquote>
           ))}
         </div>
       </div>

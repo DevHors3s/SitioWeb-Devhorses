@@ -1,96 +1,111 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import { useRef } from "react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const Process = () => {
   const { t } = useLanguage();
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start 0.75", "end 0.6"],
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const steps = [
-    {
-      number: "01",
-      titleKey: "process_step1_title" as const,
-      descKey: "process_step1_desc" as const,
-      icon: (
-        <svg className="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-        </svg>
-      ),
-    },
-    {
-      number: "02",
-      titleKey: "process_step2_title" as const,
-      descKey: "process_step2_desc" as const,
-      icon: (
-        <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-        </svg>
-      ),
-    },
-    {
-      number: "03",
-      titleKey: "process_step3_title" as const,
-      descKey: "process_step3_desc" as const,
-      icon: (
-        <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ),
-    },
-    {
-      number: "04",
-      titleKey: "process_step4_title" as const,
-      descKey: "process_step4_desc" as const,
-      icon: (
-        <svg className="w-6 h-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-      ),
-    },
+    { number: "01", titleKey: "process_step1_title" as const, descKey: "process_step1_desc" as const },
+    { number: "02", titleKey: "process_step2_title" as const, descKey: "process_step2_desc" as const },
+    { number: "03", titleKey: "process_step3_title" as const, descKey: "process_step3_desc" as const },
+    { number: "04", titleKey: "process_step4_title" as const, descKey: "process_step4_desc" as const },
   ];
 
   return (
-    <section id="process" className="py-10 md:py-14 px-4 md:px-6 relative z-10 bg-[#0A0F1C]/50">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-8 md:mb-10">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white"
-          >
-            {t("process_title")}
-          </motion.h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-            {t("process_subtitle")}
-          </p>
-        </div>
+    <section id="process" className="relative py-24 md:py-36 bg-surface overflow-hidden">
+      {/* Halo ambiental */}
+      <div className="absolute top-0 right-0 w-[60vw] h-[60vh] glow-accent pointer-events-none opacity-60" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-          {steps.map((step, index) => (
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+
+          {/* Columna izquierda sticky */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="eyebrow block mb-6"
+              >
+                ( 02 — {t("process_title")} )
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, ease: EASE }}
+                className="font-display text-ink text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight mb-8"
+              >
+                {t("process_title")}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="text-muted text-base md:text-lg leading-relaxed max-w-md"
+              >
+                {t("process_subtitle")}
+              </motion.p>
+            </div>
+          </div>
+
+          {/* Columna derecha: pasos con línea de progreso */}
+          <div ref={trackRef} className="lg:col-span-6 lg:col-start-7 relative">
+            {/* Línea de fondo */}
+            <div className="absolute left-[1.35rem] md:left-[1.85rem] top-0 bottom-0 w-px bg-line" />
+            {/* Línea de progreso dorada ligada al scroll */}
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="relative p-6 rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm hover:bg-slate-800/60 transition-colors group"
-            >
-              {/* Icono flotante */}
-              <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                {step.icon}
-              </div>
+              style={{ height: lineHeight }}
+              className="absolute left-[1.35rem] md:left-[1.85rem] top-0 w-px bg-accent origin-top"
+            />
 
-              <div className="text-5xl font-bold text-slate-800/50 absolute top-4 right-4 pointer-events-none">
-                {step.number}
-              </div>
+            <div className="flex flex-col gap-16 md:gap-24">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, x: 60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.9, ease: EASE, delay: index * 0.05 }}
+                  className="relative pl-16 md:pl-24 group"
+                >
+                  {/* Nodo */}
+                  <div className="absolute left-[0.85rem] md:left-[1.35rem] top-3 w-4 h-4 rounded-full border border-accent bg-surface transition-all duration-500 group-hover:bg-accent group-hover:scale-125" />
 
-              <h3 className="text-xl font-bold text-white mb-3">{t(step.titleKey)}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {t(step.descKey)}
-              </p>
-            </motion.div>
-          ))}
+                  {/* Número gigante fantasma */}
+                  <span className="absolute right-0 -top-8 md:-top-12 font-display italic text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] pointer-events-none select-none">
+                    {step.number}
+                  </span>
+
+                  <span className="font-mono text-accent text-xs tracking-[0.25em] block mb-3">
+                    {step.number}
+                  </span>
+                  <h3 className="font-display text-ink text-2xl md:text-4xl mb-4 transition-all duration-500 group-hover:italic group-hover:text-accent">
+                    {t(step.titleKey)}
+                  </h3>
+                  <p className="text-muted text-base leading-relaxed max-w-md">
+                    {t(step.descKey)}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

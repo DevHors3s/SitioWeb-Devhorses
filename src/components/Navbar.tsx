@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
-import { Globe, Menu, X, Zap } from "lucide-react";
+import { Globe, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,30 +28,34 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-6 px-4 pointer-events-none">
-        
-        {/* BARRA PRINCIPAL (PÍLDORA) */}
-        <div className="pointer-events-auto flex items-center justify-between w-full max-w-4xl bg-[#0A0F1C]/80 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-2xl relative z-50">
-          
+      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-5 px-4 pointer-events-none">
+
+        {/* BARRA PRINCIPAL */}
+        <div className="pointer-events-auto flex items-center justify-between w-full max-w-5xl bg-bg/70 backdrop-blur-xl border border-line px-6 py-3 rounded-full shadow-2xl shadow-black/40 relative z-50">
+
           {/* LOGO */}
           <Link href="/" className="flex items-center shrink-0" onClick={() => setIsOpen(false)}>
-            <img src="/logo-full.png" alt="DevHorses" className="h-6 sm:h-8" />
+            <img src="/logo-full.png" alt="DevHorses" className="h-6 sm:h-7" />
           </Link>
 
-          {/* LINKS DESKTOP (Ocultos en móvil) */}
+          {/* LINKS DESKTOP */}
           <ul className="hidden md:flex items-center gap-1">
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <li key={link.href}>
-                  <Link href={link.href} className="relative px-4 py-2 text-sm font-medium group block">
-                    <span className={`relative z-10 transition-colors duration-300 ${isActive ? "text-white" : "text-gray-400 group-hover:text-white"}`}>
+                  <Link href={link.href} className="relative px-4 py-2 text-sm group block">
+                    <span
+                      className={`relative z-10 transition-colors duration-300 font-mono text-xs tracking-[0.12em] uppercase ${
+                        isActive ? "text-accent" : "text-muted group-hover:text-ink"
+                      }`}
+                    >
                       {link.name}
                     </span>
                     {isActive && (
-                      <motion.span 
+                      <motion.span
                         layoutId="activeTab"
-                        className="absolute inset-0 bg-white/10 rounded-full border border-white/10"
+                        className="absolute inset-0 bg-accent/10 rounded-full border border-accent/25"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -62,73 +66,70 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
-            {/* BOTÓN CTA — NUEVO */}
+            {/* CTA */}
             <button
               onClick={openWhatsApp}
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-bold transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] cursor-pointer"
+              className="hidden md:flex btn-accent px-5 py-2 text-sm"
             >
-              <Zap size={14} />
               {t("nav_cta")}
             </button>
 
-            {/* BOTÓN IDIOMA */}
-            <button 
+            {/* IDIOMA */}
+            <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-line font-mono text-xs text-muted hover:text-ink hover:border-line-strong transition-all cursor-pointer"
             >
-              <Globe size={14} className={language === 'en' ? "text-purple-400" : "text-cyan-400"} />
-              {language === 'es' ? 'ES' : 'EN'}
+              <Globe size={13} className="text-accent" />
+              {language === "es" ? "ES" : "EN"}
             </button>
 
-            {/* BOTÓN HAMBURGUESA (Solo Móvil) */}
-            <button 
-              className="md:hidden text-white p-1"
+            {/* HAMBURGUESA */}
+            <button
+              className="md:hidden text-ink p-1"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Menú"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
-        {/* MENÚ MÓVIL DESPLEGABLE */}
+        {/* MENÚ MÓVIL */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              initial={{ opacity: 0, y: -20, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="pointer-events-auto absolute top-20 w-[90%] max-w-md bg-[#0d121f] border border-white/10 rounded-2xl shadow-2xl p-4 flex flex-col gap-2 md:hidden overflow-hidden"
+              exit={{ opacity: 0, y: -20, scale: 0.97 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-auto absolute top-20 w-[90%] max-w-md bg-surface border border-line rounded-2xl shadow-2xl shadow-black/50 p-4 flex flex-col gap-1 md:hidden overflow-hidden"
             >
               {links.map((link) => {
-                 const isActive = pathname === link.href;
-                 return (
-                  <Link 
+                const isActive = pathname === link.href;
+                return (
+                  <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`px-4 py-3 rounded-xl text-center font-medium transition-all ${
-                      isActive 
-                      ? "bg-white/10 text-white border border-white/5" 
-                      : "text-gray-400 hover:bg-white/5 hover:text-white"
+                    className={`px-4 py-3.5 rounded-xl text-center font-display text-lg transition-all ${
+                      isActive
+                        ? "text-accent italic"
+                        : "text-muted hover:text-ink"
                     }`}
                   >
                     {link.name}
                   </Link>
-                 )
+                );
               })}
-              {/* CTA en menú móvil */}
               <button
                 onClick={openWhatsApp}
-                className="mt-2 px-4 py-3 rounded-xl bg-cyan-500 text-black font-bold text-center hover:bg-cyan-400 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="btn-accent mt-3 px-4 py-3.5 text-base"
               >
-                <Zap size={16} />
                 {t("nav_cta")}
               </button>
             </motion.div>
           )}
         </AnimatePresence>
-
       </nav>
     </>
   );

@@ -10,7 +10,7 @@ import Contact from "../components/Contact";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0A0F1C]">
+    <main className="min-h-screen bg-bg">
       <Hero />
       <TechTicker />
       <Services />

@@ -1,17 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 
-// Definimos la lista de tecnologías con su nombre y la ruta a su imagen
-// IMPORTANTE: Asegúrate de tener estos archivos en la carpeta /public/logos/
 const technologies = [
   { name: "React", src: "/logos/react.svg" },
-  { name: "Next.js", src: "/logos/nextdotjs.svg" },      // Corregido
-  { name: "Tailwind CSS", src: "/logos/tailwindcss.svg" }, // Corregido
+  { name: "Next.js", src: "/logos/nextdotjs.svg" },
+  { name: "Tailwind CSS", src: "/logos/tailwindcss.svg" },
   { name: "TypeScript", src: "/logos/typescript.svg" },
-  { name: "Node.js", src: "/logos/nodedotjs.svg" },      // Corregido
+  { name: "Node.js", src: "/logos/nodedotjs.svg" },
   { name: "Figma", src: "/logos/figma.svg" },
   { name: "Docker", src: "/logos/docker.svg" },
   { name: "Python", src: "/logos/python.svg" },
@@ -19,50 +16,38 @@ const technologies = [
 
 const TechTicker = () => {
   const { t } = useLanguage();
+
   return (
-    <section className="py-8 bg-[#0A0F1C] border-y border-slate-800/50 overflow-hidden relative z-20">
+    <section className="relative py-14 bg-bg border-y border-line overflow-hidden marquee-paused">
+      <p className="eyebrow text-center mb-10">{t("tech_ticker_title")}</p>
 
-      <p className="text-center text-slate-500 text-sm mb-8 tracking-wider uppercase font-medium">
-        {t("tech_ticker_title")}
-      </p>
-
-      <div className="flex">
-        {/* Contenedor animado */}
-        <motion.div
-          initial={{ x: 0 }}
-          animate={{ x: "-50%" }}
-          transition={{
-            duration: 30, // Un poco más lento para apreciar los logos
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="flex gap-20 pr-20 items-center"
-        >
-          {/* Duplicamos la lista para el efecto infinito */}
+      <div className="flex overflow-hidden">
+        <div className="flex gap-16 md:gap-24 pr-16 md:pr-24 items-center animate-marquee shrink-0">
           {[...technologies, ...technologies].map((tech, index) => (
-            <div 
-              key={index} 
-              className="group relative flex items-center justify-center"
-              title={tech.name} // Muestra el nombre al dejar el mouse quieto
+            <div
+              key={index}
+              className="group relative flex items-center gap-4 shrink-0"
+              title={tech.name}
             >
-              {/* Contenedor de la imagen con tamaño fijo */}
-              <div className="relative h-12 w-32 md:h-16 md:w-40 transition-all duration-300 filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110">
-                {/* Componente Image de Next.js */}
+              <div className="relative h-9 w-9 md:h-11 md:w-11 transition-all duration-500 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110">
                 <Image
                   src={tech.src}
                   alt={`${tech.name} logo`}
-                  fill // Hace que la imagen llene el contenedor padre
-                  className="object-contain" // Mantiene la proporción sin estirarse
+                  fill
+                  className="object-contain"
                 />
               </div>
+              <span className="font-display text-muted text-xl md:text-2xl italic transition-colors duration-500 group-hover:text-ink">
+                {tech.name}
+              </span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
-      
-      {/* Sombras laterales (Vignette) más pronunciadas */}
-      <div className="absolute top-0 left-0 w-40 h-full bg-linear-to-r from-[#0A0F1C] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-40 h-full bg-linear-to-l from-[#0A0F1C] to-transparent z-10 pointer-events-none"></div>
+
+      {/* Viñetas laterales */}
+      <div className="absolute top-0 left-0 w-32 md:w-48 h-full bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 md:w-48 h-full bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
     </section>
   );
 };

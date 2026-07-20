@@ -1,14 +1,31 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 // IMPORTAR COMPONENTES GLOBALES
-import Navbar from "@/components/Navbar"; 
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SmoothScroll from "@/components/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT", "WONK"],
+  style: ["normal", "italic"],
+});
+
+const instrument = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+});
+
+const jbMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jbmono",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
   title: "DevHorses — Desarrollo Web, Apps & Branding | Lima, Perú",
@@ -72,19 +89,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body className={inter.className}>
+    <html lang="es" className={`${fraunces.variable} ${instrument.variable} ${jbMono.variable}`}>
+      <body>
         <LanguageProvider>
-          
-          <Navbar /> 
-          
-          {children}
+          <SmoothScroll>
 
-          <Footer />
-          
-          {/* Botón flotante de WhatsApp */}
-          <WhatsAppButton />
+            <Navbar />
 
+            {children}
+
+            <Footer />
+
+            {/* Botón flotante de WhatsApp */}
+            <WhatsAppButton />
+
+          </SmoothScroll>
         </LanguageProvider>
       </body>
     </html>
