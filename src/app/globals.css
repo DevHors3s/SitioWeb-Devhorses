@@ -6,10 +6,10 @@
    ============================================ */
 
 @theme inline {
-  /* Tipografía */
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-mono: var(--font-jbmono), ui-monospace, monospace;
+  /* Tipografía — Montserrat en todo el sitio */
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 
   /* Paleta */
   --color-bg: #0a0f1c;
@@ -45,7 +45,7 @@ html.lenis body {
 
 body {
   background-color: #0a0f1c;
-  font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -74,7 +74,7 @@ body {
 /* --- UTILIDADES DE MARCA --- */
 
 .font-display {
-  font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
 .text-gradient-accent {
@@ -86,19 +86,20 @@ body {
 
 /* Título gigante editorial */
 .headline-hero {
-  font-family: var(--font-fraunces), serif;
-  font-weight: 480;
-  letter-spacing: -0.02em;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 0.98;
 }
 
-/* Etiqueta técnica en mono */
+/* Etiqueta técnica */
 .eyebrow {
-  font-family: var(--font-jbmono), monospace;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
   font-size: 0.7rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #a2988b;
+  color: #94a3b8;
 }
 
 /* --- MARQUEE --- */

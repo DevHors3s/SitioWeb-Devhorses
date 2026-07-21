@@ -149,9 +149,12 @@ function ProjectPanel({
           />
         </motion.div>
 
-        {/* Veladura cinematográfica */}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-bg/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg/80 via-transparent to-transparent" />
+        {/* Veladura cinematográfica — oscurece de forma pareja para que el
+            contenido propio de cada captura (badges, texto de la demo) no
+            compita con el título y la descripción que superponemos */}
+        <div className="absolute inset-0 bg-bg/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/65 to-bg/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg/90 via-bg/20 to-transparent" />
 
         {/* Contenido */}
         <div className="relative z-10 h-full max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 flex flex-col justify-end pb-16 md:pb-24">
@@ -225,7 +228,7 @@ function ProjectPanel({
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center w-32 h-32 lg:w-40 lg:h-40 rounded-full border border-line-strong backdrop-blur-md bg-bg/30 transition-all duration-500 hover:bg-accent hover:border-accent"
+                className="group flex flex-col items-center justify-center w-32 h-32 lg:w-40 lg:h-40 rounded-full border border-line-strong backdrop-blur-md bg-bg/60 transition-all duration-500 hover:bg-accent hover:border-accent"
               >
                 <ArrowUpRight
                   size={32}

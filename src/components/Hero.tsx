@@ -33,7 +33,7 @@ const floatingProjects = [
   {
     src: "/abogados-mini.png",
     label: "MV Abogados",
-    className: "top-[16%] right-[4%] w-56 lg:w-72",
+    className: "top-[14%] right-[6%] w-44 lg:w-56",
     depth: 1,
     rotate: 4,
     floatDur: 6,
@@ -42,7 +42,7 @@ const floatingProjects = [
   {
     src: "/apu web mini.png",
     label: "Apu Garden Lodge",
-    className: "bottom-[24%] right-[12%] w-48 lg:w-64",
+    className: "bottom-[22%] right-[15%] w-40 lg:w-52",
     depth: 1.8,
     rotate: -5,
     floatDur: 7.5,
@@ -51,7 +51,7 @@ const floatingProjects = [
   {
     src: "/selekta-mini.png",
     label: "Selekta Food",
-    className: "top-[22%] left-[3%] w-44 lg:w-60",
+    className: "top-[20%] left-[6%] w-36 lg:w-48",
     depth: 1.4,
     rotate: -3,
     floatDur: 8,
@@ -60,7 +60,7 @@ const floatingProjects = [
   {
     src: "/gimnasio-mini.png",
     label: "Demo — Gimnasio",
-    className: "bottom-[14%] left-[10%] w-40 lg:w-52",
+    className: "bottom-[13%] left-[13%] w-32 lg:w-44",
     depth: 2.2,
     rotate: 6,
     floatDur: 6.8,
@@ -159,7 +159,7 @@ const Hero = () => {
         </motion.div>
 
         {/* TITULAR GIGANTE */}
-        <h1 className="headline-hero text-ink text-[13vw] sm:text-[10vw] md:text-[8.5vw] lg:text-[7.5vw]">
+        <h1 className="headline-hero text-ink text-[11vw] sm:text-[8vw] md:text-[6.5vw] lg:text-[5.5vw]">
           <span className="mask-line">
             <motion.span
               custom={0}
@@ -240,7 +240,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 1.2 }}
-            className="flex items-center gap-8 md:gap-10"
+            className="flex flex-wrap items-start gap-x-6 gap-y-4 md:gap-x-10"
           >
             <TrustStat value="⚡" label={t("hero_trust_1")} />
             <TrustStat value="100%" label={t("hero_trust_2")} />
@@ -329,9 +329,9 @@ function FloatingCard({
 
 function TrustStat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 max-w-[7.5rem] md:max-w-[9rem]">
       <span className="font-display text-accent text-xl md:text-2xl">{value}</span>
-      <span className="text-muted text-xs md:text-sm max-w-[9rem]">{label}</span>
+      <span className="text-muted text-xs md:text-sm leading-snug">{label}</span>
     </div>
   );
 }

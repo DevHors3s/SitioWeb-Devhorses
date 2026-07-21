@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 // IMPORTAR COMPONENTES GLOBALES
@@ -9,22 +9,11 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const fraunces = Fraunces({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT", "WONK"],
+  variable: "--font-montserrat",
+  weight: ["400", "700"],
   style: ["normal", "italic"],
-});
-
-const instrument = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-instrument",
-});
-
-const jbMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jbmono",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -89,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${fraunces.variable} ${instrument.variable} ${jbMono.variable}`}>
+    <html lang="es" className={montserrat.variable}>
       <body>
         <LanguageProvider>
           <SmoothScroll>
