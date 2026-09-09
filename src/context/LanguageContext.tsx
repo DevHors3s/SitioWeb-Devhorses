@@ -88,6 +88,8 @@ export type Translations = {
   project_6_desc: string;
   project_7_desc: string;
   project_8_desc: string;
+  project_dentaltello_desc: string;
+  project_businessbeans_desc: string;
   testimonial_3_quote: string;
   testimonial_3_author: string;
   testimonial_3_role: string;
@@ -276,6 +278,8 @@ const translations: Record<Language, Translations> = {
     project_6_desc: "E-commerce completo con carrito de compras, pasarela de pagos, gestión de inventario automatizada y experiencia de compra fluida.",
     project_7_desc: "Sitio web para estudio de tatuajes con galería de trabajos, reservas online, perfiles de artistas y diseño dark premium.",
     project_8_desc: "Portal corporativo para empresa de agroexportación con tecnología de clasificación inteligente por IA. Diseñado para transmitir innovación, precisión y generar confianza en mercados internacionales.",
+    project_dentaltello_desc: "Sitio web para clínica odontológica con 26 años de trayectoria en Lima. Reserva de citas online, catálogo de servicios y casos de éxito, con un diseño que transmite confianza antes de la primera visita.",
+    project_businessbeans_desc: "Sitio web para agroexportadora peruana de legumbres, con catálogo de productos, certificaciones (FDA, SENASA, HACCP) y presencia internacional, pensado para abrir puertas con compradores en el extranjero.",
     testimonial_3_quote: "Necesitábamos una web que transmitiera la seriedad y la tecnología que hay detrás de Selekta. DevHorses entendió nuestro negocio desde el primer día y entregó una plataforma que abre puertas en el sector agroexportador.",
     testimonial_3_author: "Equipo Selekta",
     testimonial_3_role: "Selekta Food — Agroexportación & IA",
@@ -461,6 +465,8 @@ const translations: Record<Language, Translations> = {
     project_6_desc: "Complete e-commerce with shopping cart, payment gateway, automated inventory management, and a seamless shopping experience.",
     project_7_desc: "Tattoo studio website with work gallery, online bookings, artist profiles, and premium dark design.",
     project_8_desc: "Corporate portal for an agro-export company powered by AI-driven smart classification technology. Designed to convey innovation, precision, and build trust in international markets.",
+    project_dentaltello_desc: "Website for a dental clinic with 26 years of experience in Lima. Online appointment booking, service catalog and success stories, with a design that builds trust before the first visit.",
+    project_businessbeans_desc: "Website for a Peruvian legume agro-export company, featuring a product catalog, certifications (FDA, SENASA, HACCP) and international presence, built to open doors with buyers abroad.",
     testimonial_3_quote: "We needed a website that conveyed the seriousness and technology behind Selekta. DevHorses understood our business from day one and delivered a platform that opens doors in the agro-export sector.",
     testimonial_3_author: "Selekta Team",
     testimonial_3_role: "Selekta Food — Agro-Export & AI",

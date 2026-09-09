@@ -31,8 +31,8 @@ const lineReveal = {
 // Proyectos flotantes: imagen, etiqueta, posición, profundidad y rotación
 const floatingProjects = [
   {
-    src: "/abogados-mini.png",
-    label: "MV Abogados",
+    src: "/dental tello pagina.png",
+    label: "Dental Tello",
     className: "top-[14%] right-[6%] w-44 lg:w-56",
     depth: 1,
     rotate: 4,
@@ -58,8 +58,8 @@ const floatingProjects = [
     delay: 1.4,
   },
   {
-    src: "/gimnasio-mini.png",
-    label: "Demo — Gimnasio",
+    src: "/business beans web.png",
+    label: "Business Beans",
     className: "bottom-[13%] left-[13%] w-32 lg:w-44",
     depth: 2.2,
     rotate: 6,

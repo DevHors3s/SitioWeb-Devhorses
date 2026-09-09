@@ -30,6 +30,22 @@ export default function ProjectsSection() {
       thumbnail: "/apu web mini.png",
     },
     {
+      id: 4,
+      title: "Dental Tello",
+      description: t("project_dentaltello_desc"),
+      tags: ["Salud", "Odontología"],
+      link: "https://www.dentaltello.com/es",
+      thumbnail: "/dental tello pagina.png",
+    },
+    {
+      id: 5,
+      title: "Business Beans",
+      description: t("project_businessbeans_desc"),
+      tags: ["Agroexportación", "Legumbres"],
+      link: "https://www.businessbeans.com.pe/",
+      thumbnail: "/business beans web.png",
+    },
+    {
       id: 1,
       title: "MV Abogados",
       description: t("project_1_desc"),
