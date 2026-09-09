@@ -12,6 +12,7 @@ import {
 import { useLanguage } from "../context/LanguageContext";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 // Palabras rotativas
 const typingWordsES = ["venden más", "atraen clientes", "trabajan por ti"];
@@ -309,12 +310,16 @@ function FloatingCard({
           }}
           className="rounded-xl overflow-hidden border border-line-strong bg-surface shadow-2xl shadow-black/50 opacity-80"
         >
-          <img
-            src={project.src}
-            alt=""
-            className="w-full aspect-[16/11] object-cover object-top"
-            loading="eager"
-          />
+          <div className="relative w-full aspect-[16/11]">
+            <Image
+              src={project.src}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 30vw, 220px"
+              className="object-cover object-top"
+              priority
+            />
+          </div>
           <div className="flex items-center justify-between px-3.5 py-2.5 border-t border-line bg-bg/80 backdrop-blur-sm">
             <span className="font-mono text-[0.6rem] tracking-[0.18em] uppercase text-muted">
               {project.label}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
 import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
@@ -25,7 +26,7 @@ export default function Footer() {
           {/* MARCA */}
           <div className="md:col-span-6">
             <Link href="/" className="inline-flex items-center gap-3 mb-6">
-              <img src="/logo-icon.png" alt="DevHorses" className="h-10" />
+              <Image src="/logo-icon.png" alt="DevHorses" width={429} height={429} className="h-10 w-auto" />
               <span className="font-display text-2xl text-ink">
                 Dev<em className="text-accent italic">Horses</em>
               </span>
@@ -55,8 +56,7 @@ export default function Footer() {
           <div className="md:col-span-2 md:col-start-11">
             <h3 className="eyebrow mb-8">{t("footer_legal")}</h3>
             <ul className="space-y-4">
-              <FooterLink href="#" text="Privacidad" />
-              <FooterLink href="#" text="Términos" />
+              <FooterLink href="/politica-de-privacidad" text="Privacidad" />
               <li className="text-faint text-sm pt-4">Lima, Perú 🇵🇪</li>
             </ul>
           </div>

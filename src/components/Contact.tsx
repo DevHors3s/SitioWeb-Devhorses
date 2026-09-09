@@ -116,8 +116,9 @@ const Contact = () => {
               />
 
               <div>
-                <label className="eyebrow block mb-2">{t("contact_label_name")}</label>
+                <label htmlFor="contact-name" className="eyebrow block mb-2">{t("contact_label_name")}</label>
                 <input
+                  id="contact-name"
                   type="text"
                   name="user_name"
                   required
@@ -127,8 +128,9 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="eyebrow block mb-2">{t("contact_label_email")}</label>
+                <label htmlFor="contact-email" className="eyebrow block mb-2">{t("contact_label_email")}</label>
                 <input
+                  id="contact-email"
                   type="email"
                   name="user_email"
                   required
@@ -138,8 +140,9 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="eyebrow block mb-2">{t("contact_label_message")}</label>
+                <label htmlFor="contact-message" className="eyebrow block mb-2">{t("contact_label_message")}</label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   required
                   rows={4}

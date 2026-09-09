@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
@@ -35,7 +36,7 @@ export default function Navbar() {
 
           {/* LOGO */}
           <Link href="/" className="flex items-center shrink-0" onClick={() => setIsOpen(false)}>
-            <img src="/logo-full.png" alt="DevHorses" className="h-6 sm:h-7" />
+            <Image src="/logo-full.png" alt="DevHorses" width={1394} height={323} className="h-6 sm:h-7 w-auto" priority />
           </Link>
 
           {/* LINKS DESKTOP */}

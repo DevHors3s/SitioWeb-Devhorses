@@ -19,6 +19,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -291,16 +292,22 @@ function DeviceMockup() {
           {/* Screenshot con crossfade */}
           <div className="relative aspect-[16/9] bg-[#0d0a06]">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={tabs[active].img}
-                src={tabs[active].img}
-                alt={t(tabs[active].labelKey)}
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.99 }}
                 transition={{ duration: 0.5, ease: EASE }}
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
+                className="absolute inset-0"
+              >
+                <Image
+                  src={tabs[active].img}
+                  alt={t(tabs[active].labelKey)}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-top"
+                />
+              </motion.div>
             </AnimatePresence>
           </div>
         </motion.div>
@@ -322,13 +329,14 @@ function DeviceMockup() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-            className="rounded-xl overflow-hidden border-2 border-[#3a2a17] shadow-2xl shadow-black/60 bg-[#14100b]"
+            className="relative aspect-[3/4] w-full rounded-xl overflow-hidden border-2 border-[#3a2a17] shadow-2xl shadow-black/60 bg-[#14100b]"
           >
-            <img
+            <Image
               src="/saas apu gestion/ApuGestion5.jpg"
               alt={t("saas_phone_caption")}
-              className="w-full aspect-[3/4] object-cover object-[50%_18%]"
-              loading="lazy"
+              fill
+              sizes="180px"
+              className="object-cover object-[50%_18%]"
             />
           </motion.div>
           <p className="mt-2 text-center font-mono text-[0.6rem] text-[#a89a83] tracking-wide leading-tight">

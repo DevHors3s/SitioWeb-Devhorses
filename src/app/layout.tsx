@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
+import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const montserrat = Montserrat({
@@ -80,6 +81,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={montserrat.variable}>
       <body>
+        <JsonLd />
         <LanguageProvider>
           <SmoothScroll>
 

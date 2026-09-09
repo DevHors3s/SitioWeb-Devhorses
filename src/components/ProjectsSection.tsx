@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
@@ -157,11 +158,12 @@ function ProjectPanel({
       >
         {/* Imagen de fondo a pantalla completa con parallax */}
         <motion.div style={{ y: imageY }} className="absolute inset-[-10%]">
-          <img
+          <Image
             src={project.thumbnail}
             alt={project.title}
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
+            fill
+            sizes="100vw"
+            className="object-cover object-top"
           />
         </motion.div>
 

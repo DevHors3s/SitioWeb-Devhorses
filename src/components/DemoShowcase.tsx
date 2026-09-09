@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import type { Translations } from "../context/LanguageContext";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -13,7 +14,7 @@ interface DemoData {
   categoryKey: keyof Translations;
   descriptionKey: keyof Translations;
   demoUrl: string;
-  thumbnail?: string;
+  thumbnail: string;
 }
 
 export default function DemoShowcase() {
@@ -165,11 +166,12 @@ function DemoCard({ demo, index }: { demo: DemoData; index: number }) {
         rel="noopener noreferrer"
         className="block relative overflow-hidden rounded-sm mb-6 aspect-[16/10]"
       >
-        <img
+        <Image
           src={demo.thumbnail}
           alt={demoName}
-          className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
-          loading="lazy"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover object-top transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
         <div className="absolute inset-0 bg-bg/20 transition-opacity duration-700 group-hover:opacity-0" />
 
