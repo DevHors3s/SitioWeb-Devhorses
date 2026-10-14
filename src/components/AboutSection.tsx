@@ -82,8 +82,8 @@ export default function AboutSection() {
             </p>
 
             <div className="flex flex-wrap gap-x-10 gap-y-6">
-              <Stat number="2" label={t("about_stats_clients")} />
-              <Stat number="5" label={t("about_stats_industries")} />
+              <Stat number="5" label={t("about_stats_clients")} />
+              <Stat number="4" label={t("about_stats_industries")} />
               <Stat number="100%" label={t("about_stats_commitment")} />
             </div>
           </motion.div>
@@ -109,6 +109,7 @@ export default function AboutSection() {
                  <div className="pl-4 text-muted">trato: <span className="text-ink">&quot;directo&quot;</span>,</div>
                  <div className="pl-4 text-muted">entregas: <span className="text-ink">&quot;semanales&quot;</span>,</div>
                  <div className="pl-4 text-muted">respuesta: <span className="text-ink">&quot;inmediata&quot;</span>,</div>
+                 <div className="pl-4 text-muted">soporte: <span className="text-ink">&quot;24/7&quot;</span>,</div>
                  <div className="pl-4 text-muted">intermediarios: <span className="text-accent">null</span></div>
                  <div className="text-ink">{"}"};</div>
                </div>

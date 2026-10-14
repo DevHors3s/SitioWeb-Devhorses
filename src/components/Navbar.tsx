@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const { language, toggleLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setIsOpen(false); };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, []);
 
   const links = [
     { name: t("nav_home"), href: "/" },
@@ -42,10 +47,10 @@ export default function Navbar() {
           {/* LINKS DESKTOP */}
           <ul className="hidden md:flex items-center gap-1">
             {links.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
               return (
                 <li key={link.href}>
-                  <Link href={link.href} className="relative px-4 py-2 text-sm group block">
+                  <Link href={link.href} aria-current={isActive ? "page" : undefined} className="relative px-4 py-2 text-sm group block">
                     <span
                       className={`relative z-10 transition-colors duration-300 font-mono text-xs tracking-[0.12em] uppercase ${
                         isActive ? "text-accent" : "text-muted group-hover:text-ink"
@@ -78,6 +83,7 @@ export default function Navbar() {
             {/* IDIOMA */}
             <button
               onClick={toggleLanguage}
+              aria-label={language === "es" ? "Cambiar a inglés" : "Switch to Spanish"}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-line font-mono text-xs text-muted hover:text-ink hover:border-line-strong transition-all cursor-pointer"
             >
               <Globe size={13} className="text-accent" />
@@ -88,7 +94,9 @@ export default function Navbar() {
             <button
               className="md:hidden text-ink p-1"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Menú"
+              aria-label={language === "es" ? "Menú" : "Menu"}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? "mobile-navigation" : undefined}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -99,6 +107,7 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id="mobile-navigation"
               initial={{ opacity: 0, y: -20, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.97 }}

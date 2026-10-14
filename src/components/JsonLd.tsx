@@ -1,3 +1,5 @@
+import { site } from "@/lib/site";
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -7,7 +9,7 @@ const schema = {
   image: "https://www.devhorses.com/og-image.png",
   description:
     "Agencia de desarrollo web y aplicaciones en Lima, Perú. Diseñamos y desarrollamos webs, sistemas de gestión y apps que generan clientes reales.",
-  email: "hola@devhorses.com",
+  email: site.email,
   telephone: "+51981916198",
   address: {
     "@type": "PostalAddress",
@@ -18,6 +20,7 @@ const schema = {
   sameAs: [
     "https://github.com/Mathifa59",
     "https://www.linkedin.com/company/devhorses",
+    site.instagram,
   ],
 };
 

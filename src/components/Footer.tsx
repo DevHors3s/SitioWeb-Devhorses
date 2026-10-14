@@ -3,14 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Mail, Instagram, ArrowUpRight } from "lucide-react";
+import { site } from "@/lib/site";
 
 export default function Footer() {
   const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-surface border-t border-line pt-16 md:pt-24 pb-8 overflow-hidden">
+    <footer id="footer" className="relative bg-surface border-t border-line pt-16 md:pt-24 pb-8 overflow-hidden">
       {/* Marca gigante de fondo */}
       <span
         aria-hidden
@@ -35,9 +36,10 @@ export default function Footer() {
               {t("footer_desc")}
             </p>
             <div className="flex gap-3">
-              <SocialIcon href="https://github.com/Mathifa59" icon={<Github size={18} />} />
-              <SocialIcon href="https://www.linkedin.com/company/devhorses" icon={<Linkedin size={18} />} />
-              <SocialIcon href="mailto:hola@devhorses.com" icon={<Mail size={18} />} />
+              <SocialIcon href={site.github} label="GitHub" icon={<Github size={18} />} />
+              <SocialIcon href={site.linkedin} label="LinkedIn" icon={<Linkedin size={18} />} />
+              <SocialIcon href={site.instagram} label="Instagram @devhorses" icon={<Instagram size={18} />} />
+              <SocialIcon href={`mailto:${site.email}`} label={site.email} icon={<Mail size={18} />} />
             </div>
           </div>
 
@@ -49,6 +51,7 @@ export default function Footer() {
               <FooterLink href="/servicios" text={t("nav_services")} />
               <FooterLink href="/proyectos" text={t("nav_projects")} />
               <FooterLink href="/nosotros" text={t("nav_about")} />
+              <FooterLink href="/#instagram" text="Instagram" />
             </ul>
           </div>
 
@@ -91,10 +94,11 @@ function FooterLink({ href, text }: { href: string; text: string }) {
   );
 }
 
-function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
+function SocialIcon({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
   return (
     <a
       href={href}
+      aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
       className="w-10 h-10 rounded-full border border-line flex items-center justify-center text-muted hover:text-bg hover:bg-accent hover:border-accent transition-all duration-300"

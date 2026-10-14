@@ -5,7 +5,7 @@ import "./globals.css";
 // IMPORTAR COMPONENTES GLOBALES
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import ContactDock from "@/components/ContactDock";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -18,8 +18,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "DevHorses — Desarrollo Web, Apps & Branding | Lima, Perú",
-  description: "Agencia de desarrollo web y aplicaciones en Lima. Diseñamos y lanzamos webs, tiendas online y apps que generan clientes reales. Consultoría gratuita. Respuesta inmediata.",
+  title: "DevHorses — Webs, Sistemas y Automatizaciones | Lima, Perú",
+  description: "Webs, sistemas de gestión y automatizaciones para conectar tus clientes con la operación de tu negocio. Lima, Perú. Respuesta inmediata y soporte 24/7.",
   keywords: [
     "desarrollo web Lima",
     "agencia digital Perú",
@@ -27,6 +27,8 @@ export const metadata: Metadata = {
     "aplicaciones móviles Perú",
     "tienda online Lima",
     "e-commerce Perú",
+    "sistemas de gestión Lima",
+    "automatización de procesos Perú",
     "branding Lima",
     "DevHorses",
     "páginas web para negocios",
@@ -43,8 +45,8 @@ export const metadata: Metadata = {
     locale: "es_PE",
     url: "https://www.devhorses.com",
     siteName: "DevHorses",
-    title: "DevHorses — Desarrollo Web, Apps & Branding | Lima, Perú",
-    description: "Agencia de desarrollo web y aplicaciones en Lima. Webs, tiendas online y apps que generan clientes reales. Consultoría gratuita.",
+    title: "DevHorses — Webs, Sistemas y Automatizaciones | Lima, Perú",
+    description: "Webs, sistemas de gestión y automatizaciones a medida. Respuesta inmediata y soporte 24/7.",
     images: [
       {
         url: "/og-image.png",
@@ -56,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevHorses — Desarrollo Web, Apps & Branding | Lima, Perú",
-    description: "Agencia de desarrollo web y aplicaciones en Lima. Webs y apps que generan clientes reales.",
+    title: "DevHorses — Webs, Sistemas y Automatizaciones | Lima, Perú",
+    description: "Webs, sistemas de gestión y automatizaciones a medida en Lima, Perú.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -91,8 +93,7 @@ export default function RootLayout({
 
             <Footer />
 
-            {/* Botón flotante de WhatsApp */}
-            <WhatsAppButton />
+            <ContactDock />
 
           </SmoothScroll>
         </LanguageProvider>

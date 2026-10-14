@@ -1,281 +1,147 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useLanguage } from "../context/LanguageContext";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  link: string;
-  thumbnail: string;
-}
-
-export default function ProjectsSection() {
-  const { t } = useLanguage();
-
-  const projectsData: Project[] = [
+export default function ProjectsSection({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
+  const { t, language } = useLanguage();
+  const es = language === "es";
+  const projects = [
     {
-      id: 2,
       title: "Apu Garden Lodge",
-      description: t("project_2_desc"),
-      tags: ["Hospedaje", "SaaS de Gestión"],
+      desc: t("project_2_desc"),
+      category: es ? "Web + gestión hotelera" : "Website + hotel management",
       link: "https://apu-garden-lodge.com/",
-      thumbnail: "/apu web mini.png",
+      image: "/apu web mini.png",
+      slug: "apu-garden-lodge",
     },
     {
-      id: 4,
-      title: "Dental Tello",
-      description: t("project_dentaltello_desc"),
-      tags: ["Salud", "Odontología"],
-      link: "https://www.dentaltello.com/es",
-      thumbnail: "/dental tello pagina.png",
-    },
-    {
-      id: 5,
-      title: "Business Beans",
-      description: t("project_businessbeans_desc"),
-      tags: ["Agroexportación", "Legumbres"],
-      link: "https://www.businessbeans.com.pe/",
-      thumbnail: "/business beans web.png",
-    },
-    {
-      id: 1,
-      title: "MV Abogados",
-      description: t("project_1_desc"),
-      tags: ["Servicios legales", "Lima"],
-      link: "https://mv-abogados.vercel.app/",
-      thumbnail: "/abogados-mini.png",
-    },
-    {
-      id: 3,
       title: "Selekta Food",
-      description: t("project_8_desc"),
-      tags: ["Agroexportación", "IA"],
+      desc: t("project_8_desc"),
+      category: es
+        ? "Web corporativa / Agroexportación"
+        : "Corporate website / Agro-export",
       link: "https://www.selektafood.com/",
-      thumbnail: "/selekta-mini.png",
+      image: "/selekta-mini.png",
+      slug: "selekta-food",
+    },
+    {
+      title: "Dental Tello",
+      desc: t("project_dentaltello_desc"),
+      category: es ? "Salud / Odontología" : "Health / Dentistry",
+      link: "https://www.dentaltello.com/es",
+      image: "/dental tello pagina.png",
+    },
+    {
+      title: "Business Beans",
+      desc: t("project_businessbeans_desc"),
+      category: es
+        ? "Web corporativa / Agroexportación"
+        : "Corporate website / Agro-export",
+      link: "https://www.businessbeans.com.pe/",
+      image: "/business beans web.png",
+    },
+    {
+      title: "MV Abogados",
+      desc: t("project_1_desc"),
+      category: es ? "Servicios legales" : "Legal services",
+      link: "https://mv-abogados.vercel.app/",
+      image: "/abogados-mini.png",
     },
   ];
-
+  const visible = compact ? projects.slice(1) : projects;
   return (
-    <section className="relative bg-bg">
-      {/* Encabezado */}
-      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 pt-24 md:pt-36 pb-12 md:pb-20">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="eyebrow block mb-6"
-        >
-          ( 03 — {t("projects_badge")} )
-        </motion.span>
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: EASE }}
-            className="md:col-span-7 font-display text-ink text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight"
-          >
-            {t("projects_title")}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="md:col-span-4 md:col-start-9 text-muted text-base md:text-lg leading-relaxed"
-          >
-            {t("projects_subtitle")}
-          </motion.p>
+    <section id="projects" className="section-spacing">
+      <div className="site-container">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow text-accent">
+              {es
+                ? "Trabajo real, en producción"
+                : "Real work, live in production"}
+            </span>
+            <h2 className="section-title mt-5">
+              {es ? "Ideas que ya" : "Ideas already"}
+              <br />
+              {es ? "están funcionando." : "out in the world."}
+            </h2>
+          </div>
+          <div>
+            <p>
+              {es
+                ? "Conoce los negocios con los que trabajamos, explora sus sitios y descubre cómo construimos cada solución."
+                : "Meet the businesses we work with, explore their websites and discover how we build each solution."}
+            </p>
+            {compact && (
+              <Link href="/proyectos" className="text-link mt-6">
+                {es ? "Todos los proyectos y demos" : "All projects and demos"}
+                <ArrowUpRight size={16} />
+              </Link>
+            )}
+          </div>
         </div>
-      </div>
-
-      {/* Paneles apilados inmersivos */}
-      <div className="relative">
-        {projectsData.map((project, index) => (
-          <ProjectPanel
-            key={project.id}
-            project={project}
-            index={index}
-            total={projectsData.length}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ProjectPanel({
-  project,
-  index,
-  total,
-}: {
-  project: Project;
-  index: number;
-  total: number;
-}) {
-  const { t } = useLanguage();
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  // Progreso mientras el siguiente panel cubre a este
-  const { scrollYProgress } = useScroll({
-    target: panelRef,
-    offset: ["start start", "end start"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const brightness = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
-  const filter = useTransform(brightness, (b) => `brightness(${b})`);
-
-  // Parallax interno de la imagen
-  const { scrollYProgress: entryProgress } = useScroll({
-    target: panelRef,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(entryProgress, [0, 1], ["-8%", "8%"]);
-
-  const isLast = index === total - 1;
-
-  return (
-    <div
-      ref={panelRef}
-      className="sticky top-0 h-screen overflow-hidden"
-      style={{ zIndex: index + 1 }}
-    >
-      <motion.div
-        style={{ scale, filter }}
-        className="relative h-full w-full bg-surface origin-top"
-      >
-        {/* Imagen de fondo a pantalla completa con parallax */}
-        <motion.div style={{ y: imageY }} className="absolute inset-[-10%]">
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            sizes="100vw"
-            className="object-cover object-top"
-          />
-        </motion.div>
-
-        {/* Veladura cinematográfica — oscurece de forma pareja para que el
-            contenido propio de cada captura (badges, texto de la demo) no
-            compita con el título y la descripción que superponemos */}
-        <div className="absolute inset-0 bg-bg/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/65 to-bg/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg/90 via-bg/20 to-transparent" />
-
-        {/* Contenido */}
-        <div className="relative z-10 h-full max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 flex flex-col justify-end pb-16 md:pb-24">
-          <div className="flex items-start justify-between gap-6">
-            <div className="max-w-3xl">
-              {/* Índice */}
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20%" }}
-                transition={{ duration: 0.7, ease: EASE }}
-                className="font-mono text-accent text-sm tracking-[0.3em] block mb-4"
-              >
-                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-              </motion.span>
-
-              {/* Título gigante */}
-              <div className="mask-line mb-6">
-                <motion.h3
-                  initial={{ y: "110%" }}
-                  whileInView={{ y: "0%" }}
-                  viewport={{ once: true, margin: "-20%" }}
-                  transition={{ duration: 1, ease: EASE }}
-                  className="font-display text-ink text-5xl sm:text-6xl md:text-8xl leading-[0.95] tracking-tight"
-                >
-                  {project.title}
-                </motion.h3>
-              </div>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20%" }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
-                className="text-muted text-base md:text-xl leading-relaxed max-w-xl mb-8"
-              >
-                {project.description}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-20%" }}
-                transition={{ duration: 0.8, delay: 0.35 }}
-                className="flex flex-wrap items-center gap-3"
-              >
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="font-mono text-[0.65rem] tracking-wider uppercase px-4 py-1.5 rounded-full border border-line-strong text-ink/80 backdrop-blur-sm bg-bg/30"
-                  >
-                    {tag}
-                  </span>
-                ))}
-                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] tracking-wider uppercase text-accent ml-2">
-                  <CheckCircle2 size={13} />
-                  {t("projects_live_label")}
-                </span>
-              </motion.div>
-            </div>
-
-            {/* CTA circular */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
-              className="hidden md:block shrink-0"
-            >
+        <div className="project-grid">
+          {visible.map((project) => (
+            <article key={project.title} className="project-card">
               <Link
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center w-32 h-32 lg:w-40 lg:h-40 rounded-full border border-line-strong backdrop-blur-md bg-bg/60 transition-all duration-500 hover:bg-accent hover:border-accent"
+                href={
+                  project.slug ? `/proyectos/${project.slug}` : project.link
+                }
+                target={project.slug ? undefined : "_blank"}
+                rel={project.slug ? undefined : "noopener noreferrer"}
+                className="project-image-link"
+                aria-label={`${project.title}: ${project.slug ? (es ? "ver caso de estudio" : "view case study") : es ? "visitar sitio" : "visit website"}`}
               >
-                <ArrowUpRight
-                  size={32}
-                  className="text-ink transition-all duration-500 group-hover:text-bg group-hover:rotate-45"
+                <Image
+                  src={project.image}
+                  alt={
+                    es
+                      ? `Vista del sitio de ${project.title}`
+                      : `${project.title} website preview`
+                  }
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-top"
                 />
-                <span className="mt-2 font-mono text-[0.6rem] tracking-[0.2em] uppercase text-muted transition-colors duration-500 group-hover:text-bg">
-                  {t("projects_btn_demo")}
+                <span className="project-image-action">
+                  <ArrowUpRight size={20} />
                 </span>
               </Link>
-            </motion.div>
-          </div>
-
-          {/* Link móvil */}
-          <Link
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="md:hidden mt-8 btn-ghost px-8 py-3.5 text-sm self-start"
-          >
-            {t("projects_btn_demo")}
-            <ArrowUpRight size={16} />
-          </Link>
+              <div className="project-info">
+                <span className="eyebrow">{project.category}</span>
+                <h3>{project.title}</h3>
+                <p>{project.desc}</p>
+                <div className="project-links">
+                  {project.slug && (
+                    <Link
+                      className="text-link"
+                      href={`/proyectos/${project.slug}`}
+                    >
+                      {es ? "Ver caso de estudio" : "View case study"}
+                      <ArrowUpRight size={15} />
+                    </Link>
+                  )}
+                  <a
+                    className={`text-link ${project.slug ? "text-muted" : ""}`}
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {es ? "Visitar sitio" : "Visit website"}
+                    <ArrowUpRight size={15} />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
-
-        {/* Borde inferior si no es el último */}
-        {!isLast && (
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-line-strong" />
-        )}
-      </motion.div>
-    </div>
+      </div>
+    </section>
   );
 }

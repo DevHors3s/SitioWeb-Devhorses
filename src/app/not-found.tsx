@@ -16,7 +16,7 @@ export default function NotFound() {
           <em className="text-gradient-accent italic">Ups.</em>
         </h1>
         <p className="text-muted text-base md:text-lg leading-relaxed mb-10">
-          La página que buscás no existe o se movió de lugar. Volvé al inicio o escribinos si creés que es un error nuestro.
+          La página que buscas no existe o se movió de lugar. Vuelve al inicio o escríbenos si crees que es un error nuestro.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/" className="btn-accent px-7 py-3.5 text-sm group">

@@ -4,13 +4,14 @@ import { useState, useRef, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { site, whatsappUrl } from "@/lib/site";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error" | "ratelimit">("idle");
@@ -19,7 +20,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!turnstileToken) return;
+    if (TURNSTILE_SITE_KEY && !turnstileToken) return;
 
     setIsSubmitting(true);
     setStatus("idle");
@@ -29,6 +30,12 @@ const Contact = () => {
     const email = (form.elements.namedItem("user_email") as HTMLInputElement).value;
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
     const honeypot = (form.elements.namedItem("website") as HTMLInputElement).value;
+
+    if (!TURNSTILE_SITE_KEY) {
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`Proyecto de ${name} — DevHorses`)}&body=${encodeURIComponent(`${name}\n${email}\n\n${message}`)}`;
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/contact", {
@@ -47,22 +54,22 @@ const Contact = () => {
         setStatus("ratelimit");
       } else {
         setStatus("error");
-        setErrorMsg(data.error ?? "Error inesperado.");
+        setErrorMsg(language === "es" ? (data.error ?? "Error inesperado.") : "Your message could not be sent. Please try again or contact us on WhatsApp.");
       }
     } catch {
       setStatus("error");
-      setErrorMsg("Error de conexión. Intentá de nuevo.");
+      setErrorMsg(language === "es" ? "Error de conexión. Intenta de nuevo." : "Connection error. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="relative py-24 md:py-40 bg-bg overflow-hidden">
+    <section id="contact" className="relative section-spacing bg-bg overflow-hidden">
       {/* Halo dorado inferior */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100vw] h-[50vh] glow-accent pointer-events-none" />
 
-      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 relative">
+      <div className="site-container relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
 
           {/* Titular editorial */}
@@ -73,8 +80,8 @@ const Contact = () => {
             transition={{ duration: 1, ease: EASE }}
             className="lg:col-span-6"
           >
-            <span className="eyebrow block mb-8">( 06 — {t("contact_title_gradient")} )</span>
-            <h2 className="font-display text-ink text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.98] tracking-tight mb-10">
+            <span className="eyebrow block mb-8">{language === "es" ? "TU SIGUIENTE PROYECTO" : "YOUR NEXT PROJECT"}</span>
+            <h2 className="font-display text-ink text-4xl sm:text-5xl leading-[1.12] tracking-tight mb-10">
               {t("contact_title_1")}{" "}
               <em className="text-gradient-accent italic">{t("contact_title_gradient")}</em>
             </h2>
@@ -85,12 +92,14 @@ const Contact = () => {
             {/* Datos directos */}
             <div className="mt-12 flex flex-col gap-4">
               <a
-                href="mailto:hola@devhorses.com"
+                href={`mailto:${site.email}`}
                 className="group flex items-center gap-3 text-ink hover:text-accent transition-colors font-mono text-sm tracking-wider"
               >
-                hola@devhorses.com
+                {site.email}
                 <ArrowUpRight size={14} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </a>
+              <a href={whatsappUrl(language === "es" ? "Hola DevHorses, me gustaría conversar sobre mi proyecto." : "Hi DevHorses, I'd like to discuss my project.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-accent text-sm"><MessageCircle size={17}/>{site.phone}<ArrowUpRight size={14}/></a>
+              <span className="text-muted text-xs">{language === "es" ? "Respuesta inmediata · Soporte 24/7" : "Immediate response · 24/7 support"}</span>
               <span className="eyebrow">Lima — Perú</span>
             </div>
           </motion.div>
@@ -103,7 +112,7 @@ const Contact = () => {
             transition={{ duration: 1, ease: EASE, delay: 0.15 }}
             className="lg:col-span-5 lg:col-start-8"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-10">
+            <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
 
               {/* Honeypot — invisible para humanos, visible para bots */}
               <input
@@ -152,20 +161,20 @@ const Contact = () => {
               </div>
 
               {/* Cloudflare Turnstile — widget invisible de seguridad */}
-              <Turnstile
+              {TURNSTILE_SITE_KEY && <Turnstile
                 siteKey={TURNSTILE_SITE_KEY}
                 onSuccess={(token) => setTurnstileToken(token)}
                 onError={() => setTurnstileToken(null)}
                 onExpire={() => setTurnstileToken(null)}
                 options={{ appearance: "interaction-only", theme: "dark" }}
-              />
+              />}
 
               <button
                 type="submit"
-                disabled={isSubmitting || !turnstileToken}
+                disabled={isSubmitting || (!!TURNSTILE_SITE_KEY && !turnstileToken)}
                 className="btn-accent w-full py-5 text-base disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none group"
               >
-                {isSubmitting ? t("contact_btn_sending") : t("contact_btn_send")}
+                {isSubmitting ? t("contact_btn_sending") : !TURNSTILE_SITE_KEY ? (language === "es" ? "Enviar por correo" : "Send by email") : t("contact_btn_send")}
                 {!isSubmitting && (
                   <ArrowUpRight
                     size={18}
@@ -181,12 +190,12 @@ const Contact = () => {
               )}
               {status === "ratelimit" && (
                 <p className="text-yellow-500 text-center text-sm font-medium -mt-4">
-                  ⏳ Demasiados intentos. Esperá un momento antes de reintentar.
+                  {language === "es" ? "Demasiados intentos. Espera un momento antes de reintentar." : "Too many attempts. Please wait before trying again."}
                 </p>
               )}
               {status === "error" && (
                 <p className="text-red-400 text-center text-sm font-medium -mt-4">
-                  {errorMsg || "Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp."}
+                  {errorMsg || (language === "es" ? "Hubo un error al enviar. Intenta de nuevo o escríbenos por WhatsApp." : "Your message could not be sent. Please try again or contact us on WhatsApp.")}
                 </p>
               )}
             </form>

@@ -14,26 +14,26 @@ export default function PoliticaPrivacidadPage() {
         <h1 className="font-display text-ink text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4">
           Política de Privacidad
         </h1>
-        <p className="text-faint text-sm font-mono mb-12">Última actualización: septiembre de 2026</p>
+        <p className="text-faint text-sm font-mono mb-12">Última actualización: octubre de 2026</p>
 
         <div className="flex flex-col gap-10 text-muted text-base leading-relaxed">
           <section>
             <h2 className="font-display text-ink text-xl mb-3">1. Responsable del tratamiento</h2>
             <p>
-              DevHorses ("nosotros", "nuestro"), con contacto en{" "}
-              <a href="mailto:hola@devhorses.com" className="text-accent hover:underline">hola@devhorses.com</a>,
+              DevHorses (&quot;nosotros&quot;, &quot;nuestro&quot;), con contacto en{" "}
+              <a href="mailto:devhorses2026@gmail.com" className="text-accent hover:underline">devhorses2026@gmail.com</a>,
               con base en Lima, Perú, es responsable del tratamiento de los datos personales que recopilamos a
-              través de devhorses.com (el "Sitio").
+              través de devhorses.com (el &quot;Sitio&quot;).
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-ink text-xl mb-3">2. Qué datos recopilamos</h2>
-            <p>Recopilamos únicamente los datos que nos proporcionás voluntariamente al usar el formulario de contacto del Sitio:</p>
+            <p>Recopilamos únicamente los datos que nos proporcionas voluntariamente al usar el formulario de contacto del Sitio:</p>
             <ul className="list-disc pl-6 mt-3 flex flex-col gap-1.5">
               <li>Nombre completo</li>
               <li>Dirección de correo electrónico</li>
-              <li>El contenido del mensaje que nos escribís</li>
+              <li>El contenido del mensaje que nos escribes</li>
             </ul>
             <p className="mt-3">
               Al día de hoy, el Sitio no utiliza cookies de analítica ni de publicidad, y no instala herramientas
@@ -72,7 +72,7 @@ export default function PoliticaPrivacidadPage() {
               Conservamos los mensajes de contacto solo el tiempo necesario para atender tu consulta y, si
               corresponde, dar seguimiento comercial. Podés solicitar la eliminación de tus datos en cualquier
               momento escribiéndonos a{" "}
-              <a href="mailto:hola@devhorses.com" className="text-accent hover:underline">hola@devhorses.com</a>.
+              <a href="mailto:devhorses2026@gmail.com" className="text-accent hover:underline">devhorses2026@gmail.com</a>.
             </p>
           </section>
 
@@ -80,18 +80,18 @@ export default function PoliticaPrivacidadPage() {
             <h2 className="font-display text-ink text-xl mb-3">6. Tus derechos</h2>
             <p>
               De acuerdo con la Ley N.º 29733, Ley de Protección de Datos Personales, y su Reglamento (D.S. N.º
-              016-2024-JUS), tenés derecho a acceder, rectificar, cancelar y oponerte (derechos ARCO) al
+              016-2024-JUS), tienes derecho a acceder, rectificar, cancelar y oponerte (derechos ARCO) al
               tratamiento de tus datos personales. Podés ejercer estos derechos escribiéndonos a{" "}
-              <a href="mailto:hola@devhorses.com" className="text-accent hover:underline">hola@devhorses.com</a>,
-              indicando tu nombre y el derecho que querés ejercer.
+              <a href="mailto:devhorses2026@gmail.com" className="text-accent hover:underline">devhorses2026@gmail.com</a>,
+              indicando tu nombre y el derecho que quieres ejercer.
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-ink text-xl mb-3">7. Contacto</h2>
             <p>
-              Si tenés preguntas sobre esta Política de Privacidad o sobre cómo tratamos tus datos, escribinos a{" "}
-              <a href="mailto:hola@devhorses.com" className="text-accent hover:underline">hola@devhorses.com</a>.
+              Si tienes preguntas sobre esta Política de Privacidad o sobre cómo tratamos tus datos, escríbenos a{" "}
+              <a href="mailto:devhorses2026@gmail.com" className="text-accent hover:underline">devhorses2026@gmail.com</a>.
             </p>
           </section>
         </div>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X } from "lucide-react";
 
 export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);

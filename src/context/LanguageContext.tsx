@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 type Language = "es" | "en";
 
@@ -226,7 +227,7 @@ const translations: Record<Language, Translations> = {
     services_ui_title: "Branding e identidad visual",
     services_ui_desc: "Logo, paleta, tipografía y manual de marca. Todo coherente en tu web, redes y materiales, para que tu negocio se vea serio y memorable.",
     services_eco_title: "Tiendas que venden 24/7",
-    services_eco_desc: "E-commerce con checkout rápido, pagos seguros y gestión de inventario automatizada. Tu negocio vendiendo incluso mientras dormís.",
+    services_eco_desc: "E-commerce con checkout rápido, pagos seguros y gestión de inventario automatizada. Tu negocio vendiendo incluso mientras duermes.",
 
     // Process
     process_title: "Cómo trabajamos",
@@ -238,11 +239,11 @@ const translations: Record<Language, Translations> = {
     process_step3_title: "Desarrollo",
     process_step3_desc: "Construimos tu sitio con entregas semanales. Vas viendo el avance paso a paso y no hay sorpresas al final.",
     process_step4_title: "Lanzamiento",
-    process_step4_desc: "Desplegamos tu producto con pruebas rigurosas, optimización de rendimiento y soporte post-lanzamiento incluido.",
+    process_step4_desc: "Publicamos tu solución, te acompañamos en su uso y ofrecemos soporte 24/7 con la cobertura acordada.",
 
     // Testimonials
     testimonials_title: "Lo que dicen nuestros clientes",
-    testimonial_1_quote: "Necesitábamos una presencia digital que transmitiera la seriedad de nuestro bufete. DevHorses creó un portal profesional que nos posicionó como referentes en nuestra área. Las consultas online se duplicaron en el primer mes.",
+    testimonial_1_quote: "Necesitábamos una presencia digital que transmitiera la seriedad de nuestro bufete. DevHorses creó un portal profesional que nos posicionó como referentes en nuestra área.",
     testimonial_1_author: "Americo Monteza",
     testimonial_1_role: "Socio Fundador, MV Abogados",
     testimonial_2_quote: "Nuestro lodge necesitaba mostrar la experiencia completa que ofrecemos. El sitio que nos construyeron tiene una galería inmersiva y un sistema de reservas que funciona perfecto. Los huéspedes nos dicen que reservaron porque la web les transmitió confianza.",
@@ -252,13 +253,13 @@ const translations: Record<Language, Translations> = {
     // Contact
     contact_title_1: "¿Listo para ",
     contact_title_gradient: "hacer crecer tu negocio?",
-    contact_subtitle: "Contanos tu idea y te respondemos de inmediato con una propuesta personalizada. Sin compromiso.",
+    contact_subtitle: "Cuéntanos tu idea y te respondemos de inmediato con una propuesta personalizada. Sin compromiso.",
     contact_label_name: "Nombre",
     contact_label_email: "Email",
     contact_label_message: "Cuéntanos tu proyecto",
     contact_placeholder_name: "Tu nombre completo",
     contact_placeholder_email: "tu@email.com",
-    contact_placeholder_message: "Quiero una web para mi negocio de...",
+    contact_placeholder_message: "Mi negocio es... Necesito resolver... Me gustaría lanzarlo en...",
     contact_btn_send: "Enviar mensaje",
     contact_btn_sending: "Enviando...",
     contact_success: "✅ ¡Mensaje enviado! Te contactaremos a la brevedad.",
@@ -266,7 +267,7 @@ const translations: Record<Language, Translations> = {
     // Projects
     projects_badge: "CLIENTES REALES",
     projects_title: "Casos de cliente",
-    projects_subtitle: "Webs que construimos, lanzamos y mantenemos en producción para clientes reales. Si querés ver más ejemplos por industria, mirá nuestras demos abajo.",
+    projects_subtitle: "Webs que construimos, lanzamos y mantenemos en producción para clientes reales. Si quieres ver más ejemplos por industria, mira nuestras demos abajo.",
     projects_btn_demo: "Visitar sitio",
     projects_btn_code: "Código",
     projects_live_label: "En producción",
@@ -287,11 +288,11 @@ const translations: Record<Language, Translations> = {
     about_badge: "SOBRE NOSOTROS",
     about_title_1: "Un equipo pequeño. ",
     about_title_gradient: "Resultados grandes.",
-    about_desc: "Somos desarrolladores y diseñadores que construyen productos digitales sin intermediarios. Trabajamos directo con vos: planificamos, diseñamos, programamos y lanzamos. Sin agencias de por medio, sin sorpresas.",
+    about_desc: "Somos desarrolladores y diseñadores que construyen productos digitales sin intermediarios. Trabajamos directo contigo: planificamos, diseñamos, programamos y lanzamos. Sin agencias de por medio, sin sorpresas.",
     about_stats_projects: "Proyectos",
     about_stats_exp: "Años Exp.",
-    about_stats_clients: "Clientes activos",
-    about_stats_industries: "Industrias cubiertas",
+    about_stats_clients: "Proyectos publicados",
+    about_stats_industries: "Sectores atendidos",
     about_stats_commitment: "Compromiso",
     about_mission_comment: "// Cómo trabajamos",
     about_team_title: "El equipo",
@@ -311,7 +312,7 @@ const translations: Record<Language, Translations> = {
     // Demo Showcase
     demo_badge: "DEMOS POR INDUSTRIA",
     demo_title: "Así podría verse tu negocio",
-    demo_subtitle: "Sitios funcionales que construimos como demostración por rubro. Elegí la industria más cercana a la tuya, explorala por dentro y pedí una versión personalizada para tu negocio.",
+    demo_subtitle: "Sitios funcionales que construimos como demostración por rubro. Elige la industria más cercana a la tuya, explórala por dentro y pide una versión personalizada para tu negocio.",
     demo_1_name: "Gimnasio FitPro",
     demo_1_category: "Fitness",
     demo_1_desc: "Plataforma moderna para gimnasios con reservas de clases, planes de membresía y seguimiento de progreso.",
@@ -358,8 +359,8 @@ const translations: Record<Language, Translations> = {
     saas_feat_5_desc: "Ocupación, ingresos y ADR del hotel sin armar una sola planilla a mano.",
     saas_feat_6_title: "Roles para todo el equipo",
     saas_feat_6_desc: "Recepción, limpieza y administración — cada uno con su propia vista y permisos.",
-    saas_stat_1_value: "+35%",
-    saas_stat_1_label: "reservas desde el sitio",
+    saas_stat_1_value: "Web + PMS",
+    saas_stat_1_label: "reservas conectadas",
     saas_stat_2_value: "3",
     saas_stat_2_label: "roles de staff conectados",
     saas_stat_3_value: "100%",
@@ -371,11 +372,11 @@ const translations: Record<Language, Translations> = {
 
     // CTA
     cta_title: "¿Listo para empezar tu proyecto?",
-    cta_desc: "Escribinos por WhatsApp y te respondemos de inmediato. Sin compromiso, sin vueltas.",
+    cta_desc: "Escríbenos por WhatsApp y te respondemos de inmediato. Sin compromiso, sin vueltas.",
     cta_btn: "Hablemos por WhatsApp",
 
     // Footer
-    footer_desc: "Transformamos negocios con software de alto impacto. Especialistas en soluciones digitales que generan resultados reales.",
+    footer_desc: "Webs, sistemas de gestión y automatizaciones que conectan tus clientes con la operación de tu negocio. Desde Lima, para donde estés.",
     footer_explore: "Explorar",
     footer_legal: "Legal",
     footer_rights: "Todos los derechos reservados.",
@@ -425,11 +426,11 @@ const translations: Record<Language, Translations> = {
     process_step3_title: "Development",
     process_step3_desc: "We build your site with weekly deliveries. You see progress step by step, and there are no surprises at the end.",
     process_step4_title: "Launch",
-    process_step4_desc: "We deploy your product with rigorous testing, performance optimization, and post-launch support included.",
+    process_step4_desc: "We launch your solution, help you use it and offer 24/7 support with the agreed coverage.",
 
     // Testimonials
     testimonials_title: "What Our Clients Say",
-    testimonial_1_quote: "We needed a digital presence that conveyed the seriousness of our firm. DevHorses built a professional portal that positioned us as leaders in our field. Online consultations doubled in the first month.",
+    testimonial_1_quote: "We needed a digital presence that conveyed the seriousness of our firm. DevHorses built a professional portal that positioned us as leaders in our field.",
     testimonial_1_author: "Americo Monteza",
     testimonial_1_role: "Founding Partner, MV Abogados",
     testimonial_2_quote: "Our lodge needed to showcase the full experience we offer. The site they built has an immersive gallery and a booking system that works flawlessly. Guests tell us they booked because the website gave them confidence.",
@@ -445,7 +446,7 @@ const translations: Record<Language, Translations> = {
     contact_label_message: "Tell us about your project",
     contact_placeholder_name: "Your full name",
     contact_placeholder_email: "you@email.com",
-    contact_placeholder_message: "I want a website for my business of...",
+    contact_placeholder_message: "My business is... I need to solve... I would like to launch by...",
     contact_btn_send: "Send Message",
     contact_btn_sending: "Sending...",
     contact_success: "✅ Message sent! We'll be in touch shortly.",
@@ -477,8 +478,8 @@ const translations: Record<Language, Translations> = {
     about_desc: "We're developers and designers who build digital products with no middlemen. You work directly with us: we plan, design, code and launch. No agencies in between, no surprises.",
     about_stats_projects: "Projects",
     about_stats_exp: "Years Exp.",
-    about_stats_clients: "Active clients",
-    about_stats_industries: "Industries covered",
+    about_stats_clients: "Published projects",
+    about_stats_industries: "Sectors served",
     about_stats_commitment: "Commitment",
     about_mission_comment: "// How we work",
     about_team_title: "The Team",
@@ -545,8 +546,8 @@ const translations: Record<Language, Translations> = {
     saas_feat_5_desc: "Occupancy, revenue and ADR without building a single spreadsheet by hand.",
     saas_feat_6_title: "Roles for the whole team",
     saas_feat_6_desc: "Front desk, housekeeping and admin — each with their own view and permissions.",
-    saas_stat_1_value: "+35%",
-    saas_stat_1_label: "bookings from the site",
+    saas_stat_1_value: "Web + PMS",
+    saas_stat_1_label: "connected bookings",
     saas_stat_2_value: "3",
     saas_stat_2_label: "staff roles connected",
     saas_stat_3_value: "100%",
@@ -562,7 +563,7 @@ const translations: Record<Language, Translations> = {
     cta_btn: "Let's chat on WhatsApp",
 
     // Footer
-    footer_desc: "We transform businesses with high-impact software. Specialists in digital solutions that generate real results.",
+    footer_desc: "Websites, management systems and automations connecting your customers with your business operations. From Lima, wherever you are.",
     footer_explore: "Explore",
     footer_legal: "Legal",
     footer_rights: "All rights reserved.",
@@ -581,6 +582,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("es");
 
+  useEffect(() => { document.documentElement.lang = language; }, [language]);
+
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "es" ? "en" : "es"));
   };
@@ -590,9 +593,11 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
+    </MotionConfig>
   );
 };
 

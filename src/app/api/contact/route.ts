@@ -1,7 +1,7 @@
 import { Resend } from "resend";
+import { site } from "@/lib/site";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ── Rate limiter: máx 3 envíos por IP por hora ──────────────────────────────
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: "Demasiados intentos. Esperá un momento antes de reintentar." },
+      { error: "Demasiados intentos. Espera un momento antes de reintentar." },
       { status: 429 }
     );
   }
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     // 3. Turnstile — verificación anti-bot de Cloudflare
     if (!turnstileToken || !(await verifyTurnstile(turnstileToken))) {
       return NextResponse.json(
-        { error: "Verificación de seguridad fallida. Recargá la página." },
+        { error: "Verificación de seguridad fallida. Recarga la página." },
         { status: 403 }
       );
     }
@@ -80,9 +80,13 @@ export async function POST(req: NextRequest) {
     }
 
     // 5. Envío de email con Resend
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json({ error: "El correo no está disponible. Escríbenos por WhatsApp." }, { status: 503 });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
       from: "DevHorses Contact <contacto@devhorses.com>",
-      to: "devhorses2026@gmail.com",
+      to: site.email,
       replyTo: email,
       subject: `Nuevo mensaje de ${name} — DevHorses Landing`,
       html: `

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ProjectsSection from "@/components/ProjectsSection";
+import DemoShowcase from "@/components/DemoShowcase";
 
 export const metadata: Metadata = {
   title: "Proyectos y Casos de Cliente | DevHorses Lima",
@@ -14,6 +15,7 @@ export default function ProyectosPage() {
       {/* 'pt-20' añade el espacio necesario para que el Navbar fijo no tape el título */}
       <div className="pt-20">
         <ProjectsSection />
+        <DemoShowcase />
       </div>
     </main>
   );
