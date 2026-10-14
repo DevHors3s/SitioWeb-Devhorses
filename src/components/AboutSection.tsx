@@ -1,16 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
 import {
-  Github, Linkedin, MessageCircle, ArrowRight, Code2,
+  MessageCircle, ArrowRight, Code2,
   Palette, Server, Cloud, LineChart, Monitor
 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function AboutSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const es = language === "es";
 
   const team = [
     {
@@ -60,7 +62,7 @@ export default function AboutSection() {
       {/* Halo ambiental */}
       <div className="absolute top-0 left-1/4 w-[60vw] h-[60vh] glow-accent pointer-events-none opacity-70" />
 
-      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24">
+      <div className="site-container">
 
         {/* PARTE 1: INTRO / MISIÓN */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 md:mb-36">
@@ -84,7 +86,7 @@ export default function AboutSection() {
             <div className="flex flex-wrap gap-x-10 gap-y-6">
               <Stat number="5" label={t("about_stats_clients")} />
               <Stat number="4" label={t("about_stats_industries")} />
-              <Stat number="100%" label={t("about_stats_commitment")} />
+              <Stat number={String(team.length)} label={es ? "Especialidades en el equipo" : "Team specialties"} />
             </div>
           </motion.div>
 
@@ -106,11 +108,11 @@ export default function AboutSection() {
                <div className="space-y-3 font-mono text-xs sm:text-sm overflow-x-auto">
                  <div className="text-faint">{t("about_mission_comment")}</div>
                  <div className="text-ink">const <span className="text-accent">devhorses</span> = {"{"}</div>
-                 <div className="pl-4 text-muted">trato: <span className="text-ink">&quot;directo&quot;</span>,</div>
-                 <div className="pl-4 text-muted">entregas: <span className="text-ink">&quot;semanales&quot;</span>,</div>
-                 <div className="pl-4 text-muted">respuesta: <span className="text-ink">&quot;inmediata&quot;</span>,</div>
-                 <div className="pl-4 text-muted">soporte: <span className="text-ink">&quot;24/7&quot;</span>,</div>
-                 <div className="pl-4 text-muted">intermediarios: <span className="text-accent">null</span></div>
+                 <div className="pl-4 text-muted">{es ? "trato" : "collaboration"}: <span className="text-ink">&quot;{es ? "directo" : "direct"}&quot;</span>,</div>
+                 <div className="pl-4 text-muted">{es ? "entregas" : "deliveries"}: <span className="text-ink">&quot;{es ? "semanales" : "weekly"}&quot;</span>,</div>
+                 <div className="pl-4 text-muted">{es ? "respuesta" : "response"}: <span className="text-ink">&quot;{es ? "inmediata" : "immediate"}&quot;</span>,</div>
+                 <div className="pl-4 text-muted">{es ? "soporte" : "support"}: <span className="text-ink">&quot;24/7&quot;</span>,</div>
+                 <div className="pl-4 text-muted">{es ? "intermediarios" : "middlemen"}: <span className="text-accent">null</span></div>
                  <div className="text-ink">{"}"};</div>
                </div>
             </div>
@@ -151,12 +153,13 @@ export default function AboutSection() {
                   {member.bio}
                 </p>
 
-                <div className="flex gap-3 pt-4 border-t border-line">
-                  <SocialBtn icon={<Github size={15}/>} />
-                  <SocialBtn icon={<Linkedin size={15}/>} />
-                </div>
               </motion.div>
             ))}
+          </div>
+          <div className="team-proof">
+            <p>{es ? "Conoce el trabajo del equipo en proyectos publicados." : "Explore the team's work in live projects."}</p>
+            <Link className="text-link" href="/proyectos/apu-garden-lodge">Apu Garden Lodge <ArrowRight size={15}/></Link>
+            <Link className="text-link" href="/proyectos/selekta-food">Selekta Food <ArrowRight size={15}/></Link>
           </div>
         </div>
 
@@ -206,13 +209,5 @@ function Stat({ number, label }: { number: string, label: string }) {
       <div className="font-display text-accent text-2xl md:text-3xl">{number}</div>
       <div className="text-muted text-xs uppercase tracking-wider">{label}</div>
     </div>
-  )
-}
-
-function SocialBtn({ icon }: { icon: React.ReactNode }) {
-  return (
-    <button className="w-8 h-8 rounded-full border border-line flex items-center justify-center text-muted hover:text-bg hover:bg-accent hover:border-accent transition-all duration-300">
-      {icon}
-    </button>
   )
 }

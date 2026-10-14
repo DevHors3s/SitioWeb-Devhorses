@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, Instagram, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { site } from "@/lib/site";
 
@@ -24,22 +25,12 @@ export default function InstagramSection() {
           </h2>
           <p className="text-muted leading-relaxed mt-6 max-w-md">
             {es
-              ? "Proyectos, avances y el equipo detrás de cada lanzamiento. Sigue el camino de nuestras ideas a productos reales."
-              : "Projects, progress and the team behind each launch. Follow our journey from ideas to real products."}
+              ? "Explora cómo una reserva se conecta con la gestión de un hotel y cómo presentamos la tecnología de una empresa. Encuéntranos también en Instagram para seguir de cerca a DevHorses."
+              : "Explore how a booking connects to hotel management and how we present a company's technology. Find us on Instagram to keep up with DevHorses, too."}
           </p>
         </div>
-        <a
-          href={site.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="instagram-card group"
-          aria-label={
-            es
-              ? "Seguir a @devhorses en Instagram (abre una nueva pestaña)"
-              : "Follow @devhorses on Instagram (opens a new tab)"
-          }
-        >
-          <div className="instagram-profile">
+        <div className="instagram-card">
+          <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="instagram-profile" aria-label={es ? "DevHorses en Instagram (abre una nueva pestaña)" : "DevHorses on Instagram (opens a new tab)"}>
             <span className="instagram-avatar">
               <Image src="/logo-icon.png" alt="" width={48} height={48} />
             </span>
@@ -51,25 +42,27 @@ export default function InstagramSection() {
               size={22}
               className="ml-auto text-muted group-hover:text-accent transition-colors"
             />
-          </div>
-          <div className="instagram-art" aria-hidden="true">
-            <span className="instagram-art-orbit" />
-            <Instagram size={98} strokeWidth={1.2} />
-            <span className="instagram-spark instagram-spark--one">
-              <Sparkles size={22} />
-            </span>
-            <span className="instagram-spark instagram-spark--two">
-              &lt;/&gt;
-            </span>
+          </a>
+          <div className="instagram-work-grid">
+            <Link href="/proyectos/apu-garden-lodge">
+              <Image src="/saas apu gestion/ApuGestion1.png" alt={es ? "Mapa de habitaciones de Apu Gestión" : "Apu Management room map"} width={1365} height={632} sizes="(max-width: 767px) 45vw, 240px" />
+              <span>Apu Garden Lodge</span>
+              <small>{es ? "Web + gestión hotelera" : "Website + hotel operations"}</small>
+            </Link>
+            <Link href="/proyectos/selekta-food">
+              <Image src="/selekta-mini.png" alt={es ? "Web corporativa de Selekta Food" : "Selekta Food corporate website"} width={1347} height={627} sizes="(max-width: 767px) 45vw, 240px" />
+              <span>Selekta Food</span>
+              <small>{es ? "Presencia corporativa" : "Corporate presence"}</small>
+            </Link>
           </div>
           <div className="instagram-card-bottom">
-            <span>{es ? "Ideas. Código. Equipo." : "Ideas. Code. Team."}</span>
-            <span className="instagram-follow">
+            <span>{es ? "Trabajo real del equipo" : "Real work from our team"}</span>
+            <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="instagram-follow" aria-label={es ? "Seguir a @devhorses en Instagram (abre una nueva pestaña)" : "Follow @devhorses on Instagram (opens a new tab)"}>
               {es ? "Seguir en Instagram" : "Follow on Instagram"}
               <ArrowUpRight size={16} />
-            </span>
+            </a>
           </div>
-        </a>
+        </div>
       </div>
     </section>
   );

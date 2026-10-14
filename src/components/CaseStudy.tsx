@@ -2,16 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Clock, Layers } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { caseStudies, caseImageDimensions, type CaseSlug } from "@/lib/cases";
 import { whatsappUrl } from "@/lib/site";
+import ImageLightbox from "./ImageLightbox";
 
 export default function CaseStudy({ slug }: { slug: CaseSlug }) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const es = language === "es";
   const project = caseStudies[slug];
   const copy = project[language];
+  const apu = slug === "apu-garden-lodge";
+  const gallery = project.screenshots.map((src, i) => ({ src, caption: copy.captions[i], ...caseImageDimensions[src] }));
+  const decisions = apu
+    ? (es ? [["Conectar la reserva y la gestión", "La disponibilidad real alimenta la web y la reserva llega al sistema que utiliza el equipo."], ["Separar las vistas por rol", "Recepción, limpieza y administración acceden a la información necesaria para su trabajo."]]
+      : [["Connect bookings and operations", "Real availability feeds the website and bookings reach the system used by the hotel team."], ["Separate role-based views", "Front desk, housekeeping and administration access the information needed for their work."]])
+    : (es ? [["Ordenar una oferta especializada", "Empresa, tecnología y contacto forman un recorrido para entender la propuesta antes de consultar."], ["Distinguir web y tecnología del cliente", "DevHorses desarrolla la presencia digital. La tecnología de clasificación pertenece a Selekta."]]
+      : [["Structure a specialized offer", "Company, technology and contact form a journey to understand the offer before making an inquiry."], ["Distinguish the website from client technology", "DevHorses builds the digital presence. Selekta owns its classification technology."]]);
   return (
     <main className="page-main case-page">
       <header className="site-container page-intro">
@@ -41,12 +49,16 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
         </div>
       </header>
       <div className="site-container">
+        <div className="case-facts">
+          <article><Clock size={18}/><h2>{es ? "Tiempo del proyecto" : "Project timeline"}</h2><strong>{es ? "Aproximadamente 1 mes" : "Approximately 1 month"}</strong><p>{es ? "Incluye desarrollo, revisiones, respuestas y aprobaciones del cliente." : "Includes development, reviews, client responses and approvals."}</p></article>
+          <article><Layers size={18}/><h2>{es ? "Alcance de DevHorses" : "DevHorses scope"}</h2><strong>{apu ? (es ? "Web + sistema de gestión" : "Website + management system") : (es ? "Diseño y desarrollo web" : "Website design and development")}</strong><p>{apu ? (es ? "Recorridos para huéspedes, recepción, limpieza y administración." : "Journeys for guests, front desk, housekeeping and administration.") : (es ? "Presentación de la empresa, su tecnología y canales comerciales." : "Presentation of the company, its technology and commercial channels.")}</p></article>
+        </div>
         <div className="case-cover">
           <Image
             src={project.image}
             alt={project.name}
             {...caseImageDimensions[project.image]}
-            priority
+            preload
             sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
@@ -68,6 +80,10 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
             <p>{copy.solution}</p>
           </section>
         </div>
+        <section className="case-decisions">
+          <h2 className="section-title">{es ? "Decisiones que dan forma a la solución." : "Decisions that shape the solution."}</h2>
+          <div>{decisions.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div>
+        </section>
         <section className="case-features">
           <h2 className="section-title">
             {es ? "Por dentro del proyecto." : "Inside the project."}
@@ -101,12 +117,14 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
           {project.screenshots.map((image, i) => (
             <figure key={image}>
               <div>
+                <ImageLightbox images={gallery} initialIndex={i}>
                 <Image
                   src={image}
                   alt={copy.captions[i]}
                   {...caseImageDimensions[image]}
                   sizes="(max-width: 768px) 100vw, 1200px"
                 />
+                </ImageLightbox>
               </div>
               <figcaption>{copy.captions[i]}</figcaption>
             </figure>
@@ -131,6 +149,11 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
             ))}
           </div>
         </section>
+        <blockquote className="case-client-quote">
+          <span className="eyebrow text-accent">{es ? "En palabras del cliente" : "In the client's words"}</span>
+          <p>“{apu ? t("testimonial_2_quote") : (es ? "Necesitábamos una web que transmitiera la seriedad y la tecnología que hay detrás de Selekta. DevHorses entendió nuestro negocio desde el primer día y entregó una plataforma que abre puertas en el sector agroexportador." : "We needed a website that conveyed the seriousness and technology behind Selekta. DevHorses understood our business from day one and delivered a platform that opens doors in the agro-export sector.")}”</p>
+          <footer>{apu ? t("testimonial_2_author") : (es ? "Equipo Selekta" : "Selekta Team")}<span>{apu ? t("testimonial_2_role") : "Selekta Food"}</span></footer>
+        </blockquote>
         <div className="page-cta">
           <h2>
             {es

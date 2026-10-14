@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Mail, MessageCircle, ArrowUpRight, RefreshCw, X } from "lucide-react";
+import { Mail, MessageCircle, ArrowUpRight, RefreshCw, X, Minus } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { site, whatsappUrl } from "@/lib/site";
 import HorseMascot from "./HorseMascot";
@@ -13,15 +13,21 @@ export default function ContactDock() {
   const { language } = useLanguage();
   const es = language === "es";
   const pathname = usePathname();
-  const [muted, setMuted] = useState(false);
+  const [minimized, setMinimized] = useState(false);
   const [open, setOpen] = useState(false);
   const wrapper = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const firstLink = useRef<HTMLAnchorElement>(null);
-  const { scene } = useHorseJourney(wrapper, pathname);
+  const restore = useRef<HTMLButtonElement>(null);
+  const { scene, journeyMode } = useHorseJourney(wrapper, pathname);
   const [greeting, setGreeting] = useState(false);
   const greetingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const dialogue = useHorseDialogue(scene, !open && !muted);
+  const dialogue = useHorseDialogue(scene, !open && !minimized && journeyMode !== "morph");
+  const minimize = () => {
+    setOpen(false);
+    setMinimized(true);
+    requestAnimationFrame(() => restore.current?.focus());
+  };
   useEffect(
     () => () => {
       if (greetingTimer.current) clearTimeout(greetingTimer.current);
@@ -61,10 +67,11 @@ export default function ContactDock() {
       ref={wrapper}
       className="travel-companion"
       data-section={scene}
+      data-minimized={minimized}
+      data-contact-open={open}
       data-activity={greeting ? "wave" : dialogue.mood}
     >
-      {!open && !muted && (
-        <div className="guide-speech" aria-live="off">
+        <div className="guide-speech" aria-live="off" hidden={open || minimized}>
           <span className="guide-label">{dialogue.label}</span>
           <p key={dialogue.key} className="guide-comment">
             {greeting
@@ -86,18 +93,25 @@ export default function ContactDock() {
               <span>{es ? "¿Y qué más?" : "What else?"}</span>
             </button>
             <button
-              onClick={() => setMuted(true)}
+              onClick={minimize}
               aria-label={
                 es
-                  ? "Ocultar comentarios del caballo"
-                  : "Hide the horse's comments"
+                  ? "Minimizar acompañante"
+                  : "Minimize companion"
               }
             >
               <X size={13} />
             </button>
           </div>
         </div>
-      )}
+      <div className="companion-rail" aria-hidden={minimized || journeyMode !== "floating"}>
+        <div className="companion-rail-copy">
+          <span>{es ? "¿Hablamos de tu idea?" : "Let's talk about your idea"}</span>
+          <button onClick={() => setOpen((value) => !value)} aria-label={es ? "Abrir contacto rápido" : "Open quick contact"} tabIndex={journeyMode === "floating" && !minimized ? 0 : -1}>
+            {es ? "Contacto rápido" : "Quick contact"}<ArrowUpRight size={13} />
+          </button>
+        </div>
+      </div>
       {open && (
         <div
           id="horse-contact"
@@ -150,18 +164,22 @@ export default function ContactDock() {
           </a>
         </div>
       )}
-      {muted && !open && (
+      {minimized && (
         <button
-          className="guide-unmute"
-          onClick={() => setMuted(false)}
+          ref={restore}
+          className="companion-restore"
+          onClick={() => {
+            setMinimized(false);
+            requestAnimationFrame(() => trigger.current?.focus());
+          }}
           aria-label={
-            es ? "Mostrar comentarios del caballo" : "Show the horse's comments"
+            es ? "Mostrar acompañante" : "Show companion"
           }
         >
           <MessageCircle size={16} />
         </button>
       )}
-      <div className="travel-avatar" aria-live="off">
+      <div className="travel-avatar" aria-live="off" inert={minimized}>
         <button
           ref={trigger}
           className="character-trigger"
@@ -186,6 +204,9 @@ export default function ContactDock() {
           </span>
         </button>
       </div>
+      <button className="companion-minimize" onClick={minimize} hidden={minimized || journeyMode !== "floating"} aria-label={es ? "Minimizar acompañante" : "Minimize companion"} title={es ? "Minimizar acompañante" : "Minimize companion"}>
+        <Minus size={16} />
+      </button>
     </div>
   );
 }

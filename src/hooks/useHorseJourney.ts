@@ -1,235 +1,171 @@
 "use client";
+"use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { sceneForPath, type HorseScene } from "@/lib/horse-dialogue";
+import { clamp, mix, damp, dampPose, smoothstep, horseLane, type HorsePose as Position } from "@/lib/horse-motion";
 
-const scenes: HorseScene[] = [
-  "hero",
-  "services",
-  "apu-case",
-  "projects",
-  "process",
-  "testimonials",
-  "instagram",
-  "contact",
-  "footer",
-];
-const leftScenes = new Set<HorseScene>([
-  "process",
-  "testimonials",
-  "instagram",
-  "selekta",
-]);
-const clamp = (value: number, min: number, max: number) =>
-  Math.max(min, Math.min(max, value));
-const mix = (from: number, to: number, progress: number) =>
-  from + (to - from) * progress;
+const scenes: HorseScene[] = ["hero", "services", "apu-case", "projects", "process", "testimonials", "instagram", "contact", "footer"];
+type Mode = "hero" | "morph" | "floating";
+type Journey = { path: string; scene: HorseScene; mode: Mode; docked: boolean };
 
-/** One persistent character: scroll interpolates its hero position into its travelling position. */
-export function useHorseJourney(
-  root: RefObject<HTMLDivElement | null>,
-  pathname: string,
-) {
-  const [state, setState] = useState<{ path: string; scene: HorseScene }>({
-    path: "",
-    scene: "hero",
-  });
-  const mode = useRef<"hero" | "morph" | "floating">("hero");
-  const scene = state.path === pathname ? state.scene : sceneForPath(pathname);
+/** Layout is measured separately; one RAF owns both departure and side crossings. */
+export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname: string) {
+  const [state, setState] = useState<Journey>({ path: "", scene: "hero", mode: "hero", docked: false });
+  const mode = useRef<Mode>("hero");
 
   useEffect(() => {
     const element = root.current;
-    if (!element) return;
+    const avatar = element?.querySelector<HTMLElement>(".travel-avatar");
+    const speech = element?.querySelector<HTMLElement>(".guide-speech");
+    const trigger = element?.querySelector<HTMLButtonElement>(".character-trigger");
+    const minimize = element?.querySelector<HTMLElement>(".companion-minimize");
+    if (!element || !avatar || !speech || !trigger || !minimize) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const anchor = pathname === "/" ? document.getElementById("horse-home-anchor") : null;
     let frame = 0;
-    let flightTimer: ReturnType<typeof setTimeout> | undefined;
+    let previousTime = 0;
+    let scroll = window.scrollY;
+    let dirty = true;
+    let published = "";
     let lastLane = "right";
-    let lastMode = "hero";
-    let initialized = false;
+    let position: Position | null = null;
+    let flight: { start: Position; time: number } | null = null;
+    let bubbleHeight = 168;
+    let layout = { width: 0, height: 0, maximum: 0, start: 0, length: 1,
+      anchor: null as { x: number; top: number; width: number } | null,
+      sections: [] as { scene: HorseScene; top: number; bottom: number }[] };
 
-    const update = () => {
-      frame = 0;
+    const measure = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const mobile = width < 768;
-      const maximum = Math.max(
-        0,
-        document.documentElement.scrollHeight - height,
-      );
-      const overall = maximum ? clamp(window.scrollY / maximum, 0, 1) : 0;
-      const focus = height * 0.45;
+      const bounds = anchor?.getBoundingClientRect();
+      const top = bounds ? bounds.top + window.scrollY : 0;
+      layout = {
+        width, height,
+        maximum: Math.max(0, document.documentElement.scrollHeight - height),
+        start: bounds ? Math.max(24, top - height * .3) : 0,
+        length: Math.min(document.getElementById("hero")?.offsetHeight ?? height, height) * .78,
+        anchor: bounds ? { x: bounds.left, top, width: bounds.width } : null,
+        sections: (pathname === "/" ? scenes : ["footer" as HorseScene]).flatMap(scene => {
+          const rect = document.getElementById(scene)?.getBoundingClientRect();
+          return rect ? [{ scene, top: rect.top + window.scrollY, bottom: rect.bottom + window.scrollY }] : [];
+        }),
+      };
+      bubbleHeight = speech.offsetHeight || bubbleHeight;
+      dirty = false;
+    };
+
+    const draw = (time: number) => {
+      frame = 0;
+      if (dirty) measure();
+      const dt = previousTime ? Math.min(64, time - previousTime) : 16;
+      previousTime = time;
+      const targetScroll = window.scrollY;
+      scroll = reduced.matches || !position ? targetScroll : damp(scroll, targetScroll, dt, 65);
+      if (Math.abs(scroll - targetScroll) < .05) scroll = targetScroll;
+      const { width, height, maximum } = layout;
+      const docked = width < 1280;
+      const focus = targetScroll + height * .45;
       let active = sceneForPath(pathname);
-      if (pathname === "/") {
-        let nearest = Infinity;
-        for (const candidate of scenes) {
-          const bounds = document
-            .getElementById(candidate)
-            ?.getBoundingClientRect();
-          if (!bounds) continue;
-          const distance =
-            bounds.top > focus
-              ? bounds.top - focus
-              : bounds.bottom < focus
-                ? focus - bounds.bottom
-                : 0;
-          if (distance < nearest) {
-            nearest = distance;
-            active = candidate;
-          }
-        }
-      } else if (
-        (document.getElementById("footer")?.getBoundingClientRect().top ??
-          Infinity) <= focus
-      )
-        active = "footer";
-      if (
-        maximum > 0 &&
-        window.scrollY >= maximum - 4 &&
-        document.getElementById("footer")
-      )
-        active = "footer";
-
-      const anchor =
-        pathname === "/"
-          ? document
-              .getElementById("horse-home-anchor")
-              ?.getBoundingClientRect()
-          : undefined;
-      const anchorDocumentTop = anchor ? anchor.top + window.scrollY : 0;
-      const start = anchor ? Math.max(24, anchorDocumentTop - height * 0.3) : 0;
-      const journeyLength =
-        Math.min(
-          document.getElementById("hero")?.offsetHeight ?? height,
-          height,
-        ) * 0.62;
-      let progress = anchor
-        ? clamp((window.scrollY - start) / journeyLength, 0, 1)
-        : 1;
-      if (reduced.matches && anchor) progress = progress < 0.5 ? 0 : 1;
-      const easing = progress * progress * (3 - 2 * progress);
-      const currentMode =
-        progress === 0 ? "hero" : progress >= 0.999 ? "floating" : "morph";
-      mode.current = currentMode;
-      // Stay on each side for a group of sections before crossing again.
-      const lane =
-        currentMode !== "floating" || reduced.matches
-          ? "right"
-          : leftScenes.has(active)
-            ? "left"
-            : "right";
-      const size = mobile ? (width < 360 ? 96 : 120) : 166;
-      const margin = mobile ? 12 : 20;
-      const endX = lane === "left" ? margin : width - size - margin;
-      const endY = mobile
-        ? height - size * (480 / 440) - 22
-        : clamp(115 + (height - 350) * overall, 105, height - 225);
-      const startX = anchor?.left ?? endX;
-      const startY = anchor?.top ?? endY;
-      const startWidth = anchor?.width ?? size;
-      const drawnWidth = mix(startWidth, size, easing);
+      let nearest = Infinity;
+      for (const section of layout.sections) {
+        const distance = Math.max(section.top - focus, focus - section.bottom, 0);
+        if (pathname === "/" && distance < nearest) { nearest = distance; active = section.scene; }
+        else if (pathname !== "/" && section.top <= focus) active = "footer";
+      }
+      if (maximum > 0 && targetScroll >= maximum - 4 && layout.sections.some(s => s.scene === "footer")) active = "footer";
+      let progress = layout.anchor ? clamp((scroll - layout.start) / layout.length, 0, 1) : 1;
+      if (reduced.matches) progress = progress < .5 ? 0 : 1;
+      const easing = smoothstep(progress);
+      const currentMode: Mode = progress === 0 ? "hero" : progress === 1 ? "floating" : "morph";
+      const lane = currentMode !== "floating" || reduced.matches ? "right" : horseLane(active);
+      const size = docked ? 64 : 124;
+      const margin = docked ? 12 : 18;
+      // Wide screens have reserved gutters; smaller screens use a separate bottom strip.
+      const endX = lane === "left" ? margin : width - size - (docked ? 52 : margin);
+      const overall = maximum ? clamp(scroll / maximum, 0, 1) : 0;
+      const endY = docked ? height - size * (480 / 440) - 12 : clamp(280 + (height - 520) * overall, 250, height - 180);
+      const startX = layout.anchor?.x ?? endX;
+      const startY = layout.anchor ? layout.anchor.top - scroll : endY;
+      const startSize = layout.anchor?.width ?? size;
       const arc = Math.sin(progress * Math.PI);
-      const angle = (arc * 7 * Math.PI) / 180;
-      const rotatedWidth =
-        drawnWidth * (Math.cos(angle) + (480 / 440) * Math.sin(angle));
-      const x = clamp(
-        mix(startX, endX, easing) + arc * (mobile ? 12 : 32),
-        margin,
-        width - margin - rotatedWidth,
-      );
-      // Keep the rotating character below navigation and inside the screen during departure.
-      const y = Math.max(
-        100 + drawnWidth * Math.sin(angle),
-        mix(startY, endY, easing) - arc * 45,
-      );
-      const scale = drawnWidth / 435;
-      element.style.setProperty(
-        "--character-transform",
-        `translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) scale(${scale.toFixed(5)}) rotate(${(-arc * 7).toFixed(2)}deg)`,
-      );
-
-      const bubbleWidth = mobile ? (width < 360 ? 176 : 184) : 224;
-      const heroBubbleX = x + drawnWidth / 2 - bubbleWidth / 2;
-      const heroBubbleY = y + drawnWidth * (480 / 440) + 5;
-      const floatingBubbleX =
-        lane === "left" ? endX + size + 10 : endX - bubbleWidth - 10;
-      const floatingBubbleY = clamp(endY + 16, 100, height - 170);
-      const bubbleX = clamp(
-        mix(heroBubbleX, floatingBubbleX, easing),
-        10,
-        width - bubbleWidth - 10,
-      );
-      const bubbleY = mix(heroBubbleY, floatingBubbleY, easing);
-      element.style.setProperty(
-        "--speech-transform",
-        `translate3d(${bubbleX.toFixed(2)}px,${bubbleY.toFixed(2)}px,0)`,
-      );
-      element.style.setProperty(
-        "--speech-opacity",
-        String(
-          progress < 0.5
-            ? Math.max(0, 1 - progress * 4)
-            : Math.max(0, (progress - 0.75) * 4),
-        ),
-      );
-      element.dataset.mode = currentMode;
-      element.dataset.lane = lane;
-      element.dataset.ready = "true";
-      const speech = element.querySelector<HTMLElement>(".guide-speech");
-      const trigger =
-        element.querySelector<HTMLButtonElement>(".character-trigger");
-      if (speech)
-        speech.inert =
-          currentMode === "morph" || Boolean(element.dataset.flying);
-      if (trigger) trigger.disabled = currentMode === "morph";
-
-      if (
-        initialized &&
-        lastMode === "floating" &&
-        currentMode === "floating" &&
-        lane !== lastLane &&
-        !reduced.matches
-      ) {
+      const desired: Position = {
+        x: mix(startX, endX, easing) + arc * 20,
+        y: mix(startY, endY, easing) - arc * 28,
+        size: mix(startSize, size, easing), rotation: -arc * 5,
+      };
+      if (currentMode === "floating" && lane !== lastLane && position && !reduced.matches) {
+        flight = { start: { ...position }, time };
         element.dataset.flying = lane;
-        if (flightTimer) clearTimeout(flightTimer);
-        if (speech) speech.inert = true;
-        flightTimer = setTimeout(() => {
-          delete element.dataset.flying;
-          const currentSpeech =
-            element.querySelector<HTMLElement>(".guide-speech");
-          if (currentSpeech) currentSpeech.inert = mode.current === "morph";
-        }, 1400);
       }
-      if (currentMode !== "floating") {
-        delete element.dataset.flying;
-        if (flightTimer) clearTimeout(flightTimer);
-      }
+      if (currentMode !== "floating" || reduced.matches) { flight = null; delete element.dataset.flying; }
+      if (flight) {
+        const phase = clamp((time - flight.time) / 1200, 0, 1);
+        const travel = smoothstep(phase);
+        position = {
+          x: mix(flight.start.x, endX, travel),
+          y: mix(flight.start.y, endY, travel) - Math.sin(phase * Math.PI) * (docked ? 10 : 44),
+          size: mix(flight.start.size, size, travel), rotation: Math.sin(phase * Math.PI) * (lane === "left" ? -4 : 4),
+        };
+        if (phase === 1) { flight = null; delete element.dataset.flying; }
+      } else if (currentMode !== "hero" && position && !reduced.matches) {
+        position = dampPose(position, desired, dt, 75);
+      } else position = desired;
+
+      const angle = Math.abs(position.rotation) * Math.PI / 180;
+      const rotatedWidth = position.size * (Math.cos(angle) + (480 / 440) * Math.sin(angle));
+      position.x = clamp(position.x, margin, width - margin - rotatedWidth);
+      position.y = Math.max(100 + position.size * Math.sin(angle), position.y);
+      // Direct transforms avoid inherited custom-property invalidation of the entire SVG tree.
+      avatar.style.transform = `translate3d(${position.x}px,${position.y}px,0) scale(${position.size / 435}) rotate(${position.rotation}deg)`;
+      const bubbleWidth = currentMode === "floating" ? 144 : 224;
+      const heroX = position.x + position.size / 2 - bubbleWidth / 2;
+      const heroY = position.y + position.size * (480 / 440) + 5;
+      const bubbleX = currentMode === "floating" ? (lane === "left" ? 10 : width - bubbleWidth - 10) : heroX;
+      const bubbleY = currentMode === "floating" ? Math.max(105, position.y - bubbleHeight - 12) : heroY;
+      const departing = currentMode !== "hero" && position.size > size + 1;
+      speech.style.transform = `translate3d(${clamp(bubbleX, 10, width - bubbleWidth - 10)}px,${bubbleY}px,0)`;
+      speech.style.opacity = String(flight || (departing && currentMode === "floating") || (docked && currentMode === "floating") ? 0 : currentMode === "morph" ? Math.max(0, 1 - progress * 5) : 1);
+      speech.inert = currentMode === "morph" || departing || !!flight || (docked && currentMode === "floating");
+      trigger.disabled = currentMode === "morph" || departing || !!flight;
+      if (docked) minimize.style.transform = `translate3d(${width - 44}px,${height - 58}px,0)`;
+      else minimize.style.transform = `translate3d(${endX + size - 26}px,${endY + size * (480 / 440) + 6}px,0)`;
+      mode.current = currentMode;
+      if (element.dataset.mode !== currentMode) element.dataset.mode = currentMode;
+      if (element.dataset.lane !== lane) element.dataset.lane = lane;
+      if (element.dataset.docked !== String(docked)) element.dataset.docked = String(docked);
+      if (element.dataset.departing !== String(departing)) element.dataset.departing = String(departing);
+      if (element.dataset.ready !== "true") element.dataset.ready = "true";
+      const context = `${active}-${currentMode}-${docked}`;
+      if (context !== published) { published = context; setState({ path: pathname, scene: active, mode: currentMode, docked }); }
       lastLane = lane;
-      lastMode = currentMode;
-      initialized = true;
-      setState((previous) =>
-        previous.path === pathname && previous.scene === active
-          ? previous
-          : { path: pathname, scene: active },
-      );
+      const moving = currentMode !== "hero" && Math.abs(position.x - desired.x) + Math.abs(position.y - desired.y) + Math.abs(position.size - desired.size) + Math.abs(position.rotation - desired.rotation) > .1;
+      if (scroll !== targetScroll || flight || moving) frame = requestAnimationFrame(draw);
+      else previousTime = 0;
     };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    reduced.addEventListener("change", schedule);
-    const observer = new ResizeObserver(schedule);
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(draw); };
+    const resize = () => { dirty = true; schedule(); };
+    const observer = new ResizeObserver(entries => {
+      if (entries.some(entry => entry.target !== speech)) dirty = true;
+      bubbleHeight = speech.offsetHeight || bubbleHeight;
+      schedule();
+    });
     observer.observe(document.body);
+    observer.observe(speech);
+    if (anchor) observer.observe(anchor);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", resize);
+    reduced.addEventListener("change", resize);
     schedule();
     return () => {
       cancelAnimationFrame(frame);
-      if (flightTimer) clearTimeout(flightTimer);
       observer.disconnect();
       window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      reduced.removeEventListener("change", schedule);
+      window.removeEventListener("resize", resize);
+      reduced.removeEventListener("change", resize);
     };
   }, [pathname, root]);
 
-  return { scene, mode };
+  return { scene: state.path === pathname ? state.scene : sceneForPath(pathname), mode, journeyMode: state.mode, docked: state.docked };
 }

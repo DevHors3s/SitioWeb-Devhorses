@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { caseImageDimensions } from "@/lib/cases";
+import ImageLightbox from "./ImageLightbox";
 
 const tabs = [
   { img: "/saas apu gestion/ApuGestion1.png", key: "saas_tab_1" as const },
@@ -120,12 +121,14 @@ export default function SaasShowcase() {
             className="featured-screen"
             tabIndex={0}
           >
+            <ImageLightbox images={tabs.map(tab => ({ src: tab.img, caption: t(tab.key), ...caseImageDimensions[tab.img] }))} initialIndex={active}>
             <Image
               src={tabs[active].img}
               alt={t(tabs[active].key)}
               {...caseImageDimensions[tabs[active].img]}
               sizes="(max-width: 1024px) 100vw, 55vw"
             />
+            </ImageLightbox>
           </div>
           <div className="featured-caption">
             <span className="status-dot" />

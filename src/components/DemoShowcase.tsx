@@ -65,7 +65,7 @@ export default function DemoShowcase() {
 
   return (
     <section className="relative py-24 md:py-36 bg-bg overflow-hidden">
-      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24">
+      <div className="site-container">
 
         {/* Encabezado */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16 md:mb-24 items-end">

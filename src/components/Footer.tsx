@@ -7,7 +7,7 @@ import { Github, Linkedin, Mail, Instagram, ArrowUpRight } from "lucide-react";
 import { site } from "@/lib/site";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
         DevHorses
       </span>
 
-      <div className="max-w-[90rem] mx-auto px-6 sm:px-16 md:px-24 relative">
+      <div className="site-container relative">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 md:gap-8 mb-16 md:mb-24">
 
@@ -59,7 +59,7 @@ export default function Footer() {
           <div className="md:col-span-2 md:col-start-11">
             <h3 className="eyebrow mb-8">{t("footer_legal")}</h3>
             <ul className="space-y-4">
-              <FooterLink href="/politica-de-privacidad" text="Privacidad" />
+              <FooterLink href="/politica-de-privacidad" text={language === "es" ? "Privacidad" : "Privacy"} />
               <li className="text-faint text-sm pt-4">Lima, Perú 🇵🇪</li>
             </ul>
           </div>

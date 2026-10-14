@@ -29,8 +29,8 @@ export default function Hero() {
           </h1>
           <p className="hero-description">
             {es
-              ? "Creamos sitios web, sistemas de gestión y automatizaciones para conectar tus clientes con la operación de tu empresa."
-              : "We build websites, management systems and automations that connect your customers with your business operations."}
+              ? "Creamos webs, sistemas de gestión y automatizaciones para negocios que atienden clientes, gestionan reservas o reciben pedidos. Conectamos tu presencia digital con el trabajo de tu equipo."
+              : "We build websites, management systems and automations for businesses serving customers, managing bookings or taking orders. We connect your digital presence with your team's work."}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
             <a href="#contact" className="btn-accent px-7 py-4 text-sm">

@@ -13,7 +13,7 @@ export default function ServiceDetails() {
     ? [
         [
           "¿Cuánto dura un proyecto?",
-          "Depende del alcance, las integraciones y la disponibilidad del contenido. Antes de comenzar acordamos etapas, entregables y fechas; durante el desarrollo revisamos el avance contigo.",
+          "Como referencia real, Apu Garden Lodge y Selekta Food tomaron aproximadamente un mes, incluyendo desarrollo, respuestas y aprobaciones del cliente. Para tu proyecto definimos fechas según páginas, módulos, integraciones y contenido disponible, y revisamos avances contigo.",
         ],
         [
           "¿El dominio y el hosting están incluidos?",
@@ -35,11 +35,12 @@ export default function ServiceDetails() {
           "¿Pueden conectar herramientas que ya utilizo?",
           "Revisamos sus APIs, permisos y limitaciones antes de confirmar una integración. Primero validamos que la conexión sea viable y luego definimos su alcance.",
         ],
+        ["¿Qué determina el presupuesto?", "El número de páginas o módulos, los recorridos de los usuarios, las integraciones y el contenido. Separaremos la implementación de los costos recurrentes de dominio, hosting y servicios externos para que puedas comparar el alcance."],
       ]
     : [
         [
           "How long does a project take?",
-          "It depends on scope, integrations and content availability. We agree stages, deliverables and dates before starting and review progress with you during development.",
+          "As a real reference, Apu Garden Lodge and Selekta Food each took approximately one month, including development, client responses and approvals. Your timeline depends on pages, modules, integrations and content availability; we review progress with you.",
         ],
         [
           "Are domain and hosting included?",
@@ -61,6 +62,7 @@ export default function ServiceDetails() {
           "Can you connect tools I already use?",
           "We check APIs, permissions and limitations before confirming an integration. We validate feasibility first and then define scope.",
         ],
+        ["What determines the budget?", "The number of pages or modules, user journeys, integrations and content. We separate implementation from recurring domain, hosting and external-service costs so you can compare scope."],
       ];
   return (
     <main className="page-main">
@@ -95,6 +97,22 @@ export default function ServiceDetails() {
         </nav>
       </header>
       <div className="site-container">
+        <section className="service-planning">
+          <span className="eyebrow text-accent">{es ? "Elige por lo que necesitas resolver" : "Choose by the problem you need to solve"}</span>
+          <h2 className="section-title">{es ? "Tres puntos de partida." : "Three starting points."}</h2>
+          <div className="service-paths">
+            {(es ? [
+              ["Presentar y captar consultas", "Una web con oferta, servicios y contacto. Empezamos por el contenido y el recorrido del visitante.", "Referencia: Selekta Food", "/proyectos/selekta-food"],
+              ["Conectar la operación", "Una web y un sistema para compartir reservas, estados y reportes. Definimos los módulos y permisos del equipo.", "Referencia: Apu Garden Lodge", "/proyectos/apu-garden-lodge"],
+              ["Crecer por etapas", "Una primera versión con el flujo principal. Las siguientes funciones se priorizan después de validar su uso.", "Explorar aplicaciones a medida", "#aplicaciones"],
+            ] : [
+              ["Present your offer and attract inquiries", "A website with services and contact. We start with the content and the visitor journey.", "Reference: Selekta Food", "/proyectos/selekta-food"],
+              ["Connect business operations", "A website and system sharing bookings, statuses and reports. We define modules and team permissions.", "Reference: Apu Garden Lodge", "/proyectos/apu-garden-lodge"],
+              ["Grow in stages", "A first version covering the main workflow. Further features are prioritized after validating usage.", "Explore custom applications", "#aplicaciones"],
+            ]).map(([title, text, label, href]) => <article key={title}><h3>{title}</h3><p>{text}</p><Link href={href} className="text-link">{label}<ArrowUpRight size={14}/></Link></article>)}
+          </div>
+          <p className="planning-reference">{es ? "Apu y Selekta: aproximadamente 1 mes por proyecto, incluyendo revisiones y aprobaciones. Usamos estos casos como referencia; el calendario de cada solución se acuerda según su alcance." : "Apu and Selekta: approximately 1 month per project, including reviews and approvals. These cases are references; each solution's schedule is agreed according to its scope."}</p>
+        </section>
         {services[language].map((item, i) => (
           <section key={item.id} id={item.id} className="service-detail">
             <div>
@@ -170,6 +188,10 @@ export default function ServiceDetails() {
             </p>
           </article>
         </div>
+        <section className="proposal-checklist">
+          <h2>{es ? "Lo que debe quedar claro en tu propuesta." : "What your proposal should make clear."}</h2>
+          <ul>{(es ? ["Funciones y entregables de cada etapa, con fechas de revisión y aprobación.", "Código, repositorios, accesos y condiciones de uso de componentes de terceros.", "Dominio, hosting y servicios externos, con sus responsables y costos recurrentes.", "Soporte 24/7: canales de atención y cobertura de incidencias en lo entregado.", "Mantenimiento y nuevas funciones: tareas incluidas y ampliaciones que se cotizan aparte."] : ["Features and deliverables for each stage, with review and approval dates.", "Code, repositories, access and third-party component usage terms.", "Domain, hosting and external services, including responsibilities and recurring costs.", "24/7 support: contact channels and incident coverage for delivered work.", "Maintenance and new features: included tasks and extensions quoted separately."]).map(item => <li key={item}><Check size={15}/>{item}</li>)}</ul>
+        </section>
         <section className="faq-section">
           <span className="eyebrow">
             {es ? "Antes de empezar" : "Before we start"}

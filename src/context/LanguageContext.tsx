@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useSyncExternalStore, useEffect, ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
 
 type Language = "es" | "en";
@@ -253,7 +253,7 @@ const translations: Record<Language, Translations> = {
     // Contact
     contact_title_1: "¿Listo para ",
     contact_title_gradient: "hacer crecer tu negocio?",
-    contact_subtitle: "Cuéntanos tu idea y te respondemos de inmediato con una propuesta personalizada. Sin compromiso.",
+    contact_subtitle: "Cuéntanos tu idea y te respondemos de inmediato. Definimos contigo el alcance para preparar una propuesta personalizada, sin compromiso.",
     contact_label_name: "Nombre",
     contact_label_email: "Email",
     contact_label_message: "Cuéntanos tu proyecto",
@@ -440,7 +440,7 @@ const translations: Record<Language, Translations> = {
     // Contact
     contact_title_1: "Ready to ",
     contact_title_gradient: "Grow Your Business?",
-    contact_subtitle: "Tell us your idea and we'll get back to you right away with a personalized proposal. No strings attached.",
+    contact_subtitle: "Tell us your idea and we'll respond right away. We agree the scope with you to prepare a tailored proposal, with no commitment.",
     contact_label_name: "Name",
     contact_label_email: "Email",
     contact_label_message: "Tell us about your project",
@@ -579,13 +579,29 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+let fallbackLanguage: Language = "es";
+function readLanguage(): Language {
+  try { return window.localStorage.getItem("devhorses-language") === "en" ? "en" : "es"; }
+  catch { return fallbackLanguage; }
+}
+function subscribeLanguage(listener: () => void) {
+  window.addEventListener("storage", listener);
+  window.addEventListener("devhorses-language", listener);
+  return () => {
+    window.removeEventListener("storage", listener);
+    window.removeEventListener("devhorses-language", listener);
+  };
+}
+
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("es");
+  const language = useSyncExternalStore(subscribeLanguage, readLanguage, () => "es" as Language);
 
   useEffect(() => { document.documentElement.lang = language; }, [language]);
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "es" ? "en" : "es"));
+    fallbackLanguage = language === "es" ? "en" : "es";
+    try { window.localStorage.setItem("devhorses-language", fallbackLanguage); } catch {}
+    window.dispatchEvent(new Event("devhorses-language"));
   };
 
   const t = (key: keyof Translations) => {

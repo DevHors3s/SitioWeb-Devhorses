@@ -41,7 +41,7 @@ export default function Navbar() {
 
           {/* LOGO */}
           <Link href="/" className="flex items-center shrink-0" onClick={() => setIsOpen(false)}>
-            <Image src="/logo-full.png" alt="DevHorses" width={1394} height={323} className="h-6 sm:h-7 w-auto" priority />
+            <Image src="/logo-full.png" alt="DevHorses" width={1394} height={323} className="h-6 sm:h-7 w-auto" preload />
           </Link>
 
           {/* LINKS DESKTOP */}
