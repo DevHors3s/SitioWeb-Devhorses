@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Check, LifeBuoy, Palette } from "lucide-react";
+import { ArrowUpRight, Check, Clock3, LifeBuoy, MessageSquare, Package, Palette } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { services } from "@/lib/services";
 import { whatsappUrl } from "@/lib/site";
+import ServiceJourney from "./ServiceJourney";
 
 export default function ServiceDetails() {
   const { language } = useLanguage();
@@ -109,18 +110,18 @@ export default function ServiceDetails() {
               ["Present your offer and attract inquiries", "A website with services and contact. We start with the content and the visitor journey.", "Reference: Selekta Food", "/proyectos/selekta-food"],
               ["Connect business operations", "A website and system sharing bookings, statuses and reports. We define modules and team permissions.", "Reference: Apu Garden Lodge", "/proyectos/apu-garden-lodge"],
               ["Grow in stages", "A first version covering the main workflow. Further features are prioritized after validating usage.", "Explore custom applications", "#aplicaciones"],
-            ]).map(([title, text, label, href]) => <article key={title}><h3>{title}</h3><p>{text}</p><Link href={href} className="text-link">{label}<ArrowUpRight size={14}/></Link></article>)}
+            ]).map(([title, text, label, href]) => <article key={title} data-motion-card><h3>{title}</h3><p>{text}</p><Link href={href} className="text-link">{label}<ArrowUpRight size={14}/></Link></article>)}
           </div>
           <p className="planning-reference">{es ? "Apu y Selekta: aproximadamente 1 mes por proyecto, incluyendo revisiones y aprobaciones. Usamos estos casos como referencia; el calendario de cada solución se acuerda según su alcance." : "Apu and Selekta: approximately 1 month per project, including reviews and approvals. These cases are references; each solution's schedule is agreed according to its scope."}</p>
         </section>
         {services[language].map((item, i) => (
           <section key={item.id} id={item.id} className="service-detail">
-            <div>
+            <div className="service-detail-intro">
               <span className="eyebrow text-accent">0{i + 1} / DEVHORSES</span>
               <h2>{item.title}</h2>
               <p className="text-muted leading-relaxed">{item.audience}</p>
               <a
-                className="inline-flex items-center gap-2 text-accent text-sm mt-6"
+                className="service-detail-cta inline-flex items-center gap-2 text-accent text-sm mt-6"
                 href={whatsappUrl(
                   es
                     ? `Hola DevHorses, me interesa ${item.title.toLowerCase()} para mi negocio.`
@@ -134,14 +135,15 @@ export default function ServiceDetails() {
                   : "Let's discuss this service"}
                 <ArrowUpRight size={16} />
               </a>
+              <ServiceJourney kind={item.id} es={es} />
             </div>
-            <div className="service-detail-content">
+            <div className="service-detail-content" data-motion-card>
               <h3>{es ? "Qué puede incluir" : "What it can include"}</h3>
               <ul>
                 {item.includes.map((text) => (
                   <li key={text}>
-                    <Check size={15} />
-                    {text}
+                    <span className="service-check"><Check size={14} aria-hidden="true" /></span>
+                    <span>{text}</span>
                   </li>
                 ))}
               </ul>
@@ -156,9 +158,9 @@ export default function ServiceDetails() {
                     es ? "Qué necesitamos de ti" : "What we need from you",
                     item.input,
                   ],
-                ].map(([label, text]) => (
+                ].map(([label, text], index) => (
                   <div key={label}>
-                    <dt>{label}</dt>
+                    <dt>{index === 0 ? <Package size={15} aria-hidden="true" /> : index === 1 ? <Clock3 size={15} aria-hidden="true" /> : <MessageSquare size={15} aria-hidden="true" />}{label}</dt>
                     <dd>{text}</dd>
                   </div>
                 ))}
@@ -167,7 +169,7 @@ export default function ServiceDetails() {
           </section>
         ))}
         <div className="service-extras">
-          <article>
+          <article data-motion-card>
             <Palette size={23} className="text-accent" />
             <h2>{es ? "Una identidad coherente" : "A consistent identity"}</h2>
             <p>
@@ -176,7 +178,7 @@ export default function ServiceDetails() {
                 : "Branding and interface design to complement your project: logo, palette, typography and visual guidelines for your website and materials."}
             </p>
           </article>
-          <article>
+          <article data-motion-card>
             <LifeBuoy size={23} className="text-accent" />
             <h2>
               {es ? "Seguimos contigo. 24/7." : "We're here for you. 24/7."}

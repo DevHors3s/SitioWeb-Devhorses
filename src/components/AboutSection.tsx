@@ -13,6 +13,13 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export default function AboutSection() {
   const { t, language } = useLanguage();
   const es = language === "es";
+  const teamProjects = [
+    { name: "Apu Garden Lodge", href: "/proyectos/apu-garden-lodge", external: false },
+    { name: "Selekta Food", href: "/proyectos/selekta-food", external: false },
+    { name: "Dental Tello", href: "https://www.dentaltello.com/es", external: true },
+    { name: "Business Beans", href: "https://www.businessbeans.com.pe/", external: true },
+    { name: "MV Abogados", href: "https://mv-abogados.vercel.app/", external: true },
+  ];
 
   const team = [
     {
@@ -158,8 +165,14 @@ export default function AboutSection() {
           </div>
           <div className="team-proof">
             <p>{es ? "Conoce el trabajo del equipo en proyectos publicados." : "Explore the team's work in live projects."}</p>
-            <Link className="text-link" href="/proyectos/apu-garden-lodge">Apu Garden Lodge <ArrowRight size={15}/></Link>
-            <Link className="text-link" href="/proyectos/selekta-food">Selekta Food <ArrowRight size={15}/></Link>
+            <div className="team-project-links">
+              {teamProjects.map(project => (
+                <Link key={project.name} className="text-link" href={project.href} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={project.external ? `${project.name} (${es ? "abre una nueva pestaña" : "opens a new tab"})` : undefined}>
+                  {project.name}<ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+            <Link className="text-link team-all-projects" href="/proyectos">{es ? "Ver todos los proyectos" : "View all projects"}<ArrowRight size={15}/></Link>
           </div>
         </div>
 
