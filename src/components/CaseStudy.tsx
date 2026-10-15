@@ -149,6 +149,16 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
             ))}
           </div>
         </section>
+        <section className="case-reported-results">
+          <span className="eyebrow text-accent">{es ? "Indicadores reportados" : "Reported indicators"}</span>
+          <h2 className="section-title">{es ? "De las visitas al negocio." : "From visits to business."}</h2>
+          <p>{es ? `Resultados facilitados por DevHorses para la web de ${project.name}.` : `Results provided by DevHorses for ${project.name}'s website.`}</p>
+          <div className="reported-results-grid">
+            <article><strong>&gt;50%</strong><h3>{es ? "Visitantes que realizaron una consulta" : "Visitors who made an inquiry"}</h3></article>
+            <article><strong>30%</strong><h3>{es ? "Visitantes que contrataron servicios del cliente" : "Visitors who purchased the client's services"}</h3></article>
+          </div>
+          <p className="reported-results-note">{es ? "Cifras reportadas por el equipo de DevHorses para este proyecto. El periodo de medición no se ha especificado." : "Figures reported by the DevHorses team for this project. The measurement period has not been specified."}</p>
+        </section>
         <blockquote className="case-client-quote">
           <span className="eyebrow text-accent">{es ? "En palabras del cliente" : "In the client's words"}</span>
           <p>“{apu ? t("testimonial_2_quote") : (es ? "Necesitábamos una web que transmitiera la seriedad y la tecnología que hay detrás de Selekta. DevHorses entendió nuestro negocio desde el primer día y entregó una plataforma que abre puertas en el sector agroexportador." : "We needed a website that conveyed the seriousness and technology behind Selekta. DevHorses understood our business from day one and delivered a platform that opens doors in the agro-export sector.")}”</p>
