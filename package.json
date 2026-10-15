@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:motion": "node --test tests/horse-motion.test.mjs"
+    "test:motion": "node --test tests/horse-motion.test.mjs",
+    "test:presence": "node --test tests/horse-presence.test.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

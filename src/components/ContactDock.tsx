@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Mail, MessageCircle, ArrowUpRight, RefreshCw, X, Minus } from "lucide-react";
+import { Mail, MessageCircle, ArrowUpRight, RefreshCw, X } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { site, whatsappUrl } from "@/lib/site";
 import HorseMascot from "./HorseMascot";
 import { useHorseDialogue } from "@/hooks/useHorseDialogue";
 import { useHorseJourney } from "@/hooks/useHorseJourney";
+import { HorsePresence } from "@/lib/horse-presence";
 
 export default function ContactDock() {
   const { language } = useLanguage();
@@ -18,15 +19,20 @@ export default function ContactDock() {
   const wrapper = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const firstLink = useRef<HTMLAnchorElement>(null);
-  const restore = useRef<HTMLButtonElement>(null);
+  const presence = useRef(new HorsePresence());
   const { scene, journeyMode } = useHorseJourney(wrapper, pathname);
-  const [greeting, setGreeting] = useState(false);
+  const [reaction, setReaction] = useState<"hello" | "return" | null>(null);
   const greetingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const dialogue = useHorseDialogue(scene, !open && !minimized && journeyMode !== "morph");
+  const dialogue = useHorseDialogue(scene, !open && !minimized && !reaction && journeyMode !== "morph");
+  const showReaction = useCallback((kind: "hello" | "return") => {
+    if (greetingTimer.current) clearTimeout(greetingTimer.current);
+    setReaction(kind);
+    greetingTimer.current = setTimeout(() => setReaction(null), kind === "return" ? 6500 : 2400);
+  }, []);
   const minimize = () => {
     setOpen(false);
+    presence.current.dismiss(window.scrollY);
     setMinimized(true);
-    requestAnimationFrame(() => restore.current?.focus());
   };
   useEffect(
     () => () => {
@@ -36,11 +42,31 @@ export default function ContactDock() {
   );
   const interact = () => {
     if (wrapper.current?.dataset.mode !== "floating") {
-      setGreeting(true);
-      if (greetingTimer.current) clearTimeout(greetingTimer.current);
-      greetingTimer.current = setTimeout(() => setGreeting(false), 2400);
+      showReaction("hello");
     } else setOpen((value) => !value);
   };
+
+  useEffect(() => {
+    const scroll = () => {
+      if (presence.current.scroll(window.scrollY)) setMinimized(false);
+    };
+    const leave = () => presence.current.leave(Date.now());
+    const returned = () => {
+      if (document.hidden) return;
+      if (presence.current.return(Date.now()) && !minimized && !open) showReaction("return");
+    };
+    const visibility = () => document.hidden ? leave() : returned();
+    window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("blur", leave);
+    window.addEventListener("focus", returned);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("scroll", scroll);
+      window.removeEventListener("blur", leave);
+      window.removeEventListener("focus", returned);
+      document.removeEventListener("visibilitychange", visibility);
+    };
+  }, [minimized, open, showReaction]);
 
   useEffect(() => {
     if (!open) return;
@@ -69,12 +95,14 @@ export default function ContactDock() {
       data-section={scene}
       data-minimized={minimized}
       data-contact-open={open}
-      data-activity={greeting ? "wave" : dialogue.mood}
+      data-activity={reaction ? "wave" : dialogue.mood}
     >
         <div className="guide-speech" aria-live="off" hidden={open || minimized}>
           <span className="guide-label">{dialogue.label}</span>
-          <p key={dialogue.key} className="guide-comment">
-            {greeting
+          <p key={`${dialogue.key}-${reaction}`} className="guide-comment">
+            {reaction === "return"
+              ? es ? "¡Hey! ¿Sigues por ahí? Seguimos cuando quieras. 😎" : "Hey, still there? Let's carry on whenever you're ready. 😎"
+              : reaction === "hello"
               ? es
                 ? "¡Hola de nuevo! Me alegra verte. 👋"
                 : "Hello again! Happy to see you. 👋"
@@ -91,16 +119,6 @@ export default function ContactDock() {
             >
               <RefreshCw size={12} />
               <span>{es ? "¿Y qué más?" : "What else?"}</span>
-            </button>
-            <button
-              onClick={minimize}
-              aria-label={
-                es
-                  ? "Minimizar acompañante"
-                  : "Minimize companion"
-              }
-            >
-              <X size={13} />
             </button>
           </div>
         </div>
@@ -157,21 +175,6 @@ export default function ContactDock() {
           </a>
         </div>
       )}
-      {minimized && (
-        <button
-          ref={restore}
-          className="companion-restore"
-          onClick={() => {
-            setMinimized(false);
-            requestAnimationFrame(() => trigger.current?.focus());
-          }}
-          aria-label={
-            es ? "Mostrar acompañante" : "Show companion"
-          }
-        >
-          <MessageCircle size={16} />
-        </button>
-      )}
       <div className="travel-avatar" aria-live="off" inert={minimized}>
         <button
           ref={trigger}
@@ -191,14 +194,14 @@ export default function ContactDock() {
         >
           <span className="travel-art">
             <HorseMascot
-              mood={greeting ? "wave" : dialogue.mood}
-              reactionKey={`${dialogue.key}-${greeting}`}
+              mood={reaction ? "wave" : dialogue.mood}
+              reactionKey={`${dialogue.key}-${reaction}`}
             />
           </span>
         </button>
       </div>
-      <button className="companion-minimize" onClick={minimize} hidden={minimized || journeyMode !== "floating"} aria-label={es ? "Minimizar acompañante" : "Minimize companion"} title={es ? "Minimizar acompañante" : "Minimize companion"}>
-        <Minus size={16} />
+      <button className="companion-minimize" onClick={minimize} hidden={minimized || journeyMode !== "floating"} aria-label={es ? "Ocultar caballo hasta volver hacia arriba" : "Hide horse until scrolling up"} title={es ? "Ocultar hasta volver hacia arriba" : "Hide until scrolling up"}>
+        <X size={13} />
       </button>
     </div>
   );

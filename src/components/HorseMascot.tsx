@@ -82,13 +82,13 @@ export default function HorseMascot({
   }, []);
   return (
     <div ref={root} className={`horse-mascot horse-mascot--${mood}`}>
-      <svg viewBox="0 0 440 480" aria-hidden="true" className="horse-art">
+      <svg viewBox="0 0 440 480" aria-hidden="true" className="horse-art" shapeRendering="geometricPrecision">
         <defs>
           <linearGradient id={`${id}-coat`} x1="0" y1="0" x2=".8" y2="1">
             <stop stopColor="#f6f0ff" /><stop offset=".58" stopColor="#d4c2fa" /><stop offset="1" stopColor="#a68adb" />
           </linearGradient>
           <linearGradient id={`${id}-muzzle`} x1="0" y1="0" x2="0" y2="1">
-            <stop stopColor="#fff4e6" /><stop offset="1" stopColor="#f0cfb8" />
+            <stop stopColor="#faf4f6" /><stop offset="1" stopColor="#d9c4dc" />
           </linearGradient>
           <linearGradient id={`${id}-mane`} x1="0" y1="0" x2="1" y2="1">
             <stop stopColor="#29243f" /><stop offset=".55" stopColor="#423060" /><stop offset="1" stopColor="#8960c5" />
@@ -97,17 +97,12 @@ export default function HorseMascot({
             <stop stopColor="#272536" /><stop offset="1" stopColor="#080b14" />
           </linearGradient>
         </defs>
-        <ellipse cx="222" cy="452" rx="126" ry="13" fill="#030611" opacity=".4" className="horse-shadow" />
+        <ellipse cx="222" cy="449" rx="119" ry="10" fill="#030611" opacity=".4" className="horse-shadow" />
         <g className="horse-reaction" key={reactionKey}>
           <g className="horse-idle">
-            {/* A bare, rounded toy silhouette, with hooves instead of clothing. */}
-            <path d="M292 356c46-7 71 15 58 45-8 17-25 20-37 17 19-7 18-27 0-30l-26 1Z" fill={`url(#${id}-mane)`} stroke="#272139" strokeWidth="5" strokeLinejoin="round" />
-            <path d="M163 319c-26 28-41 59-37 92 3 29 40 38 91 37 55 0 94-9 95-38 1-38-16-70-42-93Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
-            <path d="M190 352c-15 15-24 38-20 61 16 10 64 11 82 0 6-21-2-46-18-61Z" fill="#eee4ff" opacity=".65" />
-            <path d="M165 408v22m100-22v22" stroke="#9c7ac9" strokeWidth="4" strokeLinecap="round" />
-            <path d="M141 426c12-8 31-7 42 2l2 16c-14 7-34 7-49-1Z" fill="#39304f" stroke="#272139" strokeWidth="4" />
-            <path d="M251 428c13-9 32-8 43 0l4 15c-14 8-34 8-49 1Z" fill="#39304f" stroke="#272139" strokeWidth="4" />
-            <path d="M146 436h25m89 0h25" stroke="#75ebdc" strokeWidth="3" strokeLinecap="round" />
+            {/* Shoulders and chest only: no legs, feet or tail. */}
+            <path d="M172 315c-38 14-61 54-65 108 28 20 197 20 226 0-4-54-27-94-65-108Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="4" strokeLinejoin="round" />
+            <path d="M193 335c-11 23-21 58-20 93 27 7 66 7 94 0-1-36-11-71-25-93Z" fill="#eee4ff" opacity=".5" />
             <g className="horse-rest-hooves">
               <path d="M140 355c-20 8-27 32-16 49 7 11 25 8 29-4l11-30Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
               <path d="M126 386c8-3 19-1 27 5l-2 13c-8 8-19 9-26 1Z" fill="#39304f" />
@@ -117,12 +112,12 @@ export default function HorseMascot({
             <g className="horse-head">
               <path d="M277 111c52 16 69 66 54 119l-8 36 15 19-35-3 10 35-39-23-18-119Z" fill={`url(#${id}-mane)`} stroke="#272139" strokeWidth="5" strokeLinejoin="round" />
               <g className="horse-ear horse-ear--left">
-                <path d="M139 147C111 120 97 71 113 42c31 7 56 43 60 89Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
-                <path d="M140 121c-14-18-23-38-22-57 18 13 30 35 33 53Z" fill="#b88cce" />
+                <path d="M139 147C116 125 104 86 116 61c25 8 48 35 52 72Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
+                <path d="M140 123c-10-14-17-28-17-43 14 11 24 27 26 40Z" fill="#b88cce" />
               </g>
               <g className="horse-ear horse-ear--right">
-                <path d="M259 133c-1-41 15-85 39-108 26 28 27 72-3 122Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
-                <path d="M279 120c-2-25 6-49 17-67 11 23 8 44-5 69Z" fill="#b88cce" />
+                <path d="M261 135c0-32 14-67 35-87 21 23 21 59-3 96Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
+                <path d="M280 123c0-19 6-38 15-53 8 18 6 35-4 54Z" fill="#b88cce" />
               </g>
               <path d="M138 127c32-35 102-38 141-7 35 29 33 78 18 115l-15 59c-7 30-31 49-65 49-39 0-64-22-72-57l-20-58c-14-43-13-74 13-101Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
               <path d="M218 129c-17 21-24 68-20 100l-12 37h46l-8-41c12-44 15-73-6-96Z" fill="#fff9ef" opacity=".9" />
@@ -134,19 +129,15 @@ export default function HorseMascot({
                 <path d="M113 177h94v10h24v-10h89v15h-9v34h-9v12h-61v-10h-10v-22h-24v21h-9v12h-63v-11h-11v-30h-11Z" fill="#090c15" stroke="#090c15" strokeWidth="5" strokeLinejoin="round" />
                 <path d="M131 187h64v29h-9v10h-46v-10h-9Zm111 0h61v29h-9v10h-43v-10h-9Z" fill={`url(#${id}-lens)`} />
                 <g fill="#fff" opacity=".94">
-                  <path d="M137 189h10v10h-10Zm10 10h10v10h-10Zm111-10h10v10h-10Zm10 10h10v10h-10Z" />
+                  <path d="m137 189 10 0 15 20h-10Zm121 0h10l15 20h-10Z" />
                 </g>
                 <path d="M170 190h17m91 0h17" stroke="#a7a4b4" strokeWidth="3" strokeLinecap="round" opacity=".55" />
               </g>
-              <path d="M151 260c21-16 45-13 66-13 26 0 50-6 70 11 24 21 25 54 3 76-26 27-97 30-133 7-32-20-36-58-6-81Z" fill={`url(#${id}-muzzle)`} stroke="#382a51" strokeWidth="5" />
-              <path d="M156 270c13-9 23-11 38-10" fill="none" stroke="#fffaf2" strokeWidth="7" strokeLinecap="round" />
-              <ellipse cx="177" cy="282" rx="9" ry="6" fill="#795866" transform="rotate(-22 177 282)" />
-              <ellipse cx="264" cy="279" rx="9" ry="6" fill="#795866" transform="rotate(22 264 279)" />
-              <ellipse cx="157" cy="303" rx="13" ry="7" fill="#e7a5a8" opacity=".55" />
-              <ellipse cx="283" cy="299" rx="13" ry="7" fill="#e7a5a8" opacity=".55" />
-              <path d="M185 314c20 13 53 13 74-6-4 22-20 30-38 27-17-1-28-9-36-21Z" fill="#49304a" stroke="#49304a" strokeWidth="3" strokeLinejoin="round" />
-              <path d="M190 317c18 7 43 5 62-5l-7 12c-19 5-36 4-49-1Z" fill="#fffaf2" />
-              <path d="m259 304 7 3" stroke="#795866" strokeWidth="3" strokeLinecap="round" />
+              <path d="M169 248c14-7 32-7 49-7 23 0 42 0 57 15 15 16 19 42 8 62-12 22-39 31-65 30-30-1-53-12-61-34-9-24-8-51 12-66Z" fill={`url(#${id}-muzzle)`} stroke="#382a51" strokeWidth="4" />
+              <path d="M170 261c9-5 18-7 28-7" fill="none" stroke="#fffafc" strokeWidth="5" strokeLinecap="round" opacity=".75" />
+              <path d="M178 280c2-5 8-7 13-4m57 0c5-4 11-2 13 3" fill="none" stroke="#765777" strokeWidth="5" strokeLinecap="round" />
+              <path d="M187 313c17 10 40 10 57-1" fill="none" stroke="#65466b" strokeWidth="4" strokeLinecap="round" />
+              <path d="m243 309 6 3" stroke="#65466b" strokeWidth="3" strokeLinecap="round" />
             </g>
           </g>
         </g>

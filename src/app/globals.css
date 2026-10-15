@@ -252,7 +252,7 @@ body {
   .hero-bottom { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 43px; padding-block: 25px; border-top: 1px solid var(--color-line); color: #8496ad; font-size: 9px; letter-spacing: .12em; }
   .hero-bottom > a { display: inline-flex; align-items: center; gap: 12px; letter-spacing: 0; font-size: 11px; }
   .horse-mascot { position: relative; width: 100%; max-width: 435px; --horse-x: 0; --horse-y: 0; }
-  .horse-art { width: 100%; display: block; filter: drop-shadow(0 20px 22px #0003); overflow: visible; }
+  .horse-art { width: 100%; display: block; overflow: visible; }
   .horse-head { transform-origin: 220px 290px; transform: translate(calc(var(--horse-x) * 8px), calc(var(--horse-y) * 5px)) rotate(calc(var(--horse-x) * 5deg)); }
   .horse-pupils { transform: translate(calc(var(--horse-x) * 7px), calc(var(--horse-y) * 5px)); }
   .horse-eyes { transform-origin: 220px 208px; animation: horse-blink 7s infinite; }
@@ -517,16 +517,16 @@ section[id] { scroll-margin-top: 110px; }
 
 /* One character, from the hero into a continuous journey across the page. */
 @layer components {
-  .horse-home-anchor { width: min(100%, 435px); aspect-ratio: 440 / 480; flex-shrink: 0; margin-bottom: 54px; }
+  .horse-home-anchor { width: min(100%, 435px); aspect-ratio: 440 / 480; flex-shrink: 0; margin-bottom: 78px; }
   .hero-character { min-height: 580px; }
   .travel-companion { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0; transition: opacity .3s ease; }
   .travel-companion:not([data-ready="true"]) { visibility: hidden; }
   .travel-companion[data-ready="true"] { opacity: 1; visibility: visible; }
-  .travel-avatar { position: absolute; left: 0; top: 0; width: 435px; height: 474.55px; transform-origin: 0 0; will-change: transform; backface-visibility: hidden; contain: layout style; pointer-events: none; }
+  .travel-avatar { position: absolute; left: 0; top: 0; width: 435px; height: 474.55px; transform-origin: 0 0; contain: layout style; pointer-events: none; }
   .character-trigger { display: block; width: 435px; height: 474.55px; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; }
   .travel-art { display: block; width: 100%; transform-origin: 50% 75%; }
   .travel-companion .horse-mascot { max-width: none; width: 435px; }
-  .travel-companion .guide-speech { position: absolute; left: 0; top: 0; width: 144px; will-change: transform, opacity; font-size: 11px; }
+  .travel-companion .guide-speech { position: absolute; left: 0; top: 0; width: 152px; font-size: 11px; }
   .travel-companion .guide-comment { font-size: 11px; }
   .travel-companion:is([data-mode="hero"], [data-mode="morph"]) .guide-speech { width: 224px; border-radius: 12px; padding: 10px 14px; text-align: center; }
   .travel-companion:is([data-mode="hero"], [data-mode="morph"]) .guide-label, .travel-companion:is([data-mode="hero"], [data-mode="morph"]) .guide-speech-controls, .travel-companion:is([data-mode="hero"], [data-mode="morph"]) .guide-speech::after { display: none; }
@@ -535,16 +535,15 @@ section[id] { scroll-margin-top: 110px; }
   .travel-companion[data-flying] .guide-speech { opacity: 0; pointer-events: none; }
   .travel-companion:is([data-mode="morph"], [data-departing="true"], [data-flying]) .horse-mascot * { animation-play-state: paused !important; }
   .travel-companion .guide-speech::after { top: auto; bottom: -6px; right: 50%; transform: rotate(45deg); }
-  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech { width: min(460px, calc(100vw - 144px)); padding: 6px 10px; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech { width: min(520px, calc(100vw - 144px)); padding: 6px 10px; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
   .travel-companion[data-docked="true"][data-mode="floating"] .guide-label,
   .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech::after { display: none; }
   .travel-companion[data-docked="true"][data-mode="floating"] .guide-comment { margin-top: 0; min-height: 0; font-size: 11px; line-height: 1.5; }
   .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech-controls { margin-top: 4px; padding-top: 2px; }
   .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech-controls button { min-height: 28px; }
   .travel-companion [hidden] { display: none !important; }
-  .companion-minimize { position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #67e8f930; border-radius: 50%; background: #101c30; color: #a6b4c8; cursor: pointer; pointer-events: auto; z-index: 2; }
-  .companion-minimize:hover { color: #67e8f9; border-color: #67e8f9; }
-  .companion-restore { position: fixed; right: 18px; bottom: 18px; width: 44px; height: 44px; display: grid; place-items: center; background: #101c30; color: #67e8f9; border: 1px solid #67e8f950; border-radius: 50%; cursor: pointer; pointer-events: auto; }
+  .companion-minimize { position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 6px; background: transparent; color: #a6b4c8; cursor: pointer; pointer-events: auto; z-index: 2; }
+  .companion-minimize:hover { color: #e2eaf6; background: #101c30; }
   .travel-companion[data-minimized="true"] .travel-avatar, .travel-companion[data-minimized="true"] .guide-speech, .travel-companion[data-minimized="true"] .companion-rail { visibility: hidden; pointer-events: none; }
   .travel-companion[data-minimized="true"] .horse-mascot * { animation-play-state: paused !important; }
   .companion-rail { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 128px; background: #0b1324; border-top: 1px solid #67e8f925; z-index: -1; }
@@ -563,7 +562,7 @@ section[id] { scroll-margin-top: 110px; }
   .horse-mascot--wave .horse-rest-hooves { transform-origin: 145px 360px; animation: hoof-hello 1.2s ease-in-out; }
   .horse-mascot--typing .horse-pupils { transform: translateY(5px); }
   .horse-mascot--typing .horse-reaction { animation: developer-focus 3s ease-in-out infinite; }
-  .thought-cloud { transform-origin: 360px 70px; animation: thought-appear .65s ease-out both, thought-float 3s ease-in-out .65s infinite; filter: drop-shadow(0 3px 10px #67e8f92b); }
+  .thought-cloud { transform-origin: 360px 70px; animation: thought-appear .65s ease-out both, thought-float 3s ease-in-out .65s infinite; }
   .thought-trail { animation: thought-appear .45s ease-out both; transform-box: fill-box; transform-origin: center; }
   .thought-trail--two { animation-delay: .12s; }
   .thinking-dot { transform-box: fill-box; transform-origin: center; animation: thinking-dots 1.5s ease-in-out infinite; }
@@ -593,7 +592,14 @@ section[id] { scroll-margin-top: 110px; }
 @media (min-width: 1280px) {
   .site-container:not(.hero-layout):not(.hero-bottom) { width: min(100% - 336px, 1248px); }
 }
-@media (max-width: 1279px) {
+@media (min-width: 768px) {
+  .travel-companion .guide-comment,
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-comment { font-size: 14px; line-height: 1.55; }
+  .travel-companion:is([data-mode="hero"], [data-mode="morph"]) .guide-comment { font-size: 15px; }
+  .travel-companion .guide-label { font-size: 10px; }
+  .travel-companion .guide-speech-controls button { font-size: 11px; }
+}
+@media (max-width: 1279px), (max-height: 619px) {
   body { padding-bottom: 128px; }
   html { scroll-padding-bottom: 144px; }
   input, textarea, summary, a, button { scroll-margin-bottom: 144px; }

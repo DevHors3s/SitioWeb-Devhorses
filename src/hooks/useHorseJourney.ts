@@ -70,7 +70,7 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       scroll = reduced.matches || !position ? targetScroll : damp(scroll, targetScroll, dt, 65);
       if (Math.abs(scroll - targetScroll) < .05) scroll = targetScroll;
       const { width, height, maximum } = layout;
-      const docked = width < 1280;
+      const docked = width < 1280 || height < 620;
       const focus = targetScroll + height * .45;
       let active = sceneForPath(pathname);
       let nearest = Infinity;
@@ -90,7 +90,7 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       // Wide screens have reserved gutters; smaller screens use a separate bottom strip.
       const endX = lane === "left" ? margin : width - size - (docked ? 52 : margin);
       const overall = maximum ? clamp(scroll / maximum, 0, 1) : 0;
-      const endY = docked ? height - size * (480 / 440) - 12 : clamp(280 + (height - 520) * overall, 250, height - 180);
+      const endY = docked ? height - size * (480 / 440) - 12 : clamp(Math.max(280 + (height - 520) * overall, bubbleHeight + 117), 250, height - 180);
       const startX = layout.anchor?.x ?? endX;
       const startY = layout.anchor ? layout.anchor.top - scroll : endY;
       const startSize = layout.anchor?.width ?? size;
@@ -123,8 +123,8 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       position.x = clamp(position.x, margin, width - margin - rotatedWidth);
       position.y = Math.max(100 + position.size * Math.sin(angle), position.y);
       // Direct transforms avoid inherited custom-property invalidation of the entire SVG tree.
-      avatar.style.transform = `translate3d(${position.x}px,${position.y}px,0) scale(${position.size / 435}) rotate(${position.rotation}deg)`;
-      const bubbleWidth = currentMode === "floating" ? (docked ? Math.min(460, width - 144) : 144) : 224;
+      avatar.style.transform = `translate(${position.x}px,${position.y}px) scale(${position.size / 435}) rotate(${position.rotation}deg)`;
+      const bubbleWidth = currentMode === "floating" ? (docked ? Math.min(520, width - 144) : 152) : 224;
       const heroX = position.x + position.size / 2 - bubbleWidth / 2;
       const heroY = position.y + position.size * (480 / 440) + 5;
       const bubbleX = currentMode === "floating"
@@ -132,12 +132,13 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
         : heroX;
       const bubbleY = currentMode === "floating" ? (docked ? height - 118 : Math.max(105, position.y - bubbleHeight - 12)) : heroY;
       const departing = currentMode !== "hero" && position.size > size + 1;
-      speech.style.transform = `translate3d(${clamp(bubbleX, 10, width - bubbleWidth - 10)}px,${bubbleY}px,0)`;
+      const pixelRatio = window.devicePixelRatio || 1;
+      const crisp = (value: number) => Math.round(value * pixelRatio) / pixelRatio;
+      speech.style.transform = `translate(${crisp(clamp(bubbleX, 10, width - bubbleWidth - 10))}px,${crisp(bubbleY)}px)`;
       speech.style.opacity = String(flight || (departing && currentMode === "floating") ? 0 : currentMode === "morph" ? Math.max(0, 1 - progress * 5) : 1);
       speech.inert = currentMode === "morph" || departing || !!flight;
       trigger.disabled = currentMode === "morph" || departing || !!flight;
-      if (docked) minimize.style.transform = `translate3d(${width - 44}px,${height - 58}px,0)`;
-      else minimize.style.transform = `translate3d(${endX + size - 26}px,${endY + size * (480 / 440) + 6}px,0)`;
+      minimize.style.transform = `translate(${crisp(position.x + position.size * .78)}px,${crisp(position.y + position.size * .25)}px)`;
       mode.current = currentMode;
       if (element.dataset.mode !== currentMode) element.dataset.mode = currentMode;
       if (element.dataset.lane !== lane) element.dataset.lane = lane;
@@ -148,6 +149,8 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       if (context !== published) { published = context; setState({ path: pathname, scene: active, mode: currentMode, docked }); }
       lastLane = lane;
       const moving = currentMode !== "hero" && Math.abs(position.x - desired.x) + Math.abs(position.y - desired.y) + Math.abs(position.size - desired.size) + Math.abs(position.rotation - desired.rotation) > .1;
+      // Release the composited bitmap at rest so the browser can repaint the vector sharply.
+      avatar.style.willChange = moving || flight || scroll !== targetScroll ? "transform" : "auto";
       if (scroll !== targetScroll || flight || moving) frame = requestAnimationFrame(draw);
       else previousTime = 0;
     };
