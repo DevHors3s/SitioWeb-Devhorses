@@ -19,8 +19,9 @@ export default function Process() {
             <span className="eyebrow text-accent">
               {es ? "Cómo trabajamos" : "How we work"}
             </span>
-            <h2 className="section-title mt-5">
-              {es ? "Contigo, en cada paso." : "With you, at every step."}
+            <h2 className="chapter-title process-title mt-5">
+              <span className="process-title-intro">{es ? "Contigo," : "With you,"}{" "}</span>
+              <span>{es ? "en cada paso." : "at every step."}</span>
             </h2>
           </div>
           <p>

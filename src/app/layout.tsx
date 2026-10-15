@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import "./sections.css";
 
 // IMPORTAR COMPONENTES GLOBALES
 import Navbar from "@/components/Navbar";

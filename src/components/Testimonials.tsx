@@ -3,7 +3,8 @@
 import { Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 export default function Testimonials() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const es = language === "es";
   const entries = [
     {
       quote: "testimonial_1_quote",
@@ -22,9 +23,13 @@ export default function Testimonials() {
     },
   ] as const;
   return (
-    <section id="testimonials" className="section-spacing">
+    <section id="testimonials" className="testimonials-section section-spacing">
       <div className="site-container">
         <span className="eyebrow text-accent">{t("testimonials_title")}</span>
+        <h2 className="chapter-title testimonials-title mt-5">
+          <span className="chapter-lead">{es ? "La confianza" : "Trust"}{" "}</span>
+          <span>{es ? "se construye." : "is built together."}</span>
+        </h2>
         <div className="testimonial-grid">
           {entries.map((item) => (
             <blockquote key={item.author}>

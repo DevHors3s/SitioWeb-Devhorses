@@ -26,9 +26,8 @@ export default function SaasShowcase() {
               ? "Caso destacado / Apu Garden Lodge"
               : "Featured case / Apu Garden Lodge"}
           </span>
-          <h2 className="section-title mt-6">
-            {es ? "De la reserva" : "From the booking"}
-            <br />
+          <h2 className="chapter-title featured-title mt-6">
+            <span className="chapter-lead">{es ? "De la reserva" : "From the booking"}{" "}</span>
             <span className="featured-gradient">
               {es ? "a la operación." : "to the operation."}
             </span>

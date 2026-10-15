@@ -81,8 +81,8 @@ const Contact = () => {
             className="lg:col-span-6"
           >
             <span className="eyebrow block mb-8">{language === "es" ? "TU SIGUIENTE PROYECTO" : "YOUR NEXT PROJECT"}</span>
-            <h2 className="font-display text-ink text-4xl sm:text-5xl leading-[1.12] tracking-tight mb-10">
-              {t("contact_title_1")}{" "}
+            <h2 className="chapter-title contact-title mb-10">
+              <span className="chapter-lead">{t("contact_title_1")}{" "}</span>
               <em className="text-gradient-accent italic">{t("contact_title_gradient")}</em>
             </h2>
             <p className="text-muted text-lg md:text-xl leading-relaxed max-w-md">

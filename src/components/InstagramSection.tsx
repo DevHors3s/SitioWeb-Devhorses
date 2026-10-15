@@ -16,9 +16,8 @@ export default function InstagramSection() {
           <span className="eyebrow text-accent">
             {es ? "Dentro de DevHorses" : "Inside DevHorses"}
           </span>
-          <h2 className="section-title mt-5">
-            {es ? "Así construimos" : "This is how we build"}
-            <br />
+          <h2 className="chapter-title instagram-title mt-5">
+            <span className="chapter-lead">{es ? "Así construimos" : "This is how we build"}{" "}</span>
             <span className="text-gradient-accent">
               {es ? "en DevHorses." : "at DevHorses."}
             </span>

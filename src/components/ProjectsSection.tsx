@@ -57,19 +57,18 @@ export default function ProjectsSection({
   ];
   const visible = compact ? projects.slice(1) : projects;
   return (
-    <section id="projects" className="section-spacing">
+    <section id="projects" className={`projects-section section-spacing${compact ? " projects-section--home" : ""}`}>
       <div className="site-container">
-        <div className="section-heading">
+        <div className="section-heading projects-heading">
           <div>
             <span className="eyebrow text-accent">
               {es
                 ? "Trabajo real, en producción"
                 : "Real work, live in production"}
             </span>
-            <h2 className="section-title mt-5">
-              {es ? "Ideas que ya" : "Ideas already"}
-              <br />
-              {es ? "están funcionando." : "out in the world."}
+            <h2 className="chapter-title projects-title mt-5">
+              <span className="chapter-lead">{es ? "Ideas que ya" : "Ideas already"}{" "}</span>
+              <span>{es ? "están funcionando." : "out in the world."}</span>
             </h2>
           </div>
           <div>
