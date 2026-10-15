@@ -68,7 +68,7 @@ export default function SaasShowcase() {
             {es ? "EN PRODUCCIÓN" : "LIVE IN PRODUCTION"}
           </p>
         </div>
-        <div className="featured-preview">
+        <div className="featured-preview" data-motion-card>
           <div
             className="featured-tabs"
             role="tablist"

@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./sections.css";
+import "./interactions.css";
 
 // IMPORTAR COMPONENTES GLOBALES
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactDock from "@/components/ContactDock";
+import CardEffects from "@/components/CardEffects";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -95,6 +97,7 @@ export default function RootLayout({
             <Footer />
 
             <ContactDock />
+            <CardEffects />
 
           </SmoothScroll>
         </LanguageProvider>

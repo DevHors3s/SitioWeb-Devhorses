@@ -26,6 +26,24 @@ test("dismissal can be repeated after restoration", () => {
   assert.equal(presence.scroll(280), true);
 });
 
+test("returning to the top restores even when less than 48 pixels were scrolled", () => {
+  const presence = new HorsePresence();
+  presence.dismiss(25);
+  assert.equal(presence.scroll(0), true);
+});
+
+test("home navigation clears dismissal even if routing emitted no scroll event", () => {
+  const presence = new HorsePresence();
+  presence.dismiss(1500);
+  presence.restore();
+  // The next downward journey must not inherit the old dismissal position.
+  assert.equal(presence.scroll(20), false);
+  assert.equal(presence.scroll(300), false);
+  presence.dismiss(300);
+  assert.equal(presence.scroll(350), false);
+  assert.equal(presence.scroll(290), true);
+});
+
 test("return greetings ignore brief focus changes and unpaired focus events", () => {
   const presence = new HorsePresence();
   assert.equal(presence.return(2000), false);

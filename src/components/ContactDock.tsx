@@ -20,7 +20,11 @@ export default function ContactDock() {
   const trigger = useRef<HTMLButtonElement>(null);
   const firstLink = useRef<HTMLAnchorElement>(null);
   const presence = useRef(new HorsePresence());
-  const { scene, journeyMode } = useHorseJourney(wrapper, pathname);
+  const restoreAtHome = useCallback(() => {
+    presence.current.restore();
+    setMinimized(false);
+  }, []);
+  const { scene, journeyMode } = useHorseJourney(wrapper, pathname, restoreAtHome);
   const [reaction, setReaction] = useState<"hello" | "return" | null>(null);
   const greetingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dialogue = useHorseDialogue(scene, !open && !minimized && !reaction && journeyMode !== "morph");
@@ -56,17 +60,26 @@ export default function ContactDock() {
       if (presence.current.return(Date.now()) && !minimized && !open) showReaction("return");
     };
     const visibility = () => document.hidden ? leave() : returned();
+    const homeNavigation = (event: MouseEvent) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+      const destination = new URL(link.href, window.location.href);
+      if (destination.origin === window.location.origin && destination.pathname === "/" && (!destination.hash || destination.hash === "#hero")) restoreAtHome();
+    };
     window.addEventListener("scroll", scroll, { passive: true });
     window.addEventListener("blur", leave);
     window.addEventListener("focus", returned);
     document.addEventListener("visibilitychange", visibility);
+    document.addEventListener("click", homeNavigation, true);
     return () => {
       window.removeEventListener("scroll", scroll);
       window.removeEventListener("blur", leave);
       window.removeEventListener("focus", returned);
       document.removeEventListener("visibilitychange", visibility);
+      document.removeEventListener("click", homeNavigation, true);
     };
-  }, [minimized, open, showReaction]);
+  }, [minimized, open, showReaction, restoreAtHome]);
 
   useEffect(() => {
     if (!open) return;

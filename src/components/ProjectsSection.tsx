@@ -87,7 +87,7 @@ export default function ProjectsSection({
         </div>
         <div className="project-grid">
           {visible.map((project) => (
-            <article key={project.title} className="project-card">
+            <article key={project.title} className="project-card" data-motion-card>
               <Link
                 href={
                   project.slug ? `/proyectos/${project.slug}` : project.link

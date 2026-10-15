@@ -28,7 +28,7 @@ export default function InstagramSection() {
               : "Explore how a booking connects to hotel management and how we present a company's technology. Find us on Instagram to keep up with DevHorses, too."}
           </p>
         </div>
-        <div className="instagram-card">
+        <div className="instagram-card" data-motion-card>
           <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="instagram-profile" aria-label={es ? "DevHorses en Instagram (abre una nueva pestaña)" : "DevHorses on Instagram (opens a new tab)"}>
             <span className="instagram-avatar">
               <Image src="/logo-icon.png" alt="" width={48} height={48} />

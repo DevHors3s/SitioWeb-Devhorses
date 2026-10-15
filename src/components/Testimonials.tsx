@@ -32,7 +32,7 @@ export default function Testimonials() {
         </h2>
         <div className="testimonial-grid">
           {entries.map((item) => (
-            <blockquote key={item.author}>
+            <blockquote key={item.author} data-motion-card>
               <Quote size={24} className="text-accent" />
               <p>“{t(item.quote)}”</p>
               <footer>

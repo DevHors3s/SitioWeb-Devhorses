@@ -44,6 +44,7 @@ export default function Services() {
                 key={service.id}
                 href={`/servicios#${service.id}`}
                 className="service-editorial group"
+                data-motion-card
               >
                 <span className="service-index" aria-hidden="true">0{i + 1}</span>
                 <div className="service-editorial-title">

@@ -9,7 +9,7 @@ type Mode = "hero" | "morph" | "floating";
 type Journey = { path: string; scene: HorseScene; mode: Mode; docked: boolean };
 
 /** Layout is measured separately; one RAF owns both departure and side crossings. */
-export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname: string) {
+export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname: string, onHome: () => void) {
   const [state, setState] = useState<Journey>({ path: "", scene: "hero", mode: "hero", docked: false });
   const mode = useRef<Mode>("hero");
 
@@ -146,7 +146,12 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       if (element.dataset.departing !== String(departing)) element.dataset.departing = String(departing);
       if (element.dataset.ready !== "true") element.dataset.ready = "true";
       const context = `${active}-${currentMode}-${docked}`;
-      if (context !== published) { published = context; setState({ path: pathname, scene: active, mode: currentMode, docked }); }
+      if (context !== published) {
+        published = context;
+        // Route navigation can restore scroll before our scroll listener is attached.
+        if (currentMode === "hero") onHome();
+        setState({ path: pathname, scene: active, mode: currentMode, docked });
+      }
       lastLane = lane;
       const moving = currentMode !== "hero" && Math.abs(position.x - desired.x) + Math.abs(position.y - desired.y) + Math.abs(position.size - desired.size) + Math.abs(position.rotation - desired.rotation) > .1;
       // Release the composited bitmap at rest so the browser can repaint the vector sharply.
@@ -175,7 +180,7 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       window.removeEventListener("resize", resize);
       reduced.removeEventListener("change", resize);
     };
-  }, [pathname, root]);
+  }, [pathname, root, onHome]);
 
   return { scene: state.path === pathname ? state.scene : sceneForPath(pathname), mode, journeyMode: state.mode, docked: state.docked };
 }

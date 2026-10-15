@@ -32,7 +32,7 @@ export default function Process() {
         </div>
         <ol className="process-steps">
           {steps.map((step, i) => (
-            <li key={step.title}>
+            <li key={step.title} data-motion-card>
               <span>0{i + 1}</span>
               <h3>{step.title}</h3>
               <p>{step.desc}</p>

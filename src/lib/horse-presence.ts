@@ -7,10 +7,14 @@ export class HorsePresence {
     this.scrollPeak = scrollY;
   }
 
+  restore() {
+    this.scrollPeak = null;
+  }
+
   scroll(scrollY: number): boolean {
     if (this.scrollPeak === null) return false;
     this.scrollPeak = Math.max(this.scrollPeak, scrollY);
-    if (this.scrollPeak - scrollY < 48) return false;
+    if (scrollY > 8 && this.scrollPeak - scrollY < 48) return false;
     this.scrollPeak = null;
     return true;
   }
