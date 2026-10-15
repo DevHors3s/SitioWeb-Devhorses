@@ -84,287 +84,69 @@ export default function HorseMascot({
     <div ref={root} className={`horse-mascot horse-mascot--${mood}`}>
       <svg viewBox="0 0 440 480" aria-hidden="true" className="horse-art">
         <defs>
-          <linearGradient id={`${id}-coat`} x1="0" y1="0" x2="1" y2="0.85">
-            <stop stopColor="#fff" />
-            <stop offset=".5" stopColor="#e6edf4" />
-            <stop offset="1" stopColor="#899bad" />
+          <linearGradient id={`${id}-coat`} x1="0" y1="0" x2=".8" y2="1">
+            <stop stopColor="#f6f0ff" /><stop offset=".58" stopColor="#d4c2fa" /><stop offset="1" stopColor="#a68adb" />
           </linearGradient>
-          <linearGradient id={`${id}-muzzle`} x1="0" y1="0" x2=".7" y2="1">
-            <stop stopColor="#f7f9fc" />
-            <stop offset="1" stopColor="#9caec0" />
+          <linearGradient id={`${id}-muzzle`} x1="0" y1="0" x2="0" y2="1">
+            <stop stopColor="#fff4e6" /><stop offset="1" stopColor="#f0cfb8" />
           </linearGradient>
           <linearGradient id={`${id}-mane`} x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#344b70" />
-            <stop offset=".6" stopColor="#18243c" />
-            <stop offset="1" stopColor="#a78bfa" />
+            <stop stopColor="#29243f" /><stop offset=".55" stopColor="#423060" /><stop offset="1" stopColor="#8960c5" />
           </linearGradient>
-          <linearGradient id={`${id}-hoodie`} x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#293c58" />
-            <stop offset=".6" stopColor="#122035" />
-            <stop offset="1" stopColor="#080f1c" />
+          <linearGradient id={`${id}-lens`} x1="0" y1="0" x2=".7" y2="1">
+            <stop stopColor="#272536" /><stop offset="1" stopColor="#080b14" />
           </linearGradient>
-          <linearGradient id={`${id}-glasses`} x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#67e8f9" />
-            <stop offset=".6" stopColor="#22d3ee" />
-            <stop offset="1" stopColor="#8b5cf6" />
-          </linearGradient>
-          <linearGradient id={`${id}-lens`} x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#baf4ff" stopOpacity=".18" />
-            <stop offset="1" stopColor="#1b4161" stopOpacity=".35" />
-          </linearGradient>
-          <clipPath id={`${id}-eyes`}>
-            <rect x="128" y="179" width="77" height="59" rx="23" />
-            <rect x="239" y="178" width="76" height="59" rx="23" />
-          </clipPath>
         </defs>
-        <ellipse
-          cx="226"
-          cy="449"
-          rx="143"
-          ry="16"
-          fill="#000"
-          opacity=".25"
-          className="horse-shadow"
-        />
+        <ellipse cx="222" cy="452" rx="126" ry="13" fill="#030611" opacity=".4" className="horse-shadow" />
         <g className="horse-reaction" key={reactionKey}>
           <g className="horse-idle">
-            <path
-              d="M83 431c4-78 32-119 90-127h93c61 6 95 54 100 127l-49 23H132Z"
-              fill={`url(#${id}-hoodie)`}
-              stroke="#3c516c"
-              strokeWidth="2"
-            />
-            <path
-              d="M151 317c21-12 46-16 76-16s53 5 73 17l-30 51h-86Z"
-              fill="#0c1728"
-              stroke="#445c79"
-              strokeWidth="3"
-            />
-            <path
-              d="M181 299v43c13 27 63 27 77-1l2-44"
-              fill={`url(#${id}-coat)`}
-            />
-            <path
-              d="M166 327l20 35 33-15-18 41-48-48m130-13-22 35-33-15 18 41 47-49"
-              fill="#263a55"
-              stroke="#415a76"
-              strokeWidth="2"
-            />
-            <path
-              d="M181 366v43m80-43v43"
-              stroke="#8fabc1"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            <rect x="178" y="405" width="6" height="15" rx="3" fill="#22d3ee" />
-            <rect x="258" y="405" width="6" height="15" rx="3" fill="#a78bfa" />
-            <path
-              d="m201 407-10 8 10 8m39-16 10 8-10 8m-16-21-7 27"
-              fill="none"
-              stroke="#67e8f9"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            {/* A bare, rounded toy silhouette, with hooves instead of clothing. */}
+            <path d="M292 356c46-7 71 15 58 45-8 17-25 20-37 17 19-7 18-27 0-30l-26 1Z" fill={`url(#${id}-mane)`} stroke="#272139" strokeWidth="5" strokeLinejoin="round" />
+            <path d="M163 319c-26 28-41 59-37 92 3 29 40 38 91 37 55 0 94-9 95-38 1-38-16-70-42-93Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
+            <path d="M190 352c-15 15-24 38-20 61 16 10 64 11 82 0 6-21-2-46-18-61Z" fill="#eee4ff" opacity=".65" />
+            <path d="M165 408v22m100-22v22" stroke="#9c7ac9" strokeWidth="4" strokeLinecap="round" />
+            <path d="M141 426c12-8 31-7 42 2l2 16c-14 7-34 7-49-1Z" fill="#39304f" stroke="#272139" strokeWidth="4" />
+            <path d="M251 428c13-9 32-8 43 0l4 15c-14 8-34 8-49 1Z" fill="#39304f" stroke="#272139" strokeWidth="4" />
+            <path d="M146 436h25m89 0h25" stroke="#75ebdc" strokeWidth="3" strokeLinecap="round" />
+            <g className="horse-rest-hooves">
+              <path d="M140 355c-20 8-27 32-16 49 7 11 25 8 29-4l11-30Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
+              <path d="M126 386c8-3 19-1 27 5l-2 13c-8 8-19 9-26 1Z" fill="#39304f" />
+              <path d="M285 354c22 4 32 25 24 44-5 13-23 14-29 3l-14-28Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
+              <path d="M280 389c8-5 19-7 29-3l-1 15c-7 9-17 10-25 4Z" fill="#39304f" />
+            </g>
             <g className="horse-head">
-              <path
-                d="M279 111c57 18 69 99 41 169l-28 49c-3-56-42-98-38-161Z"
-                fill={`url(#${id}-mane)`}
-                stroke="#506687"
-                strokeWidth="2"
-              />
+              <path d="M277 111c52 16 69 66 54 119l-8 36 15 19-35-3 10 35-39-23-18-119Z" fill={`url(#${id}-mane)`} stroke="#272139" strokeWidth="5" strokeLinejoin="round" />
               <g className="horse-ear horse-ear--left">
-                <path
-                  d="M135 146C109 111 103 61 126 45c24 12 45 42 49 89Z"
-                  fill={`url(#${id}-coat)`}
-                  stroke="#8c9fb5"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M137 122c-13-23-20-44-12-61 13 11 27 33 28 56"
-                  fill="#8094b1"
-                />
-                <path
-                  d="M126 69c2 18 6 30 14 42"
-                  fill="none"
-                  stroke="#b7c5d9"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
+                <path d="M139 147C111 120 97 71 113 42c31 7 56 43 60 89Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
+                <path d="M140 121c-14-18-23-38-22-57 18 13 30 35 33 53Z" fill="#b88cce" />
               </g>
               <g className="horse-ear horse-ear--right">
-                <path
-                  d="M261 136c3-36 20-75 50-97 25 35 11 80-16 112Z"
-                  fill={`url(#${id}-coat)`}
-                  stroke="#8c9fb5"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M281 124c4-25 16-48 27-63 8 21 3 43-8 63Z"
-                  fill="#8196b2"
-                />
+                <path d="M259 133c-1-41 15-85 39-108 26 28 27 72-3 122Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" strokeLinejoin="round" />
+                <path d="M279 120c-2-25 6-49 17-67 11 23 8 44-5 69Z" fill="#b88cce" />
               </g>
-              <path
-                d="M137 132c28-31 98-44 142-14 36 25 41 78 28 119l-24 58c-16 35-43 51-73 51-38 0-60-29-70-65l-21-60c-10-35-6-65 18-89Z"
-                fill={`url(#${id}-coat)`}
-                stroke="#8c9fb5"
-                strokeWidth="2"
-              />
-              <path
-                d="M136 137c16-16 40-27 63-27-12 19-17 42-18 63l-20 42-20 65c-17-36-30-94-5-143Z"
-                fill="#fff"
-                opacity=".36"
-              />
-              <path
-                d="M217 147c-15 20-14 58-7 85l-12 34h37l-12-35c7-36 13-62-6-84Z"
-                fill="#fff"
-                opacity=".58"
-              />
-              <path
-                d="M134 143c-12-21-1-53 38-67 43-16 106-6 127 31-28-5-44-1-58 16-14 18-30 29-62 23l19-28c-19 15-37 23-64 25Z"
-                fill={`url(#${id}-mane)`}
-                stroke="#4d6686"
-                strokeWidth="2"
-              />
-              <path
-                d="M157 116c23-21 59-29 99-18m-76 22c18-14 39-20 59-18"
-                fill="none"
-                stroke="#728db2"
-                strokeWidth="3"
-                strokeLinecap="round"
-                opacity=".6"
-              />
-              <path
-                d="M139 171c14-7 35-8 50-1m57 0c15-7 35-5 48 1"
-                fill="none"
-                stroke="#60778c"
-                strokeWidth="5"
-                strokeLinecap="round"
-              />
-              <g clipPath={`url(#${id}-eyes)`} className="horse-eyes">
-                <ellipse cx="169" cy="208" rx="24" ry="23" fill="#fff" />
-                <ellipse cx="271" cy="207" rx="24" ry="23" fill="#fff" />
-                <g className="horse-pupils">
-                  <ellipse cx="173" cy="210" rx="13" ry="17" fill="#1b2940" />
-                  <ellipse cx="267" cy="209" rx="13" ry="17" fill="#1b2940" />
-                  <circle cx="177" cy="204" r="4.5" fill="#fff" />
-                  <circle cx="271" cy="203" r="4.5" fill="#fff" />
-                  <circle cx="168" cy="216" r="2" fill="#67e8f9" />
-                  <circle cx="262" cy="215" r="2" fill="#67e8f9" />
+              <path d="M138 127c32-35 102-38 141-7 35 29 33 78 18 115l-15 59c-7 30-31 49-65 49-39 0-64-22-72-57l-20-58c-14-43-13-74 13-101Z" fill={`url(#${id}-coat)`} stroke="#382a51" strokeWidth="5" />
+              <path d="M218 129c-17 21-24 68-20 100l-12 37h46l-8-41c12-44 15-73-6-96Z" fill="#fff9ef" opacity=".9" />
+              <path d="M127 146c-11-30 9-57 47-68 42-14 92-5 124 28l-38-2 17 22-44-2-37 30 4-25c-18 13-41 22-73 17Z" fill={`url(#${id}-mane)`} stroke="#272139" strokeWidth="5" strokeLinejoin="round" />
+              <path d="M159 111c24-18 51-22 82-15l-29 6-21 23 1-16-26 14Z" fill="#75ebdc" />
+              <path d="m277 160 17-5m-153 5-18-4" stroke="#382a51" strokeWidth="5" strokeLinecap="round" />
+              {/* Bold stepped black shades inspired by the playful pixel sunglasses. */}
+              <g className="horse-shades">
+                <path d="M113 177h94v10h24v-10h89v15h-9v34h-9v12h-61v-10h-10v-22h-24v21h-9v12h-63v-11h-11v-30h-11Z" fill="#090c15" stroke="#090c15" strokeWidth="5" strokeLinejoin="round" />
+                <path d="M131 187h64v29h-9v10h-46v-10h-9Zm111 0h61v29h-9v10h-43v-10h-9Z" fill={`url(#${id}-lens)`} />
+                <g fill="#fff" opacity=".94">
+                  <path d="M137 189h10v10h-10Zm10 10h10v10h-10Zm111-10h10v10h-10Zm10 10h10v10h-10Z" />
                 </g>
+                <path d="M170 190h17m91 0h17" stroke="#a7a4b4" strokeWidth="3" strokeLinecap="round" opacity=".55" />
               </g>
-              <path
-                d="M117 191l-12-7m211 7 12-7"
-                stroke="#17253c"
-                strokeWidth="11"
-                strokeLinecap="round"
-              />
-              <rect
-                x="122"
-                y="175"
-                width="88"
-                height="67"
-                rx="25"
-                fill={`url(#${id}-lens)`}
-                stroke="#17253c"
-                strokeWidth="12"
-              />
-              <rect
-                x="233"
-                y="174"
-                width="88"
-                height="67"
-                rx="25"
-                fill={`url(#${id}-lens)`}
-                stroke="#17253c"
-                strokeWidth="12"
-              />
-              <rect
-                x="122"
-                y="175"
-                width="88"
-                height="67"
-                rx="25"
-                fill="none"
-                stroke={`url(#${id}-glasses)`}
-                strokeWidth="3"
-              />
-              <rect
-                x="233"
-                y="174"
-                width="88"
-                height="67"
-                rx="25"
-                fill="none"
-                stroke={`url(#${id}-glasses)`}
-                strokeWidth="3"
-              />
-              <path
-                d="M211 195c7-5 14-5 21 0"
-                fill="none"
-                stroke="#17253c"
-                strokeWidth="10"
-              />
-              <path
-                d="m137 188 19-2m91 1 18-2"
-                stroke="#b9f4ff"
-                strokeWidth="3"
-                strokeLinecap="round"
-                opacity=".7"
-              />
-              <path
-                d="M147 266c20-17 47-14 71-14 28 0 49-5 70 12 30 24 22 61-3 78-32 23-98 24-133 2-30-19-34-54-5-78Z"
-                fill={`url(#${id}-muzzle)`}
-                stroke="#8c9fb5"
-                strokeWidth="2"
-              />
-              <ellipse
-                cx="175"
-                cy="288"
-                rx="10"
-                ry="7"
-                fill="#50657d"
-                transform="rotate(-22 175 288)"
-              />
-              <ellipse
-                cx="267"
-                cy="286"
-                rx="10"
-                ry="7"
-                fill="#50657d"
-                transform="rotate(22 267 286)"
-              />
-              <path
-                d="M177 318c22 15 56 15 78-1"
-                fill="none"
-                stroke="#546a80"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-              <path
-                d="M187 330c18 6 42 6 57-1"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="3"
-                strokeLinecap="round"
-                opacity=".5"
-              />
-              <ellipse
-                cx="157"
-                cy="307"
-                rx="15"
-                ry="8"
-                fill="#b2a6c9"
-                opacity=".27"
-              />
-              <ellipse
-                cx="281"
-                cy="305"
-                rx="15"
-                ry="8"
-                fill="#b2a6c9"
-                opacity=".27"
-              />
+              <path d="M151 260c21-16 45-13 66-13 26 0 50-6 70 11 24 21 25 54 3 76-26 27-97 30-133 7-32-20-36-58-6-81Z" fill={`url(#${id}-muzzle)`} stroke="#382a51" strokeWidth="5" />
+              <path d="M156 270c13-9 23-11 38-10" fill="none" stroke="#fffaf2" strokeWidth="7" strokeLinecap="round" />
+              <ellipse cx="177" cy="282" rx="9" ry="6" fill="#795866" transform="rotate(-22 177 282)" />
+              <ellipse cx="264" cy="279" rx="9" ry="6" fill="#795866" transform="rotate(22 264 279)" />
+              <ellipse cx="157" cy="303" rx="13" ry="7" fill="#e7a5a8" opacity=".55" />
+              <ellipse cx="283" cy="299" rx="13" ry="7" fill="#e7a5a8" opacity=".55" />
+              <path d="M185 314c20 13 53 13 74-6-4 22-20 30-38 27-17-1-28-9-36-21Z" fill="#49304a" stroke="#49304a" strokeWidth="3" strokeLinejoin="round" />
+              <path d="M190 317c18 7 43 5 62-5l-7 12c-19 5-36 4-49-1Z" fill="#fffaf2" />
+              <path d="m259 304 7 3" stroke="#795866" strokeWidth="3" strokeLinecap="round" />
             </g>
           </g>
         </g>
@@ -372,8 +154,8 @@ export default function HorseMascot({
           <g className="horse-laptop" key={`laptop-${reactionKey}`}>
             <path
               d="M121 373c-23 7-26 29-9 48l40 20 14-20-35-21m186-27c24 8 25 29 8 47l-38 22-15-22 34-20"
-              fill="#253b59"
-              stroke="#536e8d"
+              fill="#cbb5f2"
+              stroke="#382a51"
               strokeWidth="3"
             />
             <g className="laptop-screen">
@@ -433,13 +215,13 @@ export default function HorseMascot({
             <g className="typing-hoof typing-hoof--left">
               <path
                 d="M134 411c7-4 22-1 29 5l13 14c1 9-27 12-33 5l-13-15Z"
-                fill="#e2edf7"
-                stroke="#91a6ba"
+                fill="#d9c6fa"
+                stroke="#382a51"
                 strokeWidth="2"
               />
               <path
                 d="m146 428 8 5m-3-9 10 5"
-                stroke="#8ca6bb"
+                stroke="#8e6fb3"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
@@ -447,13 +229,13 @@ export default function HorseMascot({
             <g className="typing-hoof typing-hoof--right">
               <path
                 d="M303 411c-8-4-22 0-29 6l-13 14c0 8 26 11 32 4l14-15Z"
-                fill="#e2edf7"
-                stroke="#91a6ba"
+                fill="#d9c6fa"
+                stroke="#382a51"
                 strokeWidth="2"
               />
               <path
                 d="m292 428-8 5m3-9-10 5"
-                stroke="#8ca6bb"
+                stroke="#8e6fb3"
                 strokeWidth="2"
                 strokeLinecap="round"
               />

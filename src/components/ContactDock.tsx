@@ -104,14 +104,7 @@ export default function ContactDock() {
             </button>
           </div>
         </div>
-      <div className="companion-rail" aria-hidden={minimized || journeyMode !== "floating"}>
-        <div className="companion-rail-copy">
-          <span>{es ? "¿Hablamos de tu idea?" : "Let's talk about your idea"}</span>
-          <button onClick={() => setOpen((value) => !value)} aria-label={es ? "Abrir contacto rápido" : "Open quick contact"} tabIndex={journeyMode === "floating" && !minimized ? 0 : -1}>
-            {es ? "Contacto rápido" : "Quick contact"}<ArrowUpRight size={13} />
-          </button>
-        </div>
-      </div>
+      <div className="companion-rail" aria-hidden="true" />
       {open && (
         <div
           id="horse-contact"

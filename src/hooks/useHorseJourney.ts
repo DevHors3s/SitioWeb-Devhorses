@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { sceneForPath, type HorseScene } from "@/lib/horse-dialogue";
@@ -41,11 +40,17 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       const height = window.innerHeight;
       const bounds = anchor?.getBoundingClientRect();
       const top = bounds ? bounds.top + window.scrollY : 0;
+      const start = bounds ? Math.max(24, top - height * .3) : 0;
+      const services = pathname === "/" ? document.getElementById("services")?.getBoundingClientRect() : null;
       layout = {
         width, height,
         maximum: Math.max(0, document.documentElement.scrollHeight - height),
-        start: bounds ? Math.max(24, top - height * .3) : 0,
-        length: Math.min(document.getElementById("hero")?.offsetHeight ?? height, height) * .78,
+        start,
+        // Finish before the services anchor settles beneath the fixed navigation.
+        length: Math.max(1, Math.min(
+          Math.min(document.getElementById("hero")?.offsetHeight ?? height, height) * .78,
+          services ? services.top + window.scrollY - 112 - start : Infinity,
+        )),
         anchor: bounds ? { x: bounds.left, top, width: bounds.width } : null,
         sections: (pathname === "/" ? scenes : ["footer" as HorseScene]).flatMap(scene => {
           const rect = document.getElementById(scene)?.getBoundingClientRect();
@@ -119,15 +124,17 @@ export function useHorseJourney(root: RefObject<HTMLDivElement | null>, pathname
       position.y = Math.max(100 + position.size * Math.sin(angle), position.y);
       // Direct transforms avoid inherited custom-property invalidation of the entire SVG tree.
       avatar.style.transform = `translate3d(${position.x}px,${position.y}px,0) scale(${position.size / 435}) rotate(${position.rotation}deg)`;
-      const bubbleWidth = currentMode === "floating" ? 144 : 224;
+      const bubbleWidth = currentMode === "floating" ? (docked ? Math.min(460, width - 144) : 144) : 224;
       const heroX = position.x + position.size / 2 - bubbleWidth / 2;
       const heroY = position.y + position.size * (480 / 440) + 5;
-      const bubbleX = currentMode === "floating" ? (lane === "left" ? 10 : width - bubbleWidth - 10) : heroX;
-      const bubbleY = currentMode === "floating" ? Math.max(105, position.y - bubbleHeight - 12) : heroY;
+      const bubbleX = currentMode === "floating"
+        ? docked ? (lane === "left" ? 92 : width - bubbleWidth - 136) : (lane === "left" ? 10 : width - bubbleWidth - 10)
+        : heroX;
+      const bubbleY = currentMode === "floating" ? (docked ? height - 118 : Math.max(105, position.y - bubbleHeight - 12)) : heroY;
       const departing = currentMode !== "hero" && position.size > size + 1;
       speech.style.transform = `translate3d(${clamp(bubbleX, 10, width - bubbleWidth - 10)}px,${bubbleY}px,0)`;
-      speech.style.opacity = String(flight || (departing && currentMode === "floating") || (docked && currentMode === "floating") ? 0 : currentMode === "morph" ? Math.max(0, 1 - progress * 5) : 1);
-      speech.inert = currentMode === "morph" || departing || !!flight || (docked && currentMode === "floating");
+      speech.style.opacity = String(flight || (departing && currentMode === "floating") ? 0 : currentMode === "morph" ? Math.max(0, 1 - progress * 5) : 1);
+      speech.inert = currentMode === "morph" || departing || !!flight;
       trigger.disabled = currentMode === "morph" || departing || !!flight;
       if (docked) minimize.style.transform = `translate3d(${width - 44}px,${height - 58}px,0)`;
       else minimize.style.transform = `translate3d(${endX + size - 26}px,${endY + size * (480 / 440) + 6}px,0)`;

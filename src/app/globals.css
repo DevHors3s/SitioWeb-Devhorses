@@ -535,18 +535,21 @@ section[id] { scroll-margin-top: 110px; }
   .travel-companion[data-flying] .guide-speech { opacity: 0; pointer-events: none; }
   .travel-companion:is([data-mode="morph"], [data-departing="true"], [data-flying]) .horse-mascot * { animation-play-state: paused !important; }
   .travel-companion .guide-speech::after { top: auto; bottom: -6px; right: 50%; transform: rotate(45deg); }
-  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech { display: none; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech { width: min(460px, calc(100vw - 144px)); padding: 6px 10px; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-label,
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech::after { display: none; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-comment { margin-top: 0; min-height: 0; font-size: 11px; line-height: 1.5; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech-controls { margin-top: 4px; padding-top: 2px; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech-controls button { min-height: 28px; }
   .travel-companion [hidden] { display: none !important; }
   .companion-minimize { position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #67e8f930; border-radius: 50%; background: #101c30; color: #a6b4c8; cursor: pointer; pointer-events: auto; z-index: 2; }
   .companion-minimize:hover { color: #67e8f9; border-color: #67e8f9; }
   .companion-restore { position: fixed; right: 18px; bottom: 18px; width: 44px; height: 44px; display: grid; place-items: center; background: #101c30; color: #67e8f9; border: 1px solid #67e8f950; border-radius: 50%; cursor: pointer; pointer-events: auto; }
   .travel-companion[data-minimized="true"] .travel-avatar, .travel-companion[data-minimized="true"] .guide-speech, .travel-companion[data-minimized="true"] .companion-rail { visibility: hidden; pointer-events: none; }
   .travel-companion[data-minimized="true"] .horse-mascot * { animation-play-state: paused !important; }
-  .companion-rail { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 94px; background: #0b1324; border-top: 1px solid #67e8f925; }
+  .companion-rail { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 128px; background: #0b1324; border-top: 1px solid #67e8f925; z-index: -1; }
   .travel-companion[data-docked="true"][data-mode="floating"] .companion-rail { display: block; }
-  .companion-rail-copy { position: absolute; left: 20px; right: 140px; top: 25px; display: flex; flex-direction: column; align-items: center; gap: 7px; color: #a6b4c8; font-size: 11px; text-align: center; }
-  .travel-companion[data-lane="left"] .companion-rail-copy { left: 92px; right: 52px; }
-  .companion-rail-copy button { display: inline-flex; align-items: center; gap: 5px; color: #67e8f9; font-weight: 700; cursor: pointer; pointer-events: auto; }
+  .travel-companion[data-docked="true"] .dock-panel { bottom: 144px; }
   .travel-companion .dock-panel { position: fixed; right: 20px; bottom: 24px; pointer-events: auto; }
   .travel-companion[data-lane="left"] .dock-panel { left: 20px; right: auto; }
   .horse-laptop { transform-origin: 220px 460px; animation: laptop-appear .7s cubic-bezier(.22, 1, .36, 1) both; }
@@ -556,6 +559,8 @@ section[id] { scroll-margin-top: 110px; }
   .laptop-code { stroke-dasharray: 100; animation: laptop-write 2.4s steps(8, end) infinite; }
   .laptop-cursor { animation: laptop-cursor 1s steps(2, end) infinite; }
   .horse-mascot--typing .horse-head { transform: translateY(4px) rotate(2deg); }
+  .horse-mascot--typing .horse-rest-hooves { opacity: 0; }
+  .horse-mascot--wave .horse-rest-hooves { transform-origin: 145px 360px; animation: hoof-hello 1.2s ease-in-out; }
   .horse-mascot--typing .horse-pupils { transform: translateY(5px); }
   .horse-mascot--typing .horse-reaction { animation: developer-focus 3s ease-in-out infinite; }
   .thought-cloud { transform-origin: 360px 70px; animation: thought-appear .65s ease-out both, thought-float 3s ease-in-out .65s infinite; filter: drop-shadow(0 3px 10px #67e8f92b); }
@@ -570,6 +575,7 @@ section[id] { scroll-margin-top: 110px; }
 @keyframes laptop-appear { from { opacity: 0; transform: translateY(70px) scale(.4); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes laptop-open { from { transform: scaleY(.05); } to { transform: scaleY(1); } }
 @keyframes hoof-type { from { transform: translateY(0); } to { transform: translateY(5px) rotate(1deg); } }
+@keyframes hoof-hello { 0%,100% { transform: rotate(0); } 25%,65% { transform: rotate(-12deg) translateY(-6px); } 45%,85% { transform: rotate(5deg); } }
 @keyframes laptop-write { 0%,8% { stroke-dashoffset: 100; } 70%,100% { stroke-dashoffset: 0; } }
 @keyframes laptop-cursor { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
 @keyframes developer-focus { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
@@ -588,9 +594,12 @@ section[id] { scroll-margin-top: 110px; }
   .site-container:not(.hero-layout):not(.hero-bottom) { width: min(100% - 336px, 1248px); }
 }
 @media (max-width: 1279px) {
-  body { padding-bottom: 94px; }
-  html { scroll-padding-bottom: 110px; }
-  input, textarea, summary, a, button { scroll-margin-bottom: 110px; }
+  body { padding-bottom: 128px; }
+  html { scroll-padding-bottom: 144px; }
+  input, textarea, summary, a, button { scroll-margin-bottom: 144px; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech { padding: 6px 10px; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-comment { margin: 0; min-height: 0; }
+  .travel-companion[data-docked="true"][data-mode="floating"] .guide-speech-controls { margin-top: 4px; padding-top: 2px; }
 }
 
 @layer components {
