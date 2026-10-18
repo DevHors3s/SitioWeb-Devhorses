@@ -4,6 +4,7 @@ import "./globals.css";
 import "./sections.css";
 import "./interactions.css";
 import "./service-details.css";
+import "./mascot.css";
 
 // IMPORTAR COMPONENTES GLOBALES
 import Navbar from "@/components/Navbar";

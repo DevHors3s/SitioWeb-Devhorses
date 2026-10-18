@@ -65,7 +65,14 @@ export default function ContactDock() {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
       if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
       const destination = new URL(link.href, window.location.href);
-      if (destination.origin === window.location.origin && destination.pathname === "/" && (!destination.hash || destination.hash === "#hero")) restoreAtHome();
+      if (destination.origin === window.location.origin && destination.pathname === "/" && (!destination.hash || destination.hash === "#hero")) {
+        restoreAtHome();
+        // Next can reuse the current route without scrolling when Inicio points to "/".
+        if (window.location.pathname === "/") window.scrollTo({
+          top: 0,
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        });
+      }
     };
     window.addEventListener("scroll", scroll, { passive: true });
     window.addEventListener("blur", leave);
@@ -207,6 +214,7 @@ export default function ContactDock() {
         >
           <span className="travel-art">
             <HorseMascot
+              variant={scene === "hero" ? "working" : undefined}
               mood={reaction ? "wave" : dialogue.mood}
               reactionKey={`${dialogue.key}-${reaction}`}
             />
