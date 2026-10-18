@@ -1,59 +1,49 @@
-# Mascota DevHorses — rig v1
+# Mascota DevHorses — poses completas v2
 
-## Integración
+## Corrección de referencia
 
-- `src/components/DevHorsesMascot.tsx`: composición SVG de cuatro capas raster independientes y props vectoriales. Variantes `working` e `idle`, más los estados del diálogo existente.
-- `src/hooks/useMascotInteraction.ts`: seguimiento local del cursor con amortiguación según tiempo transcurrido; saludo de 1,5 s con cooldown de 6,5 s. Toque/clic y foco de teclado reutilizan el botón accesible existente. No captura el scroll táctil.
-- `src/components/HorseMascot.tsx`: adaptador del recorrido y los comentarios existentes.
-- `src/app/mascot.css`: respiración del torso, inclinaciones de cabeza, tecleo independiente de brazos, saludo, reflejo cyan, pensamiento e iconos de tecnología espaciados.
-- `src/components/ContactDock.tsx`: variante trabajando en el hero; conserva cierre, contacto, comentarios y restauración al volver al inicio.
-- `src/app/layout.tsx`: carga los estilos. El componente precarga el atlas.
+La referencia de identidad de la parte superior de las láminas no define la postura de trabajo. Esta entrega utiliza exclusivamente las cuatro poses de la fila inferior de la primera lámina; la fila de expresiones de la segunda lámina sirve como comprobación secundaria. Cada pose conserva su cabeza, expresión, torso, manos y accesorios en una sola ilustración coherente. El caballo trabajando inclina la cabeza hacia la laptop, con cuello corto y hombros recogidos.
 
-Abrir `http://localhost:3001/` tras `npm run build` y `npm run start -- --port 3001`. Comprobar hero, scroll, hover/toque, teclado, cierre y vuelta a Inicio. La variante se puede reutilizar como `<DevHorsesMascot variant="working" />` o `variant="idle"` sin crear páginas adicionales. Fuera del dock se debe envolver en un botón accesible para ofrecer la interacción equivalente por teclado.
+El montaje v1 mezclaba una cabeza erguida con brazos, torso y laptop separados. Está sustituido y ya no se carga. Sus archivos se conservan como histórico.
 
-## Recursos y registro
+## Archivos activos
 
-Generado con la herramienta integrada **imagegen**, usando las dos láminas adjuntas del usuario como referencias de identidad. No se utilizó la API por CLI. Los logos de sudadera y laptop usan el archivo auténtico existente `public/logo-icon.png`.
+- `src/components/DevHorsesMascot.tsx`: cuatro ventanas SVG del atlas completo; no ensambla cabezas ni manos entre poses. Expone variantes `working` e `idle`.
+- `src/app/mascot.css`: transiciones por opacidad entre poses, luz de pantalla, pensamiento, destellos e iconos. No gira, estira ni desplaza verticalmente el raster completo para fingir movimientos corporales.
+- `src/hooks/useMascotInteraction.ts`: conserva interacción local, saludo de 1,5 s y cooldown de 6,5 s. Las coordenadas del cursor afectan a la luz ambiental; no giran una cabeza recortada.
+- `src/components/HorseMascot.tsx`: adaptador del recorrido y comentarios existentes.
+- `public/mascot/devhorses-poses-v2.webp`: atlas activo RGBA de 1254 × 1254, 335.348 bytes, con alpha real.
+- `docs/mascot/devhorses-poses-source-v2.png`: original de generación conservado, sin edición destructiva.
+- El recorrido, el cierre, la restauración a Inicio, el botón accesible y los contactos siguen en `ContactDock` y sus hooks existentes.
 
-- Original RGBA con alpha real: `docs/mascot/devhorses-rig-source-v1.png`, 1254 × 1254, 1.296.392 bytes.
-- Atlas servido: `public/mascot/devhorses-rig-v1.webp`, 1254 × 1254, 218.994 bytes. Solo recodificado a WebP, sin modificar diseño, dimensiones ni separar píxeles artificialmente; alpha preservado. Las cuatro ventanas SVG comparten la misma descarga.
-- Ventana cabeza: `0 0 627 780`.
-- Ventana torso: `646 227 574 531`.
-- Ventana brazo lejano: `64 805 527 402`.
-- Ventana brazo cercano: `666 805 526 402`.
+## Poses y animación
 
-El generador no respetó la cuadrícula equitativa pedida. Las ventanas registran las posiciones reales del resultado, sin recortar ni reescalar destructivamente el original. Cada ventana mantiene su relación de aspecto y su pivote propio.
+- `working`: composición completa del caballo mirando la laptop, con reflejo cyan e iconos discretos.
+- `friendly`: expresión alegre con ojos cerrados y mano levantada de la segunda pose inferior. Se usa al saludar por hover, toque/clic o teclado y para comentarios alegres.
+- `technology`: pose completa con lentes y mano señalando, para los demás comentarios.
+- `resting`: cabeza inclinada sobre los brazos cruzados, acompañada por la nube de pensamiento.
+- El recorrido del hero a la mascota flotante se conserva. Las transiciones entre ilustraciones usan un fundido de 300 ms, sin interpolar anatomías de distintas poses.
+- La interacción táctil se activa al terminar el toque, sin capturar el desplazamiento.
+- Pausa con pestaña oculta, fuera de pantalla o mascota minimizada. Movimiento reducido desactiva efectos y transiciones.
 
-## Límites reales
+## Límites del recurso
 
-Las referencias originales son láminas PNG planas, no un rig editable. Se generó un nuevo atlas fiel a sus rasgos, con cabeza, torso y dos brazos independientes. La laptop, el pensamiento y los iconos son SVG nativo. No se mueve el raster completo para fingir movimientos de partes del cuerpo.
+Las poses son ilustraciones planas completas. No se afirma animación independiente de ojos, orejas, crin, respiración del torso ni manos tecleando. Se retiraron las articulaciones del montaje incorrecto para conservar la composición solicitada. Los efectos animados y el recorrido continúan activos.
 
-Los lentes opacos ocultan los ojos: no se implementó seguimiento de ojos ni parpadeo inventado. La sonrisa, los lentes, las orejas y la crin forman parte de una sola capa de cabeza y no tienen articulación independiente. La composición es un busto y no muestra cola. Para parpadeos reales, nuevas expresiones, orejas/crin articuladas o quitarse los lentes hace falta una segunda entrega de arte con capas registradas:
+Para añadir movimientos corporales reales se requieren capas **de cada pose concreta**, registradas en el mismo lienzo y a la misma escala: base completa de torso/cuello, cabeza con inclinación propia, orejas, crin, ojos/expresiones, brazos y manos, laptop, cola si se muestra. No deben reutilizarse piezas de la figura principal ni de otra pose.
 
-```
-head/base + neck
-ears/near + far (con base de cabeza completa debajo)
-mane/back + fringe + cyan-lock
-face/eyes-open + half + closed, brows, muzzle, smile
-glasses/frame + lenses + reflections
-torso/hoodie + hood + strings + logo
-arms/near-upper + forearm + hoof; far-upper + forearm + hoof
-tail/base + tip (solo si la composición la muestra)
-```
+## Reproducción y comprobaciones
 
-No se han falsificado estas articulaciones mediante deformaciones de la imagen. El saludo mueve el brazo separado y añade un destello; no cambia la expresión raster de la cara.
+Ejecutar `npm run build` y `npm run start -- --port 3001`, abrir `http://localhost:3001/`. En esta revisión se usó también el puerto 3002.
 
-Las animaciones se pausan fuera de pantalla, con pestaña oculta o mascota minimizada. `prefers-reduced-motion` muestra composición estática y desactiva seguimiento y saludo; el efecto respeta cambios de preferencia en caliente. No hay re-renderizados de React por frame ni listener global de movimiento del puntero.
+- `npm run build`: compilación y TypeScript correctos.
+- `npm run lint`: correcto.
+- `node --test tests/horse-motion.test.mjs tests/horse-presence.test.mjs`: 12 pruebas correctas.
+- Revisión visual de la pose de trabajo y del saludo completo contra las poses inferiores.
+- Preferencias de movimiento reducido revisadas en CSS y guards del hook; el navegador de prueba no ofrece emulación de esa preferencia.
 
-## Validación de esta entrega
+## Generación y prompt
 
-- `npm run build`: compilación y TypeScript correctos, 13 páginas generadas.
-- `npm run lint`: sin errores.
-- `node --test tests/horse-motion.test.mjs tests/horse-presence.test.mjs`: 12 pruebas correctas del recorrido y la presencia.
-- Navegador: escritorio, tablet de 1024 × 900 y móvil de 390 × 844, sin desbordamiento horizontal; hero con texto y botones accesibles.
-- Interacción: saludo de brazo separado, seguimiento local y retorno de mirada; pausa al minimizar; cierre → Inicio restaura presencia y scroll en cero; consola sin errores en la vista local.
-- Movimiento reducido: reglas CSS y guards del hook revisados en código. El navegador de prueba no ofrece emulación de esta preferencia; no se afirma una prueba visual bajo esa configuración.
+Herramienta integrada **imagegen**, con las dos imágenes adjuntas del usuario. Recodificación posterior a WebP mediante Sharp, conservando dimensiones y transparencia. No se utilizó CLI de generación ni se modificaron píxeles para reconstruir anatomía.
 
-## Prompt utilizado (imagegen integrado)
-
-Create a production-ready TRANSPARENT CHARACTER RIG ATLAS from these two supplied DevHorses reference boards. These references define the SAME character, preserve it faithfully: premium beautifully shaded cartoon lavender horse, dark violet layered mane with a broad electric cyan streak, friendly soft rounded pale lavender-pink muzzle, stylish BLACK SOLID rounded rectangular sunglasses with white diagonal reflections. Dark navy hoodie, cyan strings and cyan edge highlights. This is an asset extraction / character rig preparation task, NOT a redesign, not a presentation board. Output a large SQUARE transparent image divided into FOUR equal invisible quadrants; absolutely no backgrounds, frames, labels, text, scenery, halos, shadows on ground, laptop, or legs. Each part fits wholly inside its own quadrant with generous transparent padding, centered, and NO part crosses quadrant boundaries. TOP LEFT quadrant: complete isolated HEAD with both ears, full flowing mane, sunglasses, muzzle and SHORT neck stub, in exactly the 3/4 view working pose seen in the laptop illustration on the supplied reference (facing slightly toward viewer left); no hoodie, shoulders, arms, body. TOP RIGHT quadrant: isolated headless armless navy HOODIE TORSO, upper-body bust with full hood/collar, cyan drawstrings, rounded shoulders and chest down to waist, in a matching 3/4 orientation; neck opening empty, no head, no arms, no legs; leave chest plain with NO invented logo so an authentic logo can be placed in code. BOTTOM LEFT quadrant: one isolated complete bent hoodie-sleeved forearm and large lavender rounded hoof/hand with dark purple hoof end, in a relaxed typing pose pointing inward toward the RIGHT; round sleeve joint suitable for attaching to left side of torso; no torso/head. BOTTOM RIGHT quadrant: matching other isolated complete bent hoodie-sleeved forearm and lavender rounded hoof/hand, typing pose pointing inward toward LEFT; round sleeve joint suitable for attaching to right side. All four independent pieces must share the SAME drawing style, consistent lighting from cyan screen at lower left, coherent 3/4 perspective and large premium polished details. Shapes should have soft multi-tone shading, crisp violet outlines, smooth glossy black shades and expressive friendly smile like references. Head should use roughly 85% of its quadrant height and 80% width. Torso roughly 80% height/width; arms roughly 65% width. Transparent alpha everywhere outside each piece. No extra character views or complete assembled character. This atlas will be composed as independently animated layers in an SVG on the website.
+EDIT / faithful background extraction and upscale of the FOUR SMALL POSES IN THE BOTTOM ROW OF REFERENCE IMAGE 1 ONLY. Image 2's middle expressions row is a secondary fidelity check. IGNORE the large standing horse at the top, IGNORE the top headshot, IGNORE the website mockup, do not borrow their head, neck, body, proportions, or facial angle. The user explicitly rejected a previous mix of the large upright standing horse head with a laptop. Preserve the FOUR ORIGINAL lower-row poses as WHOLE COHERENT illustrations, with their original compact chibi proportions, SHORT neck, head tilt, face orientation, sunglasses angle, muzzle, sleeves and composition. Produce ONE transparent square production pose atlas, divided into a precise 2x2 grid of equal square cells, one complete pose wholly within each cell, at consistent visual scale with transparent padding, no frame/text/background/ground line. TOP LEFT: EXACT complete lower-left WORKING pose: horse with head bowed down and inclined to viewer left, face and sunglasses angled toward the laptop screen rather than looking straight at the viewer, compact short neck and hunched shoulders, dark hoodie, lavender hooves typing behind dark laptop on viewer LEFT with character on viewer RIGHT, a small cyan-purple tail curl on right as in reference. This must be the coherent working illustration from the lower-left card, not the standing character put behind a screen. TOP RIGHT: EXACT second lower-card COMPLICITY / JOY pose: short-neck bust, eyes smiling closed with NO sunglasses on the eyes, cheerful OPEN smile, ONE hoof raised with a digit pointing upward, other forearm resting low, matching original proportions. BOTTOM LEFT: EXACT third lower-card TECHNOLOGY pose: short-neck horse bust wearing black shades, ONE hoof pointing up to viewer RIGHT, friendly smile; remove the floating app panels so code can add them later. BOTTOM RIGHT: EXACT fourth lower-card RESTING pose: horse with head tilted gently down over two folded hooves, elbows supported, sunglasses on, compact relaxed bust, no laptop. Preserve lavender coat, layered dark-purple mane with cyan streak, solid stylish black sunglasses, soft cream lavender muzzle, black hoodie cyan drawstrings, and small white DevHorses horse emblem as shown. Preserve hand-drawn premium cartoon shading and outline quality, no redesign or 3D restyling, no standing bodies, no legs, no elongated necks, no added poses. Remove cyan exclamation marks and all environmental tech icons/backgrounds from these extracts; leave only the complete character and the laptop in the working pose, on TRUE transparent alpha. Keep the head, arms, torso and props of each specific pose together exactly as in that lower card. Do not combine parts between poses. Each character should occupy about 85% of its own cell width and height, entirely contained in that cell. No grid lines, decorative rings, borders, typography, labels or reference board remains.
