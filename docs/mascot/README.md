@@ -8,6 +8,8 @@ El montaje v1 mezclaba una cabeza erguida con brazos, torso y laptop separados. 
 
 ## Archivos activos
 
+Los símbolos inventados dentro del atlas quedan cubiertos por insignias SVG que cargan directamente el emblema auténtico existente `public/logo fondo oscuro.png`. Se aplica a la laptop y las tres sudaderas con símbolo visible. La insignia usa el archivo original sin redibujarlo; solo ajusta posición, escala y perspectiva. El atlas y las poses no se regeneran ni se modifican. Los emblemas forman parte del grupo de su pose y comparten su fundido y recorrido.
+
 - `src/components/DevHorsesMascot.tsx`: cuatro ventanas SVG del atlas completo; no ensambla cabezas ni manos entre poses. Expone variantes `working` e `idle`.
 - `src/app/mascot.css`: transiciones por opacidad entre poses, luz de pantalla, pensamiento, destellos e iconos. No gira, estira ni desplaza verticalmente el raster completo para fingir movimientos corporales.
 - `src/hooks/useMascotInteraction.ts`: conserva interacción local, saludo de 1,5 s y cooldown de 6,5 s. Las coordenadas del cursor afectan a la luz ambiental; no giran una cabeza recortada.

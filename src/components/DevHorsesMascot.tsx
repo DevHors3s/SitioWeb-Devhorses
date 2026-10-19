@@ -6,6 +6,23 @@ import { useMascotInteraction } from "@/hooks/useMascotInteraction";
 
 export type MascotVariant = "working" | "idle";
 const atlas = "/mascot/devhorses-poses-v2.webp";
+const brandmark = "/logo%20fondo%20oscuro.png";
+type Badge = { x: number; y: number; size: number; angle?: number; skew?: number };
+// Coordinates belong to the unchanged atlas, so badges travel/fade with their own pose.
+const badges: Record<string, Badge[]> = {
+  working: [
+    { x: 178, y: 515, size: 88, angle: 2, skew: 13 },
+    { x: 440, y: 486, size: 56, angle: -5 },
+  ],
+  friendly: [{ x: 1025, y: 515, size: 66, angle: -10 }],
+  technology: [{ x: 413, y: 1091, size: 64, angle: -10 }],
+};
+
+function BrandBadge({ x, y, size, angle = 0, skew = 0 }: Badge) {
+  return <g data-mascot-brand="devhorses-original" transform={`translate(${x} ${y}) rotate(${angle}) skewX(${skew})`}>
+    <image href={brandmark} x={-size / 2} y={-size / 2} width={size} height={size} />
+  </g>;
+}
 
 /** Each window contains a complete reference pose, including its own head and hands. */
 function Pose({ name, crop, x, y, width, height, clipId }: {
@@ -14,6 +31,7 @@ function Pose({ name, crop, x, y, width, height, clipId }: {
   return <g className={`dh-pose dh-pose--${name}`}>
     <svg x={x} y={y} width={width} height={height} viewBox={crop} overflow="hidden">
       <image href={atlas} width="1254" height="1254" clipPath={clipId ? `url(#${clipId})` : undefined} />
+      {badges[name]?.map((badge, index) => <BrandBadge key={index} {...badge} />)}
     </svg>
   </g>;
 }
